@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自定义属性</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            .list_li{
+                display:block;
+                float:left;
+                margin:30px;
+                width:113px;
+                height:139px;
+                background-image:url(images/normal.png);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+    <body>
+         <ul class="list">
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+             <li class="list_li"></li>
+         </ul>
+         
+
+        <script type="text/javascript">
+            //背景不作为判断条件
+            //相对路径不能作为判断条件
+            //color不能作为判断条件
+            window.onload = () => {
+                var list_li = document.querySelectorAll(".list_li");
+
+                for(let value of list_li){
+                    value.onOff = true;
+                    value.onclick = function(){
+                        if(this.onOff){
+                            this.style.backgroundImage = "url(images/active.png)";
+                            this.onOff = false;
+                        }else{
+                            this.style.backgroundImage = "url(images/normal.png)";
+                            this.onOff = true;
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
