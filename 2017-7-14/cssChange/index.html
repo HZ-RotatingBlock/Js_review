@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>css样式切换</title>
+        
+        <style type="text/css">
+            *{margin:0; padding:0;list-style:none;text-decoration:none;}
+            .toolbar{
+                position:absolute;
+                top:50px;
+                left:50px;
+                width:auto;
+                height:100px;
+            }
+            .toolbar p{
+                display:inline-block;
+                fong-size:30px;
+                font-weight:700;
+                line-height:30px;
+            }
+            .toolbar span{
+                display:inline-block;
+                padding:0 20px;
+                height:30px;
+                text-align:center;
+                line-height:30px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+                cursor:pointer;
+            }
+            .change_div{
+                display:block;
+                position:absolute;
+                top:120px;
+                left:50px;
+                width:100px;
+                height:100px;
+                background-color:#fff;
+                border:5px solid #000;
+                border-radius:3px;
+            }
+            .shadow{
+                display:block;
+                position:fixed;
+                width:100%;
+                height:100%;
+                background-color:rgba(0, 0, 0, .5);
+                z-index: 98;
+            }
+            .control_bar{
+                display:block;
+                position:absolute;
+                top:50%;
+                left:50%;
+                padding:20px;
+                width:450px;
+                height:300px;
+                background-color:#fff;
+                transform:translate(-50%,-50%);
+                border:10px solid rgba(0, 0, 0, .7);
+                border-radius:3px;
+            }
+            .control_bar p{
+                display:inline-block;
+            }
+            .control_bar_bgc,
+            .control_bar_width,
+            .control_bar_height{
+                margin:30px auto;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#000;
+            }
+            .control_bar span{
+                display:inline-block;
+                margin-left:10px;
+                padding:0 5px;
+                font-size:16px;
+                border:2px solid #000;
+                border-radius:3px;
+                transition:all .5s;
+                cursor:pointer;
+            }
+            .control_bar_width span:hover{
+                background-color:#e6e6e6;
+            }
+            .control_bar_height span:hover{
+                background-color:#e6e6e6;
+            }
+            .control_bar_bgc span{
+                opacity:.6;
+                display:inline-block;
+                margin-left:10px;
+                padding:0 22px;
+                height:50px;
+                font-size:20px;
+                color:#fff;
+                border:none;
+                border-radius:3px;
+                cursor:pointer;
+            }
+            .control_bar_bgc span:hover{
+                opacity:1;
+            }
+            span.yellow{
+                background-color:yellow;
+            }
+            span.red{
+                background-color:red;
+            }
+            span.blue{
+                background-color:blue;
+            }
+            .confirm,
+            .return{
+                opacity:.7;
+                position:absolute;
+                bottom:0px;
+                left:50%;
+                width:70px;
+                height:30px;
+                font-size:16px;
+                text-align:center;
+                line-height:30px;
+                border:3px solid #000;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                cursor:pointer;
+                transition:all .5s;
+            }
+            .confirm{
+                background-color:bisque;
+                transform:translate(-150%,-50%);
+            }
+            .confirm:hover{
+                opacity:1;
+            }
+            .return{
+                background-color:#c03;
+                transform:translate(50%,-50%);
+            }
+            .return:hover{
+                opacity:1;
+            }
+        </style>
+    </head> 
+    <body>
+        <div class="shadow" id="shadow">
+            <div class="control_bar">
+                <div class="control_bar_bgc">
+                    <p>请选择背景颜色：</p>
+                    <span class="yellow" data-style="yellow" data-type="bg">黄</span>
+                    <span class="red" data-style="red" data-type="bg">红</span>
+                    <span class="blue" data-style="blue" data-type="bg">蓝</span>
+                </div>
+                <div class="control_bar_width">
+                    <p>请选择元素宽值：</p>
+                    <span class="width1" data-style="200px" data-type="width_change">200px</span>
+                    <span class="width2" data-style="300px" data-type="width_change">300px</span>
+                    <span class="width3" data-style="400px" data-type="width_change">400px</span>
+                </div>
+                <div class="control_bar_height">
+                    <p>请选择元素高值：</p>
+                    <span class="height1" data-style="200px" data-type="height_change">200px</span>
+                    <span class="height2" data-style="300px" data-type="height_change">300px</span>
+                    <span class="height3" data-style="400px" data-type="height_change">400px</span>
+                </div>
+                <span class="confirm">确定</span>
+                <span class="return">还原</span>
+            </div>
+            
+        </div>
+        <div class="toolbar">
+            <p>请为下面的Div设置样式：</p>
+            <span id="setter">点击设置</span>
+        </div>
+        <div class="change_div" id="change_div"></div>
+
+
+        <script type="text/javascript">
+            window.onload = function(){
+                var change_div = document.getElementById("change_div");
+                var change_button = document.getElementsByTagName('span');
+                var shadow = document.getElementById("shadow");
+                for(var value of change_button){     
+                    value.onclick = function(){
+                        var data_type = this.getAttribute("data-type");
+                        var data_style = this.getAttribute("data-style");
+                        if(data_type == "bg"){
+                            change_div.style.backgroundColor = data_style;
+                        }else if(data_type == "width_change"){
+                            change_div.style.width = data_style;
+                        }else if(data_type == "height_change"){
+                            change_div.style.height = data_style;
+                        }else if(this.innerHTML == "确定"){
+                            shadow.style.display = "none";
+                        }else if(this.innerHTML == "还原"){
+                            return_original();
+                        }                           
+                    }
+                    
+                    
+                    /*
+                    if(value.innerHTML == "黄"){
+                        value.onclick = function(){
+                            change_div.style.backgroundColor = "yellow";
+                        }
+                    }else if(value.innerHTML == "红"){
+                        value.onclick = function(){
+                            change_div.style.backgroundColor = "red";
+                        }
+                    }
+                    else if(value.innerHTML == "蓝"){
+                        value.onclick = function(){
+                            change_div.style.backgroundColor = "blue";
+                        }
+                    }
+                    else if(value.innerHTML == "200px" && value.className == "width1"){
+                        value.onclick = function(){
+                            change_div.style.width = "200px";
+                        }
+                    }
+                    else if(value.innerHTML == "200px" && value.className == "height1"){
+                        value.onclick = function(){
+                            change_div.style.height = "200px";
+                        }
+                    }
+                    else if(value.innerHTML == "300px" && value.className == "width2"){
+                        value.onclick = function(){
+                            change_div.style.width = "300px";
+                        }
+                    }
+                    else if(value.innerHTML == "300px" && value.className == "height2"){
+                        value.onclick = function(){
+                            change_div.style.height = "300px";
+                        }
+                    }
+                    else if(value.innerHTML == "400px" && value.className == "width3"){
+                        value.onclick = function(){
+                            change_div.style.width = "400px";
+                        }
+                    }
+                    else if(value.innerHTML == "400px" && value.className == "height3"){
+                        value.onclick = function(){
+                            change_div.style.height = "400px";
+                        }
+                    }
+                    else if(value.innerHTML == "确定"){
+                        value.onclick = function(){
+                            shadow.style.display = "none";
+                        }
+                    }
+                    else if(value.innerHTML == "还原"){
+                        value.onclick = function(){
+                            return_original();
+                        }
+                    }
+                    */
+                }
+                document.getElementById("setter").onclick = function(){
+                    shadow.style.display = "block";
+                }
+
+                function return_original(){
+                    change_div.style.backgroundColor = "#fff";
+                    change_div.style.width = "100px";
+                    change_div.style.height = "100px";
+                }
+            }
+            
+        </script>
+    </body>
+</html>

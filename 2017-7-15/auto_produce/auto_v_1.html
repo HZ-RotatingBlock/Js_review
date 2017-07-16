@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自动生成V字形(升级版)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            .auto_btn{
+                position:absolute;
+                top:20px;
+                left:240px;
+                padding:5px 10px;
+                height:30px;
+                font-size:20px;
+                line-height:20px;
+                text-align:center;
+                color:#fff;
+                background-color:#c03;
+                border:none;
+                border-radius:3px;
+                box-shadow:2px 2px 4px #000;
+                cursor:pointer;
+                transition:all .5s;
+            }
+            .auto_btn:hover{
+                transform:scale(1.05);
+                -webkit-transform:scale(1.05);
+            }
+            .auto_list{
+                margin-top:70px;
+                margin-left:20px;
+            }
+            .new_ele{
+                display:block;
+                position:absolute;
+                width:50px;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                border-radius:3px;
+                box-shadow:2px 2px 4px #000;
+                transition:all .2s;
+                cursor:pointer;
+            }
+            .new_ele:hover{
+                transform:scale(1.1);
+                -webkit-transform:scale(1.1);
+            }
+            .ele_num_input{
+                position:absolute;
+                top:20px;
+                left:20px;
+                width:200px;
+                height:30px;
+                border:1px solid #000;
+                border-radius:3px;
+                box-shadow:2px 2px 4px #000;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="button" class="auto_btn" id="auto_btn" value="按钮/切换"/>
+        <input type="text" class="ele_num_input" id="ele_num_input" placeholder="请输入要添加的元素个数"/>
+        <div class="auto_list" id="auto_list"></div>
+
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var auto_btn = document.getElementById("auto_btn");
+                var auto_list = document.getElementById("auto_list");
+                var new_ele = document.getElementsByClassName("new_ele");
+                var new_ele_bgc = ["red","yellow","blue","green"];
+                var new_ele_bgcLength = new_ele_bgc.length;
+                var arr = "";
+                var arrow_top = true;
+                var arrow_right = false;
+                var arrow_bottom = false;
+                var arrow_left = false;
+                var new_eleLength = 0;
+                var middle_num = 0;
+                var new_eleBgNum = 0;
+                //输入要添加的元素个数 
+                var eleNum = 0;
+                var ele_num_input = document.getElementById("ele_num_input");
+                //按钮点击切换
+                 auto_btn.onclick  = () => {
+                     eleNum = ele_num_input.value;
+                     for(let i = 0;i < eleNum;i++){
+                        arr += `<div class="new_ele">${i}</div>`;
+                    }
+                    auto_list.innerHTML = arr;
+                    arr = "";
+                    new_eleLength = new_ele.length;
+                    if(arrow_top){                                           
+                        //元素定位
+                        for(let i = 0;i < new_eleLength;i++){
+                            if(arrow_top){
+                                new_ele[i].style.left = 20 + i * 60 + "px";
+                                middle_num = ((new_eleLength - 1) / 2);
+                                //逢中数元素高度值减少
+                                if(i < middle_num){
+                                    new_ele[i].style.top = 70 + (middle_num - i ) * 60 + "px";
+                                }else{
+                                    new_ele[i].style.top = 70 + (i - middle_num ) * 60 + "px";
+                                }
+                            
+                            } 
+                            bgChange(i);              
+                        }
+                        arrow_top = false;
+                        arrow_right = true;                       
+                    }else if(arrow_right){                                        
+                        //元素定位
+                        for(let i = 0;i < new_eleLength;i++){
+                            new_ele[i].style.top = 70 + i * 60 + "px";
+                            middle_num = ((new_eleLength - 1) / 2);
+                            //逢中数元素高度值减少
+                            if(i > middle_num){
+                                new_ele[i].style.left = 20 + middle_num * 60 + i * 60 - (i - middle_num ) * 120 + "px";
+                            }else{
+                                new_ele[i].style.left = 20 + middle_num * 60 + i * 60 + "px";
+                            }     
+                            bgChange(i);             
+                        }
+                        arrow_right = false;
+                        arrow_bottom = true;
+                    
+                    }else if(arrow_bottom){                                      
+                        //元素定位
+                        for(let i = 0;i < new_eleLength;i++){
+                            new_ele[i].style.left = 20 + i * 60 + "px";
+                            middle_num = ((new_eleLength - 1) / 2);
+                            //逢中数元素高度值减少
+                            if(i > middle_num){
+                                new_ele[i].style.top = 70 + middle_num * 60 + i * 60 - (i - middle_num ) * 120 + "px";
+                            }else{
+                                new_ele[i].style.top = 70 + middle_num * 60 + i * 60 + "px";
+                            }     
+                            bgChange(i);           
+                        }
+                        arrow_bottom = false;
+                        arrow_left = true;
+                    
+                    }else if(arrow_left){                                      
+                        //元素定位
+                        for(let i = 0;i < new_eleLength;i++){
+                            new_ele[i].style.top = 70 + i * 60 + "px";
+                            middle_num = ((new_eleLength - 1) / 2);
+                            //逢中数元素高度值减少
+                            if(i < middle_num){
+                                new_ele[i].style.left = 20 + (middle_num - i ) * 60 + "px";
+                            }else{
+                                new_ele[i].style.left = 20 + (i - middle_num ) * 60 + "px";
+                            }                          
+                            bgChange(i);             
+                        }
+                        arrow_left = false;
+                        arrow_top = true;                       
+                    }
+                 }
+                
+                ////赋予元素背景(颜色循环内容任意，不再受限制)
+                function bgChange(index){
+                    if(new_eleBgNum == new_ele_bgcLength){
+                        new_eleBgNum = 0;
+                        new_ele[index].style.backgroundColor = new_ele_bgc[new_eleBgNum];
+                        new_eleBgNum++;
+                    }else{
+                        new_ele[index].style.backgroundColor = new_ele_bgc[new_eleBgNum];
+                        new_eleBgNum++;
+                    }
+                }
+                
+
+            }
+        </script>
+    </body>
+</html>
