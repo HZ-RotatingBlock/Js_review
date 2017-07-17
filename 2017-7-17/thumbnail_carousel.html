@@ -1,0 +1,196 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>带缩略图的焦点轮播(简易版)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .carousel,
+            .carousel_img{
+                position:absolute;
+                top:45%;
+                left:50%;
+                width:1200px;
+                height:600px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border-radius:10px;
+                box-shadow:5px 5px 20px #000;
+            }
+            .carousel_img{
+                top:50%;
+                background-image:url(images/FF_1.jpg);
+                background-repeat:no-repeat;
+                background-position:center center;
+                background-size:cover;
+                background-color:#fff;
+                border-radius:10px;
+            }
+            span.prev,
+            span.next{
+                opacity:.7;
+                position:absolute;
+                top:50%;
+                width:50px;
+                height:50px;              
+                background-position:center center;
+                background-size:cover;
+                background-color:#fc3;
+                border-radius:50%;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                box-shadow:3px 3px 10px #000;
+                cursor:pointer;
+            }
+            span.prev{
+                left:20px;
+                background-image:url(images/arrow_left.png);
+            }
+            span.next{
+                right:20px;
+                background-image:url(images/arrow_right.png);
+            }
+            span.prev:hover{opacity:1;}
+            span.next:hover{opacity:1;}
+            ul.carousel_pointer{
+                position:absolute;
+                bottom:-70px;
+                left:50%;
+                padding:10px 20px;
+                width:200px;
+                background-color:rgba(33, 33, 33, .3);
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                border-radius:30px;
+                box-shadow:3px 3px 10px #000;
+            }
+            li.carousel_pointer_ele{
+                display:block;
+                float:left;
+                position:relative;
+                margin-right:25px;
+                width:20px;
+                height:20px;
+                background-color:#666;
+                border-radius:50%;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+                box-shadow:3px 3px 10px #000;
+            }
+            li.carousel_pointer_ele:last-child{margin-right:0;}
+            li.active{
+                background-color:#fc3;
+            }
+            .thumbnail_img{
+                position:absolute;
+                top:-120px;
+                left:50%;
+                width:150px;
+                height:95px;
+                background-image:url(images/FF_1.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-color:#fc3;
+                border-radius:3px;
+                border:5px solid #fff;
+                transform:translate(-50%);
+                -webkit-transform:translate(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            span.trangle_bottom{
+                display:block;
+                position:absolute;
+                bottom:-12px;
+                left:50%;
+                border-top:8px solid #fff;
+                border-right:8px solid transparent;
+                border-left:8px solid transparent;
+                transform:translate(-50%,-20%);
+                -webkit-transform:translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+         <div class="carousel">
+            <div class="carousel_img" id="carousel_img"></div>
+            <ul class="carousel_pointer" id="carousel_pointer"></ul>
+            <span class="prev" id="prev"></span>
+            <span class="next" id="next"></span>
+         </div>
+         
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var carousel_img = document.getElementById("carousel_img");
+                var carousel_pointer = document.getElementById("carousel_pointer");
+                var carousel_pointer_ele = carousel_pointer.getElementsByTagName("li");
+                var prev_btn = document.getElementById("prev");
+                var next_btn = document.getElementById("next");
+
+                var pointer_num = 0;
+                var arrCarouselUrl = ["images/FF_1.jpg","images/FF_2.jpg","images/FF_3.jpg","images/FF_4.jpg","images/FF_5.jpg"];
+                var pointerLength = arrCarouselUrl.length;
+                var pointer_html = `<div class="thumbnail_img">
+                                        <span class="trangle_bottom"></span>
+                                    </div>`;
+                //指示器
+                for(let i = 0;i < pointerLength;i++){
+                    carousel_pointer.innerHTML += `<li class="carousel_pointer_ele"></li>`;
+                }
+                next_btn.onclick = function(){
+                    if(pointer_num == (pointerLength - 1)){
+                        pointer_num = 0;
+                        carouselTab();
+                    }else{
+                        pointer_num = pointer_num + 1;
+                        carouselTab();
+                    } 
+                }
+                prev_btn.onclick = function(){
+                    if(pointer_num == 0){
+                        pointer_num = (pointerLength - 1);
+                        carouselTab();
+                    }else{
+                        pointer_num = pointer_num - 1;
+                        carouselTab();
+                    }                   
+                }
+                //幻灯切换函数
+                function carouselTab(){
+                    carousel_img.style.backgroundImage = `url(${arrCarouselUrl[pointer_num]})`;
+                    for(let value of carousel_pointer_ele){
+                        value.className = "carousel_pointer_ele";
+                    }
+                    carousel_pointer_ele[pointer_num].className = "carousel_pointer_ele active";
+                }
+                carouselTab();
+
+                for(let i = 0;i < pointerLength;i++){
+                    carousel_pointer_ele[i].index = i;
+                    carousel_pointer_ele[i].onclick = function(){
+                        pointer_num = this.index;
+                        carouselTab();
+                    }
+                    carousel_pointer_ele[i].onmouseover = function(){
+                        pointer_num = this.index;
+                        this.innerHTML = pointer_html;
+                        let thumbnail = document.getElementsByClassName("thumbnail_img")[0];
+                        document.getElementsByClassName("thumbnail_img")[0].style.backgroundImage = `url(${arrCarouselUrl[pointer_num]})`;
+                    }
+                    carousel_pointer_ele[i].onmouseout = function(){
+                        pointer_num = this.index;
+                        this.innerHTML = "";
+                    }
+                }
+
+            }
+        </script>
+    </body>
+</html>

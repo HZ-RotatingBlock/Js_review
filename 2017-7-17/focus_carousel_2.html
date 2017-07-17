@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>简易焦点图(代码优化版)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .pic{
+                position:absolute;
+                top:45%;
+                left:50%;
+                width:400px;
+                height:500px; 
+                background-color:#fff;
+                background-image:url(images/loader_ico.gif);
+                background-repeat:no-repeat;
+                background-position:center center; 
+                border:1px solid #eee;
+                transform:translate(-50%,-45%);             
+            }
+            .pic_img{
+                display:block;
+                width:400px;
+                height:500px;
+                background-repeat:no-repeat;
+                background-position:center center;
+                background-size:cover;
+            }
+            ul.list{
+                position:absolute;
+                top:0;
+                right:-30px;
+                width:20px;
+                height:auto;                           
+            }
+            li.list_pointer{
+                margin-top:10px;
+                width:30px;
+                height:30px;
+                background-color:#666;
+                border-radius:3px;
+                transition:all .2s;
+                cursor:pointer;
+            }
+            li.list_pointer:hover{
+                transform:scale(1.1);
+                -webkit-transform:scale(1.1);
+            }
+            li.list_pointer:first-child{
+                margin-top:0;
+            }
+            li.active{
+                background-color:#fc3;
+            }
+            span.img_title{
+                position:absolute;
+                bottom:0;
+                left:0;
+                width:100%;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                background-color:rgba(0, 0, 0, .3);
+            }
+            span.img_page_num{
+                position:absolute;
+                bottom:-50px;
+                left:50%;
+                width:80px;
+                height:30px;
+                font-size:16px;
+                text-align:center;
+                line-height:30px;
+                color:#fff;
+                background-color:rgba(255, 255, 255, .1);
+                border-radius:10px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+         <div class="pic" id="pic">
+            <span class="pic_img" id="pic_img"></span>
+            <ul class="list" id="list"></ul>   
+            <span class="img_title" id="img_title">图片说明正在加载中...</span>
+            <span class="img_page_num" id="img_page_num">数量正在加载中...</span>
+         </div>
+         
+
+        <script type="text/javascript">
+            window.onload = () => {
+                //获取DOM
+                var pic = document.querySelector("#pic");
+                var pic_img = document.querySelector("#pic_img");
+                var img_title = document.querySelector("#img_title");
+                var img_page_num = document.querySelector("#img_page_num");
+                var list = document.querySelector("#list");
+                var list_pointer = list.getElementsByTagName("li");
+
+                var arrUrl = ["images/1.png","images/2.png","images/3.png","images/4.png"];
+                var arrText = ["图片一","图片二","图片三","图片四"];
+                var arrLength = arrUrl.length;
+                var img_num = 0;
+                //指示器
+                for(let i = 0;i < arrLength;i++){
+                    list.innerHTML += `<li class="list_pointer"></li>`;
+                }
+                //初始化/合并代码
+                function fnTab(){
+                    pic_img.style.backgroundImage = `url(${arrUrl[img_num]})`;
+                    img_title.innerHTML = `${arrText[img_num]}`;
+                    img_page_num.innerHTML = `${1 + img_num}/${arrLength}`;              
+                    for(let ele of list_pointer){
+                        ele.className = "list_pointer";
+                    }
+                    list_pointer[img_num].className = "list_pointer active";
+                }
+                fnTab();
+
+                for(let i = 0;i < arrLength;i++){   
+                    //索引值              
+                    list_pointer[i].index = i;
+                    
+                    list_pointer[i].onclick = function(){
+                        img_num = this.index;
+                        fnTab();
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

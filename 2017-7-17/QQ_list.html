@@ -1,0 +1,171 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>QQ列表展示</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            ul.list{
+                display:block;
+                margin:0 auto;
+                margin-top:20px;
+                width:300px;
+                height:auto;
+                border:1px solid #000;
+            }
+            li.list_li{
+                display:block;
+                margin-top:0;
+                margin-left:0;
+                width:300px;
+                font-size:20px;
+                line-height:50px;
+                color:#000;
+            }
+            .list_li_nav{
+                display:block;
+                position:relative;
+                margin-top:0;
+                margin-left:0;
+                width:300px;
+                height:50px;
+                font-weight:700;
+                text-indent:3em;
+                border-bottom:1px solid #000;
+                cursor:pointer;
+            }
+            img.list_li_navImg{
+                position:absolute;
+                top:50%;
+                left:20px;
+                width:10px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            .list_li_nav h3{
+                color:#fff;
+                background-color:#333;
+            }
+            li.list_li ul{
+                display:none;
+                margin-top:0;
+                margin-left:0;
+                width:300px;
+                height:auto;
+            }
+            li.list_li ul li{
+                display:block;
+                margin-top:0;
+                margin-left:0;
+                width:300px;
+                height:50px;
+                font-weight:700;
+                text-indent:3em;
+                border-bottom:1px solid #000;
+                transition:all .2s;
+                -webkit-transition:all .2s;
+                cursor:pointer;
+            }
+            li.list_li ul li:hover{
+                color:#fff;
+                background-color:rgba(33, 33, 33, .2);
+            }
+            li.dropdown_li_active{
+                background-color:rgba(33, 33, 33, .2);
+            }
+        </style>
+    </head>
+    <body>
+         <ul class="list" id="list">
+            <li class="list_li">
+                <div class="list_li_nav">
+                    <img src="images/ico1.gif" alt="点击展开列表" class="list_li_navImg"/>
+                    <h3>我的好友</h3>
+                </div>                
+                <ul>
+                    <li class="dropdown_li">张三</li>
+                    <li class="dropdown_li">张三</li>
+                    <li class="dropdown_li">张三</li>
+                    <li class="dropdown_li">张三</li>
+                </ul>
+            </li>
+            <li class="list_li">
+                <div class="list_li_nav">
+                    <img src="images/ico1.gif" alt="点击展开列表" class="list_li_navImg"/>
+                    <h3>企业好友</h3>
+                </div>                
+                <ul>
+                    <li class="dropdown_li">李四</li>
+                    <li class="dropdown_li">李四</li>
+                    <li class="dropdown_li">李四</li>
+                    <li class="dropdown_li">李四</li>
+                </ul>
+            </li>
+            <li class="list_li">
+                <div class="list_li_nav">
+                    <img src="images/ico1.gif" alt="点击展开列表" class="list_li_navImg"/>
+                    <h3>黑名单</h3>
+                </div>                
+                <ul>
+                    <li class="dropdown_li">王五</li>
+                    <li class="dropdown_li">王五</li>
+                    <li class="dropdown_li">王五</li>
+                    <li class="dropdown_li">王五</li>
+                </ul>
+            </li>
+         </ul>
+         
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var list = document.getElementById("list");
+                var aH3 = list.getElementsByTagName("h3");
+                var aH3Length = aH3.length;
+                var nav_icon = list.getElementsByClassName("list_li_navImg");
+                var aUl = list.getElementsByTagName("ul");
+                var dropdown_li = document.getElementsByClassName("dropdown_li");
+                var nav_onOff = true;
+                var li_onOff = true;
+
+                for(let i = 0;i < aH3Length;i++){
+                    aH3[i].index = i;
+                    aH3[i].onclick = function(){
+                        if(nav_onOff){
+                            for(let value of aUl){
+                                value.style.display = "none";
+                            }
+                            aUl[this.index].style.display = "block";
+                            for(let value of nav_icon){
+                                value.src = "images/ico1.gif";
+                            }
+                            nav_icon[this.index].src = "images/ico2.gif";
+                            nav_onOff = false;
+                        }else{
+                            aUl[this.index].style.display = "none";
+                            nav_icon[this.index].src = "images/ico1.gif";
+                            nav_onOff = true;
+                        }
+                        
+                    }
+                }
+                for(let value of dropdown_li){
+                    value.onclick = function(){
+                        if(li_onOff){
+                            for(let value of dropdown_li){
+                                value.className = "dropdown_li";
+                            }
+                            this.className = "dropdown_li dropdown_li_active";
+                            li_onOff = false;
+                        }else{
+                            this.className = "dropdown_li";
+                            li_onOff = true;
+                        }
+                        
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

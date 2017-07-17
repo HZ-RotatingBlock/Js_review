@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自定义属性2</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            input{
+                display:block;
+                float:left;
+                margin:30px;
+                width:100px;
+                height:100px;
+                font-size:30px;
+                text-align:center;
+                line-height:100px;
+            }
+            p{
+                display:block;
+                float:left;
+                margin:30px;
+                width:100px;
+                height:100px;
+                font-size:30px;
+                text-align:center;
+                line-height:100px;  
+            }
+        </style>
+    </head>
+    <body>
+         <input type="button" value="btn1"/>
+         <input type="button" value="btn2"/>
+         <input type="button" value="btn3"/>
+         <p>a</p>
+         <p>b</p>
+         <p>c</p>
+         
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var aBtn = document.getElementsByTagName("input");
+                var aP = document.getElementsByTagName("p");
+                var aBtnLength = aBtn.length;
+                var arr = ["傻瓜蛋","设定","单身狗"];
+                
+                for(let i = 0;i < aBtnLength;i++){
+                    aBtn[i].index = i;  //自定义属性（添加索引值）
+
+                    aBtn[i].onclick = function(){
+                        alert(arr[this.index]);
+                        this.value = arr[this.index];
+                        aP[this.index].innerHTML = arr[this.index];
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
