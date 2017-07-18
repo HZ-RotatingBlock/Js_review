@@ -13,7 +13,7 @@
                 top:45%;
                 left:50%;
                 width:1300px;
-                height:600px;
+                height:625px;
                 transform:translate(-50%,-50%);
                 -webkit-transform:translate(-50%,-50%);
                 border-radius:10px;
@@ -21,7 +21,7 @@
             }
             span.prev,
             span.next{
-                opacity:.9;
+                opacity:.8;
                 position:absolute;
                 bottom:-100px;
                 width:50px;
@@ -65,22 +65,200 @@
                 right:28%;
                 background-image:url(images/arrow_right.png);
             }
-            span.prev:hover{opacity:1;}
-            span.next:hover{opacity:1;}
+            span.prev:hover{opacity:1;background-position:-50px;}
+            span.next:hover{opacity:1;background-position:50px;}
+            .carousel_left{
+                position:absolute;
+                top:20px;
+                left:30px;
+                width:700px;
+                height:500px;
+                background-color:#fff;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .carousel_left_img{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:675px;
+                height:475px;
+                background-color:#fc3;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                transform:translate(-50%,-50%);
+                border-radius:5px;
+                cursor:pointer;
+            }
+            .carousel_right{
+                position:absolute;
+                top:20px;
+                right:30px;
+                width:500px;
+                height:500px;
+                background-color:#fff;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .carousel_right_img{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:475px;
+                height:475px;
+                background-color:#fc3;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                transform:translate(-50%,-50%);
+                border-radius:5px;
+                cursor:pointer;
+            }
+            .carousel_left_num,
+            .carousel_right_num{
+                position:absolute;
+                bottom:-65px;
+                left:0;
+                width:50px;
+                height:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#000;
+                background-color:#fc3;
+                border-radius:50%;
+                box-shadow:4px 4px 10px #000;
+            }
+            .carousel_left_title,
+            .carousel_right_title{
+                position:absolute;
+                bottom:-65px;
+                left:75px;
+                width:calc(100% - 75px);
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#000;
+                background-color:#fc3;
+                border-radius:30px;
+                box-shadow:4px 4px 10px #000;
+            }
         </style>
     </head>
     <body>
          <div class="carousel">
+             <div class="carousel_left">
+                 <div class="carousel_left_img" id="carousel_left_img" title="点击查看下一张"></div>
+                 <span class="carousel_left_num" id="carousel_left_num">页数</span>
+                 <span class="carousel_left_title"  id="carousel_left_title">数据加载中...</span>
+             </div>
+             <div class="carousel_right">
+                 <div class="carousel_right_img" id="carousel_right_img" title="点击查看下一张"></div>
+                 <span class="carousel_right_num" id="carousel_right_num">页数</span>
+                 <span class="carousel_right_title" id="carousel_right_title">数据加载中...</span>
+             </div>
              <h3 class="carousel_title">多组图片轮播</h3>
-            <span class="prev" id="prev"></span>
-            <span class="next" id="next"></span>
+            <span class="prev" id="prev" title="点击查看上一组"></span>
+            <span class="next" id="next" title="点击查看下一组"></span>
          </div>
          
 
         <script type="text/javascript">
             window.onload = () => {
-                
+                var carousel_left_img = document.getElementById("carousel_left_img");
+                var carousel_left_num = document.getElementById("carousel_left_num");
+                var carousel_left_title = document.getElementById("carousel_left_title");
+                var carousel_right_img = document.getElementById("carousel_right_img");
+                var carousel_right_num = document.getElementById("carousel_right_num");
+                var carousel_right_title = document.getElementById("carousel_right_title");
 
+                var prev_btn = document.getElementById("prev");
+                var next_btn = document.getElementById("next");
+
+                var carousel_leftImgUrl = ["images/FF_1.jpg","images/FF_2.jpg","images/FF_3.jpg","images/FF_4.jpg"];              
+                var carousel_rightImgUrl = ["images/FF_5.jpg","images/FF_6.jpg","images/FF_7.jpg"];
+                var carousel_leftLength = carousel_leftImgUrl.length;
+                var carousel_rightLength = carousel_rightImgUrl.length;
+                var carousel_leftNum = 0;
+                var carousel_rightNum = 0;
+
+                //初始化
+                function carouselTab(){
+                    carousel_left_img.style.backgroundImage = `url(${carousel_leftImgUrl[carousel_leftNum]})`;
+                    carousel_right_img.style.backgroundImage = `url(${carousel_rightImgUrl[carousel_rightNum]})`;
+                    carousel_left_num.innerHTML = `${1 + carousel_leftNum}/${carousel_leftLength}`;
+                    carousel_right_num.innerHTML = `${1 + carousel_rightNum}/${carousel_rightLength}`;
+                    carousel_left_title.innerHTML = `第一组第${1 + carousel_leftNum}张`;
+                    carousel_right_title.innerHTML = `第一组第${1 + carousel_rightNum}张`;
+                }
+                carouselTab();
+                
+                //左图单击
+                carousel_left_img.onclick = function(){
+                    if(carousel_leftNum == (carousel_leftLength - 1) ){
+                        carousel_leftNum = 0;
+                        carouselTab();
+                    }else{
+                        carousel_leftNum++;
+                        carouselTab();
+                    }
+                }
+                //右图单击
+                carousel_right_img.onclick = function(){
+                    if(carousel_rightNum == (carousel_rightLength - 1) ){
+                        carousel_rightNum = 0;
+                        carouselTab();
+                    }else{
+                        carousel_rightNum++;
+                        carouselTab();
+                    }
+                }
+                //上一组
+                prev_btn.onclick = function(){
+                    if(carousel_leftNum == 0&&carousel_rightNum == 0 ){
+                        carousel_leftNum = carousel_leftLength - 1;
+                        carousel_rightNum = carousel_rightLength - 1;
+                        carouselTab();
+                    }else if(carousel_leftNum > 0&&carousel_rightNum == 0){
+                        carousel_leftNum--;
+                        carousel_rightNum = carousel_rightLength - 1;
+                        carouselTab();
+                    }else if(carousel_leftNum == 0&&carousel_rightNum > 0){
+                        carousel_leftNum = carousel_leftLength - 1;
+                        carousel_rightNum--;
+                        carouselTab();
+                        
+                    }else{
+                        carousel_leftNum--;
+                        carousel_rightNum--;
+                        carouselTab();
+                    }                    
+                }
+                //下一组
+                next_btn.onclick = function(){
+                    if(carousel_leftNum == (carousel_leftLength - 1)&&carousel_rightNum == (carousel_rightLength - 1) ){
+                        carousel_leftNum = 0;
+                        carousel_rightNum = 0;
+                        carouselTab();
+                    }else if(carousel_leftNum < (carousel_leftLength - 1)&&carousel_rightNum == (carousel_rightLength - 1) ){
+                        carousel_leftNum++;
+                        carousel_rightNum = 0;
+                        carouselTab();
+                    }else if(carousel_leftNum == (carousel_leftLength - 1)&&carousel_rightNum < (carousel_rightLength - 1)){
+                        carousel_leftNum = 0
+                        carousel_rightNum++;
+                        carouselTab();
+                        
+                    }else{
+                        carousel_leftNum++;
+                        carousel_rightNum++;
+                        carouselTab();
+                    }                    
+                }
             }
         </script>
     </body>
