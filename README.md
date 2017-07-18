@@ -1,5 +1,5 @@
 # Js_review
-js回顾
+- **js基础知识点回顾**
 ## 2017-7-14
 * carousel:简易循环轮播
 * cssChange:样式切换
@@ -8,4 +8,17 @@ js回顾
 * auto_produce:自动生成元素
 * hover_prompt:滑动提示
 ## 2017-7-16
-* custom:自定义属性
+* custom:自定义属性的应1
+## 2017-7-17
+* custom1:自定义属性的应用2
+* custom2:自定义属性的应用3
+* focus_carousel_1:简易焦点图
+* focus_carousel_2:简易焦点图（代码优化版）
+* group_carousel_tab:多组图片轮播（简易版）
+* QQ_list:仿QQ列表
+* thumbnail_carousel:带缩略图的焦点轮播图
+## 2017-7-18
+* data_type:js基本的数据类型
+* data_type_judge:js基本数据类型判断
+* QQNun_judge:QQ号码输入判断
+* 

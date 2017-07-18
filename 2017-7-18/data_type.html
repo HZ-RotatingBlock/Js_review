@@ -11,12 +11,30 @@
         </style>
     </head>
     <body>
-
+        <input type="text"/>
+        <input type="button" value="判断输入值是不是数字"/>
          
 
         <script type="text/javascript">
+            //显式类型转换（强制类型转换）Number()/parseInt()/parseFloat()
+            //隐式类型转换("100"和1) - * / % ++ -- 变成数字;+ 变成字符串;> < 要区别数字的比较和字符串的比较,后者比较是按照每一位比较的;! 取反把右边的数据类型转换为布尔值; == 比较符判断最终值;=== 全等号判断类型然后判断值;
+            //不论显式还是隐式，转换失败都会是NaN
+            //NaN与自己都不相等,它是个不是数字的数字类型*******************
+            //isNaN:是不是一个数字，判断某些是不是数字 true false；isNaN()判断数字为false，非数字则为true，内部依靠Number()进行判断，Number()转换只要是NaN则isNaN()转换出来的就是true，反之false
             window.onload = () => {
-
+                var alnp = document.getElementsByTagName("input");
+                var str  = null;
+                alnp[1].onclick = function(){
+                    //读取input的属性值，只要是从html中拿到的内容，那么类型都是字符串
+                    str = alnp[0].value;
+                   // alert(typeof str);//string(数字或者字符串都是弹出string)
+                   //isNaN无形之中进行了类类型转换
+                   if(isNaN(str)){
+                        alert(str + "不是数字");
+                   }else{
+                        alert(str + "是数字");
+                   }
+                }   
             }
         </script>
     </body>
