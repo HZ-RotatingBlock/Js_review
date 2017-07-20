@@ -106,16 +106,22 @@
                 小计：<span>0元</span>
             </li>
         </ul>
-         <span class="total" id="total">
+         <div class="total" id="total">
             商品合计共：0件，共花费了：0元<br/>
             其中最贵的商品单价是：0元
-        </span>
+        </div>
 
         <script type="text/javascript">
             window.onload = () => {
                 var oUl = document.getElementById("list");
                 var aLi = oUl.getElementsByTagName("li");
                 var aLiLength = aLi.length;
+                var total = document.getElementById("total");
+                var item_total = document.getElementsByTagName("strong");   
+                var item_totalLength = item_total.length;             
+                var price_total = document.getElementsByTagName("span");               
+                var single_price = document.getElementsByTagName("em");    
+                var addOrReduce = null;           
                 
                 for(let value of aLi){
                     calculate(value);
@@ -132,18 +138,66 @@
 
                     aBtn[1].onclick = function(){
                         item_num++;
+                        addOrRedce = true;
                         oStrong.innerHTML = item_num;
                         oSpan.innerHTML = `${item_num * item_price}元`;
+                        computed(addOrReduce);
+
                     }
                     aBtn[0].onclick = function(){
                         if(item_num > 0){
                             item_num--;
+                            addOrRedce = false;
                             oStrong.innerHTML = item_num;
                             oSpan.innerHTML = `${item_num * item_price}元`;
+                            computed(addOrReduce);
+
+                        }
+                        
+                        
+                    }
+                }    
+                
+                function computed(addOrRedce){
+                    
+                    //商品总数
+                    var item_totalNum = 0;
+                    var price_totalNum = 0;
+                    var arr_price = [];
+                    for(let i = 0;i < item_totalLength;i++){
+                        if(parseInt(item_total[i].innerHTML) != 0){
+                            arr_price.push(parseFloat(single_price[i].innerHTML));                           
+                        }
+                        if(addOrRedce){
+                            item_totalNum += parseInt(item_total[i].innerHTML);
+                        }else{
+                            item_totalNum -= parseInt(item_total[i].innerHTML);
                         }
                         
                     }
-                }                  
+
+                    for(let value of price_total){
+                        if(addOrRedce){
+                            price_totalNum += parseFloat(value.innerHTML);
+                        }else{
+                            price_totalNum -= parseFloat(value.innerHTML);
+                        }
+                        
+                    }
+                    let arr_price_length = arr_price.length;
+                    //保证arr_price数组中始终不为空，避免无商品时最贵商品单价显示"infinity""
+                    if(arr_price_length == 0){
+                        arr_price[0] = 0;
+                    }
+                    //总计显示
+                    if(addOrRedce){
+                        total.innerHTML = `商品合计共：${item_totalNum}件，共花费了：${price_totalNum}元<br/>其中最贵的商品单价是：${Math.max.apply(null,arr_price)}元`;
+                    }else{
+                        total.innerHTML = `商品合计共：${Math.abs(item_totalNum)}件，共花费了：${Math.abs(price_totalNum)}元<br/>其中最贵的商品单价是：${Math.max.apply(null,arr_price)}元`;
+                    }
+                    
+                } 
+                            
             }
 
         </script>

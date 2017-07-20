@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>列表展示效果</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;overflow-y:scroll;}
+            .list{
+                position:absolute;
+                top:50%;
+                left:50%;
+                padding:10px;
+                padding-bottom:60px;
+                width:400px;
+                height:auto;
+                background-color:#fff;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            h2{
+                margin:0 auto;
+                margin-top:0;
+                padding:10px;
+                width:380px;
+                height:30px;
+                font-size:25px;
+                font-weight:700;
+                text-align:left;
+                line-height:30px;
+                color:#c03;
+                border-bottom:1px solid #c03;
+            }
+            ul.tab{
+                position:absolute;
+                top:20px;
+                right:10px;
+                height:30px;
+                font-size:16px;
+                color:#c03;
+            }
+            li.tab_li{
+                display:block;
+                float:left;
+                padding:0 10px;
+                height:30px;
+                text-align:center;
+                font-weight:700;
+                line-height:30px;
+                color:#fff;
+                background-color:#c03;
+                border:1px solid #c03;
+                cursor:pointer;
+            }
+            .active{color:#c03 !important;background-color:#fff !important;}
+            ul.list_ul{
+                margin-top:0;
+                margin-left:0;
+                width:400px;
+            }
+            .list_li{
+                position:relative;
+                margin-top:0;
+                padding:10px;
+                width:380px;
+                height:30px;
+                font-size:14px;
+                font-weight:700;
+                line-height:20px;
+                color:#333;
+                border-bottom:1px solid #c03;
+            }
+            .list_li span{
+                position:absolute;
+                top:10px;
+                left:10px;
+                width:30px;
+                height:30px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:30px;
+                color:#fff;
+                border-radius:3px;
+                background-color:#c03;
+                z-index:98;
+            }
+            li.list_li h5{
+                display:inline-block;
+                position:absolute;
+                top:10px;
+                left:55px;
+                width:335px;
+                font-size:12px;
+                line-height:30px;
+                text-overflow:ellipsis;
+                overflow:hidden;
+                white-space:nowrap;
+            }
+            .list_li div,
+            .list_li p,
+            .list_li button{
+                display:none;
+            }
+            .list_li title,
+            .list_li h5{
+                display:block;
+            }
+            li.list_li p{
+                position:absolute;
+                left:150px;
+                width:250px;
+                text-overflow:ellipsis;
+                overflow:hidden;
+            }
+            .play_btn,
+            .list_btn{
+                position:absolute;
+                bottom:10px;
+                right:10px;
+                padding:5px 20px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                color:#fff;
+                background-color:#c03;
+                border:none;
+                border-radius:3px;
+                cursor:pointer;               
+            }
+            .list_btn{right:20px;}
+            .list_active{
+                height:100px !important;
+            }
+            .list_active div,
+            .list_active p,
+            .list_active button{
+                display:block !important;
+            }
+            .list_active title,
+            .list_active h5{
+                display:none !important;
+            }
+            .list_img{
+                position:absolute;
+                top:10px;
+                left:45px;
+                width:90px;
+                height:90px;
+                background-image:url(images/1.gif);
+                background-repeat:no-repeat;
+                background-position:center center;
+                background-size:cover;
+                border:1px solid #c03;
+                border-radius:3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="list">
+            <h2>观看排行榜</h2>
+            <ul class="tab">
+                <li class="tab_li active">每日</li>
+                <li class="tab_li">每周</li>
+                <li class="tab_li">全部</li>
+            </ul>
+            <ul class="list_ul" id="list_ul"></ul>
+            <button class="list_btn">更多</button>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var list_ul = document.getElementById("list_ul");
+                var list_li = list_ul.getElementsByTagName("li");
+                var list_li_span = list_ul.getElementsByTagName("span");
+                var list_li_img = list_ul.getElementsByTagName("div");
+                var list_li_h5 = list_ul.getElementsByTagName("h5");
+                var list_li_p = list_ul.getElementsByTagName("p");
+                var num = 0;
+
+                var arrListTitle = ["11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111","11111111111111111111111111111111111111111111111111"];
+                var arrListImg = ["1.gif","2.gif","3.gif","4.jpg","5.jpg","6.png","7.gif","8.jpg","9.gif","10.jpg"];
+                var arrListContent = ["如歌如歌如歌如歌如如歌如歌如歌如歌如果热个人个人被果热个人个人被","如歌如歌如歌如歌如歌如歌如果热个人个人被如歌如歌如果热个人个人被","如歌如歌如歌如歌如歌如歌如歌如果热个人个人被如歌如果热个人个人被","如歌如歌如歌如歌如歌如歌如歌如歌如果热个人个人被如果热个人个人被","如歌如歌如歌如歌如果热个人如歌如歌如歌如歌如果热个人个人被个人被","如歌如歌如歌如歌如歌如歌如果热个人个人被如歌如歌如果热个人个人被","如歌如歌如歌如歌如果热如歌如歌如歌如歌如果热个人个人被个人个人被","如歌如歌如歌如歌如如歌如歌如歌如歌如果热个人个人被果热个人个人被","如歌如歌如歌如歌如歌如果热个人个人被如歌如歌如歌如果热个人个人被","如歌如歌如如歌如歌如歌如歌如果热个人个人被歌如歌如果热个人个人被","如歌如歌如如歌如歌如歌如歌如果热个人个人被歌如歌如果热个人个人被",]
+                var arrLength = arrListTitle.length;
+
+                for(let i = 0;i < arrLength;i++){
+                    list_ul.innerHTML += `<li class="list_li">
+                                            <span class="li_icon">${i + 1}</span>
+                                            <div class="list_img"></div>
+                                            <h5 class="li_title">${arrListTitle[i]}</h5>
+                                            <p class="li_content">${arrListContent[i]}</p>
+                                            <button class="play_btn">播放</button>
+                                        </li>`;
+                    list_li_img[i].style.backgroundImage = `url(images/${arrListImg[i]})`;
+                }
+                //初始化
+                list_li[num].className = "list_li list_active";
+
+                for(let value of list_li){
+                    value.onmouseover = function(){
+                        for(let i = 0;i < arrLength;i++){
+                            list_li[i].className = "list_li";
+                        }
+                       this.className = "list_li list_active";
+                    }
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
