@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>修改文本框的值</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            .list{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:500px;
+                height:auto;
+                font-size:16px;
+                color:#000;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border:1px solid #0072bc;
+            }
+            span.list_title{
+                display:block;
+                margin-top:0;;
+                margin-left:0;
+                padding:5px 20px;
+                width:460px;
+                height:30px;
+                font-size:18px;
+                font-weight:700;
+                line-height:30px;
+                color:#fff;
+                background-color:#0072bc;
+                border-bottom:1px solid #0072bc;
+            }
+            ul.list_ul{
+                margin-top:0;
+                margin-left:0;
+                width:500px;
+                height:auto;
+            }
+            li.list_li{
+                margin-top:0;
+                margin-left:0;
+                padding:5px 20px;
+                width:460px;
+                height:30px;
+                font-size:16px;
+                line-height:30px;
+                border-bottom:1px solid #0072bc;
+            }
+            img.revise_btn{
+                display:inline-block;
+                margin-left:20px;
+                width:25px;
+                height:25px;
+                border-radius:50%;
+                vertical-align:middle;
+                transition:all .2s;
+                -webkit-transition:all .5s;
+                cursor:pointer;
+            }
+            img.revise_btn:hover{
+                transform:rotate(360deg);
+                -webkit-transform:rotate(360deg);
+            }
+            span.save,
+            span.cancel{
+                display:none;
+                margin-left:20px;
+                color:#0072bc;
+                transition:all .2s;
+                -webkit-transition:all .2s;
+                cursor:pointer;
+            }
+            span.save:hover{opacity:.7;}
+            span.cancel:hover{opacity:.7;}
+            input{
+                display:inline-block;
+                height:25px;
+                font-size:18px;
+                line-height:25px;
+                vertical-align:middle;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="list">
+            <span class="list_title">分类名称</span>
+            <ul class="list_ul" id="list_ul">
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+                <li class="list_li">
+                    <span class="list_li_revisecontent">Hello World!</span>
+                    <img src="images/revise.png" alt="修改内容" title="修改内容" class="revise_btn"/>
+                    <span class="save">保存</span>
+                    <span class="cancel">取消</span>
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = () => {
+                var list_ul = document.getElementById("list_ul");
+                var list_li = list_ul.getElementsByClassName("list_li");
+
+                for(let value of list_li){
+                    value.getElementsByClassName("revise_btn")[0].onclick = function(){
+                        let val = value.getElementsByTagName("span")[0].innerHTML;
+
+                        value.getElementsByTagName("img")[0].style.display = "none";
+                        value.getElementsByTagName("span")[1].style.display = "inline-block";
+                        value.getElementsByTagName("span")[2].style.display = "inline-block";
+                        value.getElementsByTagName("span")[0].innerHTML = `<input type="text" value="${val}">`;
+                        //保存
+                        value.getElementsByTagName("span")[1].onclick = function(){
+                            var new_val = value.getElementsByTagName("input")[0].value;
+                            value.getElementsByTagName("span")[0].innerHTML = new_val;
+
+                            content_operate(value);
+                        }
+                        //取消
+                        value.getElementsByTagName("span")[2].onclick = function(){
+                            value.getElementsByTagName("span")[0].innerHTML = val;
+
+                            content_operate(value);
+                        }
+
+                    }
+                }
+
+                function content_operate(ele){
+                    ele.getElementsByTagName("img")[0].style.display = "inline-block";
+                    ele.getElementsByTagName("span")[1].style.display = "none";
+                    ele.getElementsByTagName("span")[2].style.display = "none";
+                }
+            }
+
+        </script>
+    </body>
+</html>
