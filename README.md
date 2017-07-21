@@ -21,4 +21,11 @@
 * data_type:js基本的数据类型
 * data_type_judge:js基本数据类型判断
 * QQNun_judge:QQ号码输入判断
-* 
+## 2017-7-19
+* add_:简易价格计算表
+* transmit_fn:简易焦点图(函数传参版)
+## 2017-7-20
+* list_show:列表展示效果
+## 2017-7-21
+* textFrames_revise:文本框值修改
+ 
