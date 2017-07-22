@@ -28,4 +28,7 @@
 * list_show:列表展示效果
 ## 2017-7-21
 * textFrames_revise:文本框值修改
+* tab_carousel.html:选项卡组嵌套幻灯
+## 2017-7-22
+
  
