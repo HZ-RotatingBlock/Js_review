@@ -30,5 +30,8 @@
 * textFrames_revise:文本框值修改
 * tab_carousel.html:选项卡组嵌套幻灯
 ## 2017-7-22
+* computed_symbol:运算符的应用
+* computed_symbol:运算符的应用1
+* score:评分功能的实现
 
  
