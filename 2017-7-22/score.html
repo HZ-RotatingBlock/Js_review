@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>评分功能</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .score{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:600px;
+                height:300px;
+                background-color:#fff;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+            }
+            span.score_title{
+                position:absolute;
+                top:45%;
+                left:12%;
+                font-size:20px;
+                font-weight:700;
+                line-height:20px;
+            }
+            strong{
+                font-size:30px;
+                color:#c03;
+                }
+            ul.score_ul{
+                position:absolute;
+                top:40%;
+                left:210px;
+                width:300px;
+                height:50px;
+            }
+            li{
+                float:left;
+                margin-right:0;
+                width:50px;
+                height:50px;
+                background-image:url(images/star_0.png);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                cursor:pointer;
+            }
+            span.score_level{
+                position:absolute;
+                top:50%;
+                left:85%;
+                font-size:20px;
+                font-weight:700;
+                color:#c03;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+        </style>
+    </head>
+    <body>
+       <div class="score">
+            <span class="score_title"><strong>*</strong>总体评价：</span>
+            <ul class="score_ul">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>  
+            <span class="score_level" id="score_level">请评分</span> 
+        </div>
+
+        <script type="text/javascript">           
+            window.onload = () => {
+                var score_ul = document.getElementsByClassName("score_ul")[0];
+                var score_li = score_ul.getElementsByTagName("li");
+                var score_level = document.getElementById("score_level");
+                var score_li_length = score_li.length;
+                var arrUrl = ["star_0.png","star_1.png"];
+                var arrLevel = ["很差","较差","不错","推荐","力荐"];
+
+                var score_control = true;
+                var score_num = null;
+                var score_title = "";
+                for(let i = 0;i <  score_li_length;i++){
+                    score_li[i].index = i;
+                    score_li[i].onmouseover = function(){
+                        score_level.innerHTML = arrLevel[this.index];
+                        for(let j = 0;j <= this.index;j++){
+                            score_li[j].style.backgroundImage = `url(images/${arrUrl[1]}`;
+                        }
+                        for(let j = this.index + 1;j <= score_li_length;j++){
+                            score_li[j].style.backgroundImage = `url(images/${arrUrl[0]}`;
+                        }
+                        
+                    }
+                    score_li[i].onmouseout = function(){
+                        if(score_num != ""){
+                            score_level.innerHTML = score_title;
+                        }
+
+                        if(score_control){
+                            for(let j = 0;j <= this.index;j++){
+                                score_level.innerHTML = "请评分";
+                                score_li[j].style.backgroundImage = `url(images/${arrUrl[0]}`;
+                            }
+                        }else{
+                            for(let j = 0;j <= score_num;j++){
+                                score_li[j].style.backgroundImage = `url(images/${arrUrl[1]}`;
+                            }
+                            for(let j = score_num + 1;j <= score_li_length;j++){
+                                score_li[j].style.backgroundImage = `url(images/${arrUrl[0]}`;
+                            }
+                        }
+                        
+                    }
+
+                    score_li[i].onclick = function(){
+                        score_control = false;
+                        score_num = this.index;
+                        score_level.innerHTML = arrLevel[this.index];
+                        score_title = arrLevel[this.index];
+                        for(let j = 0;j <= this.index;j++){
+                            score_li[j].style.backgroundImage = `url(images/${arrUrl[1]}`;
+                        }
+                    }
+
+                }
+
+            }
+
+        </script>
+    </body>
+</html>

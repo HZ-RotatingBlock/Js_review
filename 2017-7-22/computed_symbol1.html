@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>运算符应用1</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+
+        </style>
+    </head>
+    <body>
+       <input type="button" value="反选"/>
+
+       <ul>
+            <li><input type="checkbox" checked/></li>
+            <li><input type="checkbox"/></li>
+            <li><input type="checkbox" checked/></li>
+            <li><input type="checkbox"/></li>
+            <li><input type="checkbox"/></li>
+       </ul>
+
+        <script type="text/javascript">
+            //反向选择
+            window.onload = () => {
+                var olnp = document.getElementsByTagName("input");
+                var olnpLenght = olnp.length;
+
+                olnp[0].onclick = function(){
+                    
+                    for(let i = 0;i < olnpLenght;i++){
+                        //法一
+                        olnp[i].checked = !olnp[i].checked;
+                        //法二
+                        /*
+                        if(olnp[i].checked){
+                            olnp[i].checked = false;
+                        }else{
+                            olnp[i].checked = true;
+                        }
+                        */
+
+                    }
+                    
+                }
+            }
+
+        </script>
+    </body>
+</html>
