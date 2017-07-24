@@ -33,5 +33,7 @@
 * computed_symbol:运算符的应用
 * computed_symbol:运算符的应用1
 * score:评分功能的实现
+## 2017-7-23
+* checkAll:仿百度音乐列表全选反选功能
 
  
