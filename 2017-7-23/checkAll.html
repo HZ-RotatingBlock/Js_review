@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>仿百度音乐列表</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:500px;
+                background-color:#fff;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            ul.check_part{
+                margin-top:0;
+                margin-left:0;
+                width:500px;
+                height:auto;
+            }
+            ul.check_part li{
+                position:relative;
+                margin-top:0;
+                width:500px;
+                height:50px;
+                font-size:18px;
+                text-align:center;
+                line-height:50px;
+                border-bottom:1px solid #fff;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            ul.check_part li:nth-child(odd){
+                background-color:#eee;
+            }
+            ul.check_part li:hover{
+                color:#fff;
+                background-color:rgba(204, 0, 51, 1);
+            }
+            input{
+                position:absolute;
+                top:50%;
+                left:5%;
+                width:25px;
+                height:25px;
+                border:none;
+                border-radius:3px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+                cursor:pointer;
+            }
+            span.check_name,
+            span.check_author,
+            strong.check_all_name{
+                position:absolute;
+                top:50%;
+                padding:0 5px;
+                height:50px;
+                border:none;
+                border-radius:3px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            span.check_name,
+            strong.check_all_name{
+                left:15%;
+            }
+            span.check_author{
+                left:70%;
+            }
+            .check_operate{
+                position:relative;
+                margin-top:0;
+                margin-left:0;
+                width:500px;
+                height:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                border-top:1px solid #e1e1e1;
+            }
+            .btn{
+                padding:0 20px;
+                width:60px;
+                height:35px;
+                text-align:right;
+                line-height:35px;
+                border:1px solid #333;
+                border-radius:3px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .btn:hover{
+                background-color:rgba(51, 51, 51, .1);
+                box-shadow:2px 2px 10px #333;
+            }
+            .btn img{
+                position:absolute;
+                top:50%;
+                left:5%;
+                width:30px;
+                height:30px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            .collect_btn,
+            .add_btn,
+            .delete_btn{
+                position:absolute;
+                top:50%;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            .collect_btn{
+                left:140px;
+            }
+            .add_btn{
+                left:260px;
+            }
+            .delete_btn{
+                left:380px;
+            }
+        </style>
+    </head>
+    <body>
+       <div class="main">
+            <ul class="check_part" id="check_part">
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">走在冷风中</span>
+                    <span class="check_author">刘思涵</span>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">告白气球</span>
+                    <span class="check_author">周杰伦</span>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">关不上的窗</span>
+                    <span class="check_author">周传雄</span>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">你还要我怎么样</span>
+                    <span class="check_author">薛之谦</span>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">童话镇</span>
+                    <span class="check_author">陈一发儿</span>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <span class="check_name">湫兮如风</span>
+                    <span class="check_author">徐佳莹</span>
+                </li>
+            </ul>
+            <div class="check_operate">
+                <input type="checkbox" class="check_all" id="check_all"/><strong class="check_all_name">全选</strong>
+                <div class="collect_btn btn" id="collect_btn">
+                    <img src="images/collect.png" alt="收藏"/>
+                    收藏
+                </div>
+                <div class="add_btn btn" id="add_btn">
+                    <img src="images/add.png" alt="添加"/>
+                    添加
+                </div>
+                <div class="delete_btn btn" id="delete_btn">
+                    <img src="images/delete.png" alt="删除"/>
+                    删除
+                </div>
+            </div>
+       </div>
+
+        <script type="text/javascript">           
+            window.onload = () => {
+               var check_part = document.getElementById("check_part");
+               var check_li = check_part.getElementsByTagName("li");
+               var check_box = check_part.getElementsByTagName("input");
+
+               var check_all = document.getElementById("check_all");
+               var collect_btn = document.getElementById("collect_btn");
+               var add_btn = document.getElementById("add_btn");
+               var delete_btn = document.getElementById("delete_btn");
+
+               check_all.onclick = function(){
+                    if(this.checked){
+                        for(let value of check_box){
+                            value.checked = true;                      
+                        }                       
+                    }else{
+                        for(let value of check_box){
+                            value.checked = false;                      
+                        } 
+                    }
+                    
+               }
+
+               for(let value of check_box){
+                    value.onclick = function(){
+                        if(this.checked){
+                            this.checked = true;                          
+                        }else{
+                           this.checked = false;
+                           check_all.checked = false; 
+                        }
+                    }                     
+                } 
+
+            }
+
+        </script>
+    </body>
+</html>
