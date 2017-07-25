@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>定时器的应用</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+
+        </style>
+        <script type="text/javascript" src="js/JQ_imitate.js"></script>
+    </head> 
+
+
+        <script type="text/javascript">   
+            /*
+                定时器：时间概念
+                setInterval(函数、毫秒);重复执行
+            */
+            for(let i = 0;i < 3;i++){
+                document.title = i;
+            }
+            
+            i = 0;
+            function fn1(){
+                document.title = i;
+                i++;
+            }
+
+            setInterval(fn1,1000);
+            
+
+            
+       </script>
+    </body>
+</html>

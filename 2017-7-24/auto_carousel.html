@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自动轮换选项卡</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            img.logo{
+                position:absolute;
+                top:20px;
+                right:20px;
+                width:100px;
+                height:100px;
+                border-radius:50%;
+            }
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                padding:50px;
+                width:1000px;
+                height:600px;
+                background-color:#fff;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border-radius:10px;
+                box-shadow:4px 4px 10px #000;
+            }
+            ul.menu{
+                position:absolute;
+                top:30px;
+                left:30px;
+                height:50px;
+            }
+            ul.menu li{
+                float:left;
+                margin-right:20px;
+                width:455px;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                background-color:#333;
+                border-radius:3px;
+            }
+            .menu_active{
+                background-color:rgba(51, 51, 51, .5)  !important;
+            }
+            ul.menu li:last-child{margin-right:0;}
+            ul.carousel{
+                position:absolute;
+                top:100px;
+                left:30px;
+                width:1000px;
+                height:530px;
+            }
+            ul.carousel li.carousel_tab{
+                display:none;
+                position:absolute;
+                top:0;
+                left:0;
+                width:1000px;
+                height:530px;
+            }
+            .carousel_tab_active{
+                display:block !important;               
+            }
+            .carousel_img{
+                position:absolute;
+                top:100px;
+                left:30px;
+                width:930px;
+                height:530px;
+                background-image:url(images/Nier_1.jpg);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                border-radius:3px;
+            }
+            ul.carousel_pointer{
+                position:absolute;
+                top:50px;
+                right:-70px;
+                width:100px;
+            }
+            ul.carousel_pointer li{
+                margin-top:20px;
+                width:70px;
+                height:70px;
+                font-size:16px;
+                text-align:center;
+                line-height:70px;
+                color:#fff;
+                background-color:#333;
+                border-radius:50%;
+            }
+            ul.carousel_pointer li:first-child{margin-top:0;}
+        </style>
+    </head> 
+        <div class="main">
+            <img src="images/logo.ico" class="logo" alt="logo"/>
+            <ul class="menu" id="menu">
+                <li class="menu_active">菜单一</li>
+                <li>菜单二</li>
+            </ul>
+            <div class="carousel_img" id="carousel_img"></div>
+            <ul class="carousel">
+                <li class="carousel_tab carousel_tab_active">
+                    <ul class="carousel_pointer">
+                        <li class="carousel_pointer_li">图片一</li>
+                        <li class="carousel_pointer_li">图片二</li>
+                        <li class="carousel_pointer_li">图片三</li>
+                    </ul>
+                </li>
+                <li class="carousel_tab">
+                    <ul class="carousel_pointer">
+                        <li class="carousel_pointer_li">图片四</li>
+                        <li class="carousel_pointer_li">图片五</li>
+                        <li class="carousel_pointer_li">图片六</li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+
+        <script type="text/javascript">   
+            window.onload = function(){
+                var menu = document.getElementById("menu");
+                var menu_li = menu.getElementsByTagName("li");
+                var menu_li_length = menu_li.length;
+                var carousel_li = document.getElementsByClassName("carousel_tab");
+                var carousel_tab_active = document.getElementsByClassName("carousel_tab_active")[0];
+                var carousel_pointer_li = document.getElementsByClassName("carousel_pointer_li");
+                var carousel_pointer_liLength = carousel_pointer_li.length;
+                var carousel_img = document.getElementById("carousel_img");
+                var num = 0;
+
+                var carouselUrlArr = ["Nier_1.jpg","Nier_2.jpg","Nier_3.jpg","Nier_4.jpg","Nier_5.jpg","Nier_6.jpg"];
+                var carouselUrlArrLength = carouselUrlArr.length;
+                carousel_pointer_li[num % carouselUrlArrLength].style.backgroundColor = "rgba(51,51,51,.5)";
+
+                //自动轮播
+                var timer = setInterval(function(){
+                    carousel_img.style.backgroundImage = `url(images/${carouselUrlArr[num % carouselUrlArrLength]})`;
+                    carousel_pointer_li[num % carouselUrlArrLength].style.backgroundColor = "rgba(51,51,51,.5)";
+                    if(num % (carousel_pointer_liLength / menu_li_length) == 0){
+                        for(let i = 0;i <  menu_li_length;i++){
+                            menu_li[i].className = "";
+                            carousel_li[i].className = "carousel_tab";
+                        }
+                        menu_li[num % menu_li_length].className = "menu_active";
+                        carousel_li[num % menu_li_length].className = "carousel_tab carousel_tab_active";
+                    }
+                    
+
+                    if(num % carouselUrlArrLength == 0){
+                        carousel_pointer_li[carouselUrlArrLength - 1].style.backgroundColor = "rgba(51,51,51,1)";
+                    }else{
+                        carousel_pointer_li[num % carouselUrlArrLength - 1].style.backgroundColor = "rgba(51,51,51,1)";
+                    }
+                    num++;
+                },3000);
+
+            }
+            
+
+            
+       </script>
+    </body>
+</html>

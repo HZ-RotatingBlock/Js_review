@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>js模拟部分jq的$符号</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            
+        </style>
+    </head>
+    <body>
+       <input id="btn1" type="button" value="按钮"/>
+
+        <script type="text/javascript">           
+            $(function(){
+                $('btn1').onclick = function(){
+                    $(this).style.background = 'yellow';
+                }
+            });
+
+            function $(v){
+                if(typeof v === "function"){
+                    window.onload = v;
+                }else if(typeof v === "string"){
+                    return document.getElementById(v);
+                }else if(typeof v === 'object'){
+                    return v;
+                }
+            }
+
+        </script>
+    </body>
+</html>
