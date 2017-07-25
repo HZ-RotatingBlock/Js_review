@@ -38,6 +38,8 @@
 * function_detail:js模拟部分jq的$符号方法
 ## 2017-7-24
 * auto_carousel:简易自动轮播
+## 2017-7-25
+* btn_scroll:按钮控制商品图片上下滚动
 
 
  
