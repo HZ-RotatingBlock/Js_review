@@ -35,5 +35,9 @@
 * score:评分功能的实现
 ## 2017-7-23
 * checkAll:仿百度音乐列表全选反选功能
+* function_detail:js模拟部分jq的$符号方法
+## 2017-7-24
+* auto_carousel:简易自动轮播
+
 
  
