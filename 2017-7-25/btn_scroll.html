@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>按钮控制商品图片上下滚动</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                width:400px;
+                height:800px;
+                background-color:#fff;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            header{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:50px;
+                background-color:#c03;
+                border-top-left-radius:5px;
+                border-top-right-radius:5px;
+            }
+            header h3,
+            header span{
+                position:absolute;
+                top:0;
+                padding:0 10px;
+                height:50px;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+            }
+            header h3{
+                left:10px;
+                font-size:20px;
+            }            
+            header span{
+                right:10px;
+                font-size:20px;
+            }
+            .upward_btn,
+            .down_btn{
+                opacity:.6;
+                position:absolute;
+                width:100%;
+                height:40px;
+                background-color:#e8e8e8;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+                z-index:99;
+            }
+            .upward_btn:hover{
+                opacity:1;
+            }
+            .down_btn:hover{
+                opacity:1;
+            }
+            .upward_btn{
+                top:50px;
+            }
+            .down_btn{
+                bottom:0;
+            }
+            span.icon{
+                display:block;
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:30px;
+                height:100px;
+                font-size:30px;
+                font-weight:700;
+                text-align:center;
+                line-height:95px;
+                color:#fff;
+                background-color:#c03;
+                transform:translate(-50%,-50%) rotateZ(90deg);
+                -webkit-transform:translate(-50%,-50%) rotateZ(90deg);
+                border-radius:20px;
+            }
+            article{
+                overflow-y:hidden;
+                position:absolute;
+                top:90px;
+                left:50%;
+                height:670px;
+                width:90%;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            .content{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+            }
+            .content_li{
+                opacity:.8;
+                position:relative;
+                margin-top:0;
+                width:100%;
+                height:200px;
+                border-bottom:2px solid #c03;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .content_li:hover{
+                opacity:1;
+            }
+            .content_li h5{
+                position:absolute;
+                top:20px;
+                left:0;
+                font-size:16px;
+                font-weight:700;
+                white-space:nowrap;
+            }
+            .introduction{
+                position:absolute;
+                top:50px;
+                left:0;
+                width:50%;
+                font-size:14px;
+                line-height:20px;
+            }
+            .content_li_img{
+                position:absolute;
+                top:50%;
+                right:0;
+                width:150px;
+                height:150px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+        </style>
+    </head>
+    <body>
+       <div class="main">
+           <div class="upward_btn" id="upward_btn">
+                <span class="icon">&lt;</span>
+           </div>
+           <div class="down_btn" id="down_btn">
+                <span class="icon">&gt;</span>
+           </div>
+            <header>
+                <h3>NieR:Automata</h3>
+                <span>&gt;&gt;更多</span>
+            </header>
+            <article>
+                <ul class="content" id="content">
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/1.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/2.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/3.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/4.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/5.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/6.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/7.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/8.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/9.ico" alt="商品图片"/>
+                    </li>
+                    <li class="content_li">
+                        <h5>标题</h5>
+                        <span class="introduction">多个挖个呵呵如何如何忽然替换要添加飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染飒飒更换萨达撒大哥和污染和任务和任何</span>
+                        <img class="content_li_img" src="images/10.ico" alt="商品图片"/>
+                    </li>
+                    
+                </ul>
+            </article>
+       </div>
+        <div id="test">test</div>
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var content = document.getElementById("content");
+                var content = document.getElementById("content");
+                var upward_btn = document.getElementById("upward_btn");
+                var down_btn = document.getElementById("down_btn");
+                var test = document.getElementById("test");
+                var timerUp = null;
+                var timerDown = null;
+                var content_height = parseInt(getStyle(content,"height"));
+                var num = 0;
+                
+
+                upward_btn.onmousedown = function(){
+                    clearInterval(timerUp);
+                    
+                    var objTop = parseInt(getStyle(content,"top"));
+                    console.log(objTop);
+                    if(objTop >= (670 - content_height)){
+                        timerUp = setInterval(function(){
+                            if(objTop >= (670 - content_height)){
+                                objTop--;
+                            }else{
+                                alert("到底啦~");
+                                clearInterval(timerUp);
+                            }                          
+                            content.style.top = objTop + "px";
+                        },1);
+                    }
+                }
+                upward_btn.onmouseup = function(){
+                    clearInterval(timerUp);
+                }
+                down_btn.onmousedown = function(){
+                    clearInterval(timerDown);
+
+                    var objTop = parseInt(getStyle(content,"top"));
+                    if(objTop > (-content_height) && objTop < 0){
+                        timerDown = setInterval(function(){
+                            if(objTop > (-content_height) && objTop < 0){
+                                objTop++;
+                            }else{
+                                alert("到顶啦~");
+                                clearInterval(timerDown);
+                            }                           
+                            content.style.top = objTop + "px";
+                        },1);
+                    }
+                }
+                down_btn.onmouseup = function(){
+                    clearInterval(timerDown);
+                }
+
+
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
