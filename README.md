@@ -42,7 +42,7 @@
 * btn_scroll:按钮控制商品图片上下滚动
 ## 2017-7-25
 * item_carousel：淘宝商品广告效果
-* 
+* delay_menu:延迟消失菜单
 
 
  
