@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>js控制元素循环飘动</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#fff;}
+            .main{
+                position:absolute;
+                top:0px;
+                left:50px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+        <script type="text/javascript">           
+            window.onload = function(){
+                var str = "";
+                var main = document.getElementById("main");
+
+                for(let i = 0;i < 20;i++){
+                    str += `<div class="ele" style="position:absolute;top:20px;left:${i * 60}px;width:50px;height:50px;background-color:#c03;border-radius:3px;"></div>`;
+                }
+                main.innerHTML = str;
+                
+                var ele = document.getElementsByClassName("ele");
+                var eleLength = ele.length;
+                ele.timer = null;
+                var num = 0;
+                var timer_1 = null;
+                var loopStatus = true;
+                
+                document.onclick = function(){               
+                if(loopStatus){
+                    clearInterval(timer_1);
+                    timer_1 = setInterval(() => {
+                        doMove(ele[num],"top",10,600);
+                        num++;
+                        if(num == eleLength){
+                            clearInterval(timer_1);
+                            num = 0;
+                        }
+                    },50);
+                    loopStatus = false;
+                }else{
+                    clearInterval(timer_1);
+                    timer_1 = setInterval(() => {
+                        doMove(ele[num],"top",10,20);
+                        num++;
+                        if(num == eleLength){
+                            clearInterval(timer_1);
+                            num = 0;
+                        }
+                    },50);
+                    loopStatus = true;
+                    }                     
+                }
+                
+                //obj:操作元素;attr:变化属性;moveNum:变化速率;target:目标数值(单位px);
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) < target ? moveNum : -moveNum;
+                    clearInterval(obj.timer);
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        //向前
+                        if(speed > target && moveNum > 0){
+                            speed = target;
+                        }
+                        //向后
+                        if(speed < target && moveNum < 0){
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+
+                        if(speed == target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },10);               
+                }
+               //样式获取
+                function getStyle(obj,attr){
+                    return window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>
