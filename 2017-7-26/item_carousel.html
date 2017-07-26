@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>淘宝商品广告效果</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1000px;
+                height:700px;
+                background-color:#fff;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border:1px solid #c03;
+                border-radius:5px;
+            }
+            ul{
+                position:absolute;
+                top:0;
+                width:100px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:80px;
+                color:#000;
+            }
+            ul.menu_left{
+                left:-120px;
+            }
+            ul.menu_right{
+                right:-120px;
+            }
+            li.menu_li{
+                margin-top:18px;
+                width:80px;
+                height:80px;
+                background-color:#fff;
+                border:1px solid #c03;
+                border-radius:50%;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            li.menu_li_active{
+                animation:ele_scale .3s forwards;
+            }
+            @keyframes ele_scale{
+                50%{
+                    transform:scale(1.4);
+                    -webkit-transform:scale(1.4);
+                }
+                100%{
+                    color:#fff;
+                    background-color:#c03;
+                    transform:scale(1.2);
+                    -webkit-transform:scale(1.2);
+                }
+            }
+            li.menu_li:hover{
+                color:#fff;
+                background-color:#c03;
+                transform:scale(1.2);
+                -webkit-transform:scale(1.2);
+            }
+            li.menu_li:first-child{
+                margin-top:0;
+            }
+            .carousel_img{
+                position:absolute;
+                top:10px;
+                left:10px;
+                width:980px;
+                height:680px;
+                background-image:url(images/Nier_1.jpg);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                border-radius:3px;
+            }
+            .carousel_img h3{
+                position:absolute;
+                top:50px;
+                left:0;
+                padding:20px;
+                width:260px;
+                height:60px;
+                font-size:25px;
+                font-weight:700;
+                line-height:60px;
+                color:#c03;
+                background-color:rgba(204, 0, 51, .2); 
+            }
+            .carousel_img .carousel_img_content{
+                position:absolute;
+                bottom:50px;
+                right:0;
+                padding:20px;
+                width:500px;
+                height:70px;
+                font-size:30px;
+                line-height:35px;
+                color:rgba(0, 0, 0, .7);
+                background-color:rgba(255, 255, 255, .5);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <ul class="menu_left" id="menu_left">
+                <li class="menu_li menu_li_active">内容1</li>
+                <li class="menu_li">内容2</li>
+                <li class="menu_li">内容3</li>
+                <li class="menu_li">内容4</li>
+                <li class="menu_li">内容5</li>
+                <li class="menu_li">内容6</li>
+                <li class="menu_li">内容7</li>
+            </ul>
+            <ul class="menu_right" id="menu_right">
+                <li class="menu_li">内容8</li>
+                <li class="menu_li">内容9</li>
+                <li class="menu_li">内容10</li>
+                <li class="menu_li">内容11</li>
+                <li class="menu_li">内容12</li>
+                <li class="menu_li">内容13</li>
+                <li class="menu_li">内容14</li>
+            </ul>
+            <div class="carousel_img" id="carousel_img">
+                <h3 class="carousel_img_title" id="carousel_img_title">Nier_1</h3>
+                <span class="carousel_img_content" id="carousel_img_content">内容_1</span>
+            </div>
+        </div>
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var carousel_img = document.getElementById("carousel_img");
+                var carousel_img_title = document.getElementById("carousel_img_title");
+                var carousel_img_content = document.getElementById("carousel_img_content");
+                var menu_li = document.getElementsByClassName("menu_li");
+                var menu_li_length = menu_li.length;
+
+                var main = document.getElementById("main");
+                var menu_left = document.getElementById("menu_left");
+                var menu_right = document.getElementById("menu_right");
+
+                var carouselImgArr = ["Nier_1.jpg","Nier_2.jpg","Nier_3.jpg","Nier_4.jpg","Nier_5.jpg","Nier_6.jpg","Nier_7.jpg","Nier_8.jpg","Nier_9.jpg","Nier_10.jpg","Nier_11.jpg","Nier_12.jpg","Nier_13.jpg","Nier_14.jpg"];               
+                var carouselImgTitle = ["Nier_1","Nier_2","Nier_3","Nier_4","Nier_5","Nier_6","Nier_7","Nier_8","Nier_9","Nier_10","Nier_11","Nier_12","Nier_13","Nier_14"];
+                var carouselImgContent = ["内容_1","内容_2","内容_3","内容_4","内容_5","内容_6","内容_7","内容_8","内容_9","内容_10","内容_11","内容_12","内容_13","内容_14"];
+                var carouselImgNum = 1;
+                var arrNum = 0;
+                var order = true;
+                var carouselTimer = null;
+
+                carousel();             
+                star_tab(main);
+                star_tab(menu_left);
+                star_tab(menu_right);
+                stop_tab(main);
+                stop_tab(menu_left);
+                stop_tab(menu_right);
+
+                for(let i = 0;i <  menu_li_length;i++){
+                    menu_li[i].onmouseover = function(){
+                        clearInterval(carouselTimer);
+                        arrNum = i;
+                        carousel_tab(i);
+                    }
+                }
+                
+
+                function star_tab(ele){
+                    ele.onmouseout = function(){
+                        clearInterval(carouselTimer);
+                        carousel();
+                    }
+                }
+
+                function stop_tab(ele){
+                    ele.onmouseover = function(){
+                        clearInterval(carouselTimer);
+                    }
+                }
+
+                function carousel(){
+                    carouselTimer = setInterval(function(){
+                        if(carouselImgNum == menu_li_length - 1){
+                            order = false;
+                        }else if(carouselImgNum == 0){
+                            order = true;
+                        }
+                        arrNum = carouselImgNum % menu_li_length;
+                        carousel_tab(arrNum);
+                        order ? carouselImgNum++ : carouselImgNum--;                                    
+                    },1000);
+                }
+
+                function carousel_tab(num){                   
+                    carousel_img.style.backgroundImage = `url(images/${carouselImgArr[num]})`;
+                    carousel_img_title.innerHTML = carouselImgTitle[num];
+                    carousel_img_content.innerHTML = carouselImgContent[num];
+                    for(let value of menu_li){
+                        value.className = "menu_li";
+                    }
+                    menu_li[num].className = "menu_li menu_li_active";
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
