@@ -43,6 +43,8 @@
 ## 2017-7-26
 * item_carousel：淘宝商品广告效果
 * delay_menu:延迟消失菜单
+* float_loop：js控制元素循环飘动
+
 
 
  
