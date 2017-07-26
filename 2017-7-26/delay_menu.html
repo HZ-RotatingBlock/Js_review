@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>延迟消失菜单</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1000px;
+                height:300px;
+                background-color:#fff;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            nav{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                color:#fff;
+                background-color:#0073bc;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+            }
+            
+            ul.nav{
+                position:absolute;
+                top:50%;
+                left:0;
+                height:40px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            li.nav_li{
+                float:left;
+                position:relative;
+                margin-right:0;
+                padding:0 30px;
+                width:60px;
+                height:40px;
+                line-height:40px;
+                white-space:nowrap;
+                border-right:1px solid #fff;
+                border-radius:3px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            li.nav_li:hover{
+                background-color:rgba(255, 255, 255, .3);
+            }
+            span.more{
+                position:absolute;
+                top:50%;
+                right:20px;
+                height:30px;
+                padding:0 20px;
+                text-align:center;
+                line-height:30px;
+                border-radius:3px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            span.more:hover{
+                background-color:rgba(255, 255, 255, .3);
+            }
+            .nav_li_menu{
+                display:none;
+                position:absolute;
+                bottom:-65px;
+                left:50%;
+                width:444px;
+                height:40px;
+                color:#0073bc;
+                background-color:rgba(255, 255, 255, 1);
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                border:1px solid #0073bc;
+                box-shadow:4px 4px 10px #000;
+                border-radius:3px;
+            }
+            .nav_li_active .nav_li_menu{
+                display:block !important;
+            }
+            ul.nav_li_menu_ul{
+                position:absolute;
+                top:50%;
+                left:0;
+                height:25px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            li.nav_li_menu_list{
+                float:left;
+                position:relative;
+                margin-right:0;
+                padding:0 30px;
+                width:50px;
+                height:25px;
+                font-size:#0073bc;
+                line-height:25px;
+                border-right:1px solid #0073bc;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            li.nav_li_menu_list:hover{
+                text-decoration:underline;
+            }
+            li:last-child{
+                border-right:0;
+            }
+            span.trangel_top{
+                position:absolute;
+                top:-10px;
+                left:50%;
+                width:0;
+                height:0;
+                border-right:10px solid transparent;
+                border-bottom:10px solid #0073bc;
+                border-left:10px solid transparent;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <nav>
+                <ul class="nav">
+                    <li class="nav_li">
+                        首页
+                        <div class="nav_li_menu">
+                            <span class="trangel_top"></span>
+                            <ul class="nav_li_menu_ul">
+                                <li class="nav_li_menu_list">选项一</li>
+                                <li class="nav_li_menu_list">选项二</li>
+                                <li class="nav_li_menu_list">选项三</li>
+                                <li class="nav_li_menu_list">选项四</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav_li">
+                        关于我们
+                        <div class="nav_li_menu">
+                            <span class="trangel_top"></span>
+                            <ul class="nav_li_menu_ul">
+                                <li class="nav_li_menu_list">选项一</li>
+                                <li class="nav_li_menu_list">选项二</li>
+                                <li class="nav_li_menu_list">选项三</li>
+                                <li class="nav_li_menu_list">选项四</li>
+                            </ul>
+                        </div>
+                    </li><li class="nav_li">
+                        作品
+                        <div class="nav_li_menu">
+                            <span class="trangel_top"></span>
+                            <ul class="nav_li_menu_ul">
+                                <li class="nav_li_menu_list">选项一</li>
+                                <li class="nav_li_menu_list">选项二</li>
+                                <li class="nav_li_menu_list">选项三</li>
+                                <li class="nav_li_menu_list">选项四</li>
+                            </ul>
+                        </div>
+                    </li><li class="nav_li">
+                        博客
+                        <div class="nav_li_menu">
+                            <span class="trangel_top"></span>
+                            <ul class="nav_li_menu_ul">
+                                <li class="nav_li_menu_list">选项一</li>
+                                <li class="nav_li_menu_list">选项二</li>
+                                <li class="nav_li_menu_list">选项三</li>
+                                <li class="nav_li_menu_list">选项四</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <span class="more">&gt;&gt;更多</span>
+            </nav>
+        </span>
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var nav_li = document.getElementsByClassName("nav_li");
+                var nav_li_length = nav_li.length;
+                var timer = null;
+
+                for(let value of nav_li){
+                    value.onmouseover = function(){
+                        clearTimeout(timer);
+                        for(let ele of nav_li){
+                            ele.className = "nav_li";
+                        }
+                        this.className = "nav_li nav_li_active";
+                    }
+                    value.onmouseout = function(){
+                        timer = setTimeout(() => {
+                            this.className = "nav_li";
+                        },1000);
+                    }
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
