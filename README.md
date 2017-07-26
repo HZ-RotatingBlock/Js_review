@@ -40,6 +40,9 @@
 * auto_carousel:简易自动轮播
 ## 2017-7-25
 * btn_scroll:按钮控制商品图片上下滚动
+## 2017-7-25
+* item_carousel：淘宝商品广告效果
+* 
 
 
  
