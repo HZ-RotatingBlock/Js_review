@@ -48,6 +48,7 @@
 * shake:元素抖动1
 * shake1:元素抖动2(修复抖动错位)
 * click_add:点击加分效果
+* autoTabCarousel：自动轮播
 
 
 
