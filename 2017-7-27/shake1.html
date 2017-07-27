@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>元素抖动2(修复抖动错位bug)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:20%;
+                left:50%;
+                width:1000px; 
+                height:400px;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                cursor:pointer;
+            }
+            ul.shake_list{
+                position:relative;
+                top:50%;
+                left:0;
+                width:1000px;
+                height:auto;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            li.shake_li{
+                position:relative;
+                float:left;             
+                margin-right:50px;
+                margin-bottom:20px;
+                width:200px;
+                height:200px;
+                background-color:#c03;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                border-radius:50%;
+                box-shadow:4px 4px 10px #000;
+            }
+            
+            
+        </style>
+    </head>
+    <body>      
+        <div class="main">
+            <ul class="shake_list" id="shake_list"></ul>
+        </div>  
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var shake_list = document.getElementById("shake_list");
+                var shake_li = shake_list.getElementsByTagName("li");
+                var str = "";
+                var shake_status = true;
+
+                for(let i = 1;i <= 12;i++){
+                    str += `<li class="shake_li" style="background-image:url(images/Nier_${i}.jpg)"></li>`;
+                }
+                shake_list.innerHTML = str;
+                for(let value of shake_li){
+                    let _this = value;
+                    value.onmouseover = () => {
+                        shake(_this,"top",10,function(){
+                            shake(_this,"left",10);
+                        });
+                    }
+                }
+
+
+                //抖动函数
+                function shake(obj,attr,shakeNum,endFn){
+                    let shakeArr = [];
+                    let pos = null;
+                    if(shake_status){
+                        pos = parseInt(getStyle(obj,attr));
+                        shake_status = false;
+                    }
+                    
+                    let timer = null;
+                    let num = 0;
+                    for(let i = shakeNum;i > 0;i--){
+                        shakeArr.push(i,-i);
+                    }
+                    shakeArr.push(0);
+                    let shakeArrLength = shakeArr.length;
+
+                    clearInterval(timer);
+                    timer = setInterval(function(){
+                        obj.style[attr] = pos + shakeArr[num % shakeArrLength] + "px";
+                        num++;
+                        if(num === shakeArrLength){
+                            clearInterval(timer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>

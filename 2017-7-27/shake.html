@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>元素抖动1</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#fff;}
+            .main,
+            .main1{
+                position:absolute;
+                top:50%;
+                width:400px;
+                height:400px;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                border-radius:3px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+                cursor:pointer;
+            }
+            .main{
+                left:200px;
+                background-image:url(images/Nier_1.jpg);
+            }
+            .main1{
+                left:700px;
+                background-image:url(images/Nier_2.jpg);
+            }
+            
+        </style>
+    </head>
+    <body>      
+        <div class="main" id="main"></div>
+        <div class="main1" id="main1"></div>
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var main = document.getElementById("main");
+                var main1 = document.getElementById("main1");
+                
+
+                main.onclick = fnShake;
+                main1.onclick = fnShake;
+
+                function fnShake(){
+                    let _this = this;
+                    shake(_this,"top",30,function(){
+                        shake(_this,"left",30);
+                    });
+
+                }
+
+                function shake(obj,attr,shakeNum,endFn){
+                    let shakeArr = [];
+                    let pos = parseInt(getStyle(obj,attr));
+                    let timer = null;
+                    let num = 0;
+                    for(let i = shakeNum;i > 0;i--){
+                        shakeArr.push(i,-i);
+                    }
+                    shakeArr.push(0);
+                    let shakeArrLength = shakeArr.length;
+
+                    clearInterval(timer);
+                    timer = setInterval(function(){
+                        obj.style[attr] = pos + shakeArr[num % shakeArrLength] + "px";
+                        num++;                     
+                        if(num === shakeArrLength){
+                            clearInterval(timer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+
+
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
