@@ -44,6 +44,9 @@
 * item_carousel：淘宝商品广告效果
 * delay_menu:延迟消失菜单
 * float_loop：js控制元素循环飘动
+ ## 2017-7-27
+* shake:元素抖动1
+* shake1:元素抖动2(修复抖动错位)
 
 
 
