@@ -66,16 +66,11 @@
                     clearInterval(obj.timer);
                     obj.timer = setInterval(function(){
                         let speed = parseInt(getStyle(obj,attr)) + moveNum;
-                        //向前
-                        if(speed > target && moveNum > 0){
-                            speed = target;
-                        }
-                        //向后
-                        if(speed < target && moveNum < 0){
+                        //值变化
+                        if ( speed > target && moveNum > 0 ||  speed < target && moveNum < 0  ) {
                             speed = target;
                         }
                         obj.style[attr] = speed + "px";
-
                         if(speed == target){
                             clearInterval(obj.timer);
                             endFn && endFn();

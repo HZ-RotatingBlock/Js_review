@@ -18,12 +18,8 @@ function doMove(obj,attr,moveNum,target,endFn){
     clearInterval(obj.timer);
     obj.timer = setInterval(function(){
         let speed = parseInt(getStyle(obj,attr)) + moveNum;
-        //正值变化
-        if(speed > target && moveNum > 0){
-            speed = target;
-        }
-        //负值变化
-        if(speed < target && moveNum < 0){
+        //值变化
+        if ( speed > target && moveNum > 0 ||  speed < target && moveNum < 0  ) {
             speed = target;
         }
         obj.style[attr] = speed + "px";
@@ -33,6 +29,23 @@ function doMove(obj,attr,moveNum,target,endFn){
         }
     },10);
 
+}
+//元素透明度变化(obj:操作对象;changeNum:变化速率;targetNum:目标值;endFn:回调函数)
+function opacity_tab(obj,changeNum,targetNum,endFn){
+    changeNum = parseFloat(getStyle(obj,"opacity")) > targetNum ? -changeNum : changeNum;
+    clearInterval(obj.opacity_timer);
+    obj.opacity_timer = setInterval(function(){
+        let objOpacity = parseFloat(getStyle(obj,"opacity")) + changeNum;
+        //透明度变化
+        if(objOpacity > targetNum && changeNum > 0 || objOpacity < targetNum && changeNum < 0){
+            objOpacity = targetNum;
+        }
+        obj.style.opacity = objOpacity;
+        if(objOpacity === targetNum){
+            clearInterval(obj.opacity_timer);
+            endFn && endFn();
+        }
+    },25);
 }
 //抖动函数
 //obj:操作对象;attr：变化属性;shakeNum抖动频率;endFn:执行结束后的回调函数;

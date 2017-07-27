@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>点击加分效果</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1002px;
+                height:400px;
+                background-image:url(images/Nier_10.jpg);
+                background-size:cover;
+                background-position:center center;
+                background-color:#fff;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            .title{
+                position:absolute;
+                top:-80px;
+                left:50%;
+                font-size:50px;
+                font-weight:700;
+                text-align:center;
+                white-space:nowrap;
+                color:#fff;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            ul.add_ul{
+                position:absolute;
+                bottom:0;
+                left:0;
+                width:1000px;
+                height:100px;
+                background-color:rgba(255, 255, 255, .3);
+                border:1px solid #c03;
+                border-radius:3px;
+                cursor:pointer;
+            }
+            li.add_list{
+                float:left;
+                position:relative;
+                margin-left:0;
+                width:100px;
+                height:100px;
+                font-size:40px;
+                font-weight:500;
+                text-align:center;
+                line-height:100px;
+                color:#000;
+            }
+            img.arrow{
+                position:absolute;
+                bottom:-60px;
+                left:50%;
+                width:60px;
+                height:60px;
+                border-radius:50%;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                animation:arrow linear .5s infinite alternate;
+            }
+            @keyframes arrow{
+                50%{
+                    transform:translate(-50%,-5%);
+                    -webkit-transform:translate(-50%,-5%);
+                }
+            }
+            span.prompt{
+                position:absolute;
+                bottom:-100px;
+                left:50%;
+                padding:10px 40px;
+                height:20px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:20px;
+                white-space:nowrap;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            span.prompt:hover{
+                transform:translate(-50%,-10%);
+                -webkit-transform:translate(-50%,-10%);
+                box-shadow:4px 4px 10px #000;
+            }
+            .shadow{
+                opacity:0;
+                position:absolute;
+                bottom:1px;
+                left:1px;
+                width:0;
+                height:100px;
+                border-radius:3px;
+                background-color:rgba(204, 0, 51, 1);
+            }
+        </style>
+    </head>
+    <body>      
+         <div class="main" id="main">
+             <h3 class="title">NieR:Automata</h3>
+            <div class="shadow" id="shadow"></div>
+            <ul class="add_ul" id="add_ul">
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+                <li class="add_list">+1</li>
+            </ul>
+            
+            <img src="images/arrow_top.png" alt="点击加分" class="arrow" />
+            <span class="prompt" id="prompt">点击加分</span>
+         </div>r
+
+        <script type="text/javascript">           
+            window.onload = function(){
+                var main = document.getElementById("main");
+                var add_ul = document.getElementById("add_ul");
+                var add_list = add_ul.getElementsByTagName("li");
+                var shadow = document.getElementById("shadow");
+                var add_list_length = add_list.length;
+                var prompt = document.getElementById("prompt");
+                var num = 0;
+                var _timer = null;
+                var _timer1 = null;
+                var status = true;
+
+
+                prompt.onclick = function(){
+                    clearInterval(_timer);
+                    if(status){
+                        _timer = setInterval(function(){
+                            doMove(add_list[num % add_list_length],"bottom",10,300);
+                            doMove(shadow,"width",10,1000);
+                            opacity_tab(add_list[num % add_list_length],0.08,0);                          
+                            opacity_tab(shadow,0.1,1);                       
+                            
+                            num++;
+                            if(num === add_list_length){
+                                clearInterval(_timer);
+                                num = 0;   
+                                status = false;      
+                                if(!status){
+                                    _timer1 = setInterval(function(){
+                                        doMove(add_list[num % add_list_length],"bottom",100,0);
+                                        opacity_tab(add_list[num % add_list_length],0.05,1);
+                                        opacity_tab(shadow,0.05,0);
+                                        num++;
+                                        if(num === add_list_length){
+                                            clearInterval(_timer1);
+                                            num = 0;   
+                                            status = true;                                          
+                                            let _timer = setTimeout(function(){                                             
+                                                shadow.style.width = 0;
+                                                clearTimeout(_timer);  
+                                            },500);
+                                                                                      
+                                        }
+                                    },50);
+                                }                                      
+                            }
+                        },120);
+                    }else{
+                        
+                    }
+                    
+                }
+
+                //元素透明度变化(obj:操作对象;changeNum:变化速率;targetNum:目标值;endFn:回调函数)
+                function opacity_tab(obj,changeNum,targetNum,endFn){
+                    changeNum = parseFloat(getStyle(obj,"opacity")) > targetNum ? -changeNum : changeNum;
+                    clearInterval(obj.opacity_timer);
+                    obj.opacity_timer = setInterval(function(){
+                        let objOpacity = parseFloat(getStyle(obj,"opacity")) + changeNum;
+                        //透明度变化
+                        if(objOpacity > targetNum && changeNum > 0 || objOpacity < targetNum && changeNum < 0){
+                            objOpacity = targetNum;
+                        }
+                        obj.style.opacity = objOpacity;
+                        if(objOpacity === targetNum){
+                            clearInterval(obj.opacity_timer);
+                            endFn && endFn();
+                        }
+
+                    },25);
+                }
+
+                //元素移动
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.timer);
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        //值变化
+                        if ( speed > target && moveNum > 0 ||  speed < target && moveNum < 0  ) {
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+
+                //样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>
