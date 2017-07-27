@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自动轮播</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                position:absolute;
+                top:55%;
+                left:50%;
+                width:1000px;
+                height:500px;
+                background-color:#fff;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            .content{
+                overflow:hidden;
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1000px;
+                height:500px;
+                background-image:url(images/Nier_10.jpg);
+                background-size:cover;
+                background-position:center center;
+                background-color:#fff;
+                border-radius:3px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            .title{
+                display:block;
+                position:absolute;
+                top:-80px;
+                left:50%;
+                font-size:50px;
+                font-weight:700;
+                text-align:center;
+                white-space:nowrap;
+                color:#fff;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            ul.carousel_ul{
+                position:absolute;
+                top:0;
+                left:0;
+                width:5000px;
+                height:500px;
+            }
+            li.carousel_li{
+                float:left;
+                margin-left:0;
+                width:1000px;
+                height:500px;
+                background-image:url(images/Nier_9.jpg);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+            }
+            .shadow{
+                position:absolute;
+                bottom:0;
+                left:0;
+                padding:20px;
+                width:960px;
+                height:100px;
+                color:#fff;
+                background-color:rgba(51, 51, 51, .5);
+            }
+            .shadow h4{
+                font-size:22px;
+                font-weight:700;
+                line-height:22px;
+                white-space:nowrap;              
+            }
+            .shadow p{
+                margin-top:10px;
+                font-size:16px;
+                line-height:25px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <h3 class="title">NieR:Automata</h3>   
+            <div class="content" id="content">           
+                <ul class="carousel_ul" id="carousel_ul"></ul>   
+                <div class="shadow" id="shadow">
+                    <h4>尼尔：机械纪元</h4>
+                    <p>《尼尔：机械纪元》是由史克威尔艾尼克斯与白金工作室双方联合开发的M级动作冒险游戏，为《尼尔：人工生命》与《尼尔：型态》续作</p>
+                </div>  
+            </div>
+        </div>   
+            
+        <script type="text/javascript">           
+            window.onload = function(){
+                var carousel_ul = document.getElementById("carousel_ul");
+                var carousel_li = carousel_ul.getElementsByTagName("li");        
+                var shadow = document.getElementById("shadow"); 
+                var shadow_content = shadow.getElementsByTagName("p")[0];
+                var shadow_height = parseInt(getStyle(shadow,"height"));       
+                var imgUrl = ["Nier_9.jpg","Nier_10.jpg","Nier_11.jpg","Nier_12.jpg","Nier_13.jpg"];
+                var imgUrl_length = imgUrl.length;                
+                var tabNum = 0;
+                var contentNum = 1;
+                var str = "";
+                var tab_statue = true;
+                var shadow_num = 0;
+                var _timer = null;
+                var _timer_2 = null;
+                
+                for(let i = 0;i < imgUrl_length;i++){
+                    str += `<li class="carousel_li" style="background-image:url(images/${imgUrl[i]})"></li>`;
+                }
+                carousel_ul.innerHTML = str;
+                var carousel_li_width = parseInt(getStyle(carousel_li[0],"width"));
+
+                var imgContent = ["《尼尔：机械纪元》是由史克威尔艾尼克斯与白金工作室双方联合开发的M级动作冒险游戏，为《尼尔：人工生命》与《尼尔：型态》续作",
+                "《尼尔：机械纪元》于2016年12月22日在日本地区开放发售预订，由Square Enix发行[1]  。该作Demo于2016年12月22日登陆北美和欧洲市场（上线PS4平台），完整版在2017年2月23日于日本首发，登陆的平台为PlayStation 4，PC端延迟至3月17日发售[2]  ，并上架Steam商店[3]  [4]  ，其中，中国区于4月27日解锁",
+                "《尼尔：机械纪元》游戏官方于2017年5月31日宣布，至该日游戏全球出货量和数字版销量已突破150万，游戏的PC版中，中国区销量占到了12.68%，国区玩家比例则是19.94%，均排在第二位，国区玩家约在7万人左右",
+                "《尼尔：机械纪元》故事发生在和前作相同的世界，重新设立一个全新的故事剧情，和1代几乎没有关联[6]  ，剧情与《龙背上的骑兵3》有关联",
+                "《尼尔：机械纪元》故事背景设定在遥远的未来，讲述在被摧毁的地球上由人类的敌人外星人派来的机械生命体与人类方派出的人造人“尤尔哈”部队进行战斗的故事"];
+
+                function carousel_tab_wait(){
+
+                    //clearInterval(_timer);                    
+                        if(tabNum == -(carousel_li_width * (imgUrl_length - 1))){
+                            tab_statue = false;
+                        }else if(tabNum == 0){
+                            tab_statue = true;
+                        }
+                        if(tab_statue){
+                            tabNum -= carousel_li_width;                      
+                        }else{
+                            tabNum += carousel_li_width;
+                        }
+                        shadow_num = - ( shadow_height + 40 );
+                        doMove(shadow,"bottom",10,shadow_num,40,function(){
+                            shadow_content.innerHTML = imgContent[contentNum % imgUrl_length];
+                            contentNum++;
+                            doMove(shadow,"bottom",10,0,40);
+                        });
+                        doMove(carousel_ul,"left",10,tabNum,10);                      
+                    };
+                  
+                _timer = setInterval(function(){
+                    carousel_tab_wait();
+                },5000);
+                
+
+
+                //元素移动
+                function doMove(obj,attr,moveNum,target,time,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.timer);
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        //值变化
+                        if ( speed > target && moveNum > 0 ||  speed < target && moveNum < 0  ) {
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },time);
+                }
+
+                //样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>
