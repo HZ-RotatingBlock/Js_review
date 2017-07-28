@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>新浪数码频道选项卡</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                position:absolute;
+                top:55%;
+                left:50%;
+                width:1200px;
+                height:500px;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            .nav{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:70px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:70px;
+                color:#fff;
+                background-color:#c03;
+                border-top-left-radius:5px;
+                border-top-right-radius:5px;
+                box-shadow:0 2px 10px #000;
+            }
+            h3.title{
+                position:absolute;
+                top:50%;
+                left:20px;
+                font-size:25;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            ul.tab{
+                position:absolute;
+                bottom:0;
+                left:220px;
+                
+            }
+            li.tab_li{
+                float:left;
+                position:relative;
+                margin-left:-10px;
+                width:120px;
+                height:50px;
+                line-height:50px;
+                color:#c03;
+                background-color:rgba(255, 255, 255, .7);
+                border-top-left-radius:3px;
+                border-top-right-radius:3px;
+                cursor:pointer;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                transform:translateY(-10%);
+                -webkit-transform:translateY(-10%);
+                border-top-right-radius:50%;
+                border-bottom-left-radius:50%;
+                box-shadow:2px 2px 10px #000;
+            }
+            li.tab_li:hover{
+                background-color:#fff;;
+                transform:translateY(0);
+                -webkit-transform:translateY(0);
+                box-shadow:none;
+            }
+            li.tab_li_active{
+                background-color:#fff !important;
+                transform:translateY(0) !important;
+                -webkit-transform:translateY(0) !important;
+                box-shadow:none !important;
+            }
+            .content{
+                position:absolute;
+                top:100px;
+                left:20px;
+                width:1160px;
+                height:380px;
+            }
+            ul.content_ul{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+            }
+            li.content_li{
+                display:none;
+                position:relative;
+                width:100%;
+                height:100%;
+            }
+            .carousel_li_active{
+                display:block !important;
+            }
+            .content_li_leftpart{
+                position:absolute;
+                top:0;
+                left:0;
+                width:300px;
+                height:340px;
+                border-radius:3px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .content_li_leftpart_img{
+                position:absolute;
+                top:0;
+                left:0;
+                width:290px;
+                height:290px;
+                background-image:url(images/Nier_10.jpg);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                border:5px solid #c03;
+                border-radius:3px;
+            }
+            h5.content_li_leftpart_title{
+                position:absolute;
+                bottom:5px;
+                left:50%;
+                padding:0 50px;
+                height:30px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:30px;
+                border-radius:20px;
+                color:#fff;
+                background-color:#c03;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            .carousel{
+                overflow-x:hidden;
+                position:absolute;
+                top:0;
+                left:340px;
+                width:810px;
+                height:355px;
+            }
+            ul.carousel_content{
+                position:absolute;
+                top:0;
+                left:0;
+                width:2400px;
+                height:300px;
+            }
+            li.carousel_content_li{
+                float:left;
+                position:relative;
+                margin-right:25px;
+                width:250px;
+                height:300px;
+                box-shadow:4px 4px 10px #000;
+            }
+            li.carousel_content_li:last-child{margin-right:0;}
+            .carousel_content_li_img{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:200px;
+                background-image:url(images/Nier_1.jpg);
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+            }
+            h5.carousel_content_li_title{
+                position:absolute;
+                top:205px;
+                left:0;
+                width:100%;
+                height:30px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                color:#c03;
+            }
+            p.carousel_content_li_p{
+                overflow:hidden;
+                position:absolute;
+                top:240px;
+                left:0;
+                padding:0 10px;
+                width:calc(100% - 20px);
+                height:50px;
+                font-size:16px;
+                line-height:20px;
+                color:#000;
+                text-overflow:ellipsis;
+            }
+            .carousel_pointer,
+            .carousel_pointer_ul{
+                position:absolute;
+                bottom:0;
+                left:50%;
+                width:80px;
+                height:25px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            li.carousel_pointer_li{
+                float:left;
+                margin-right:10px;
+                width:18px;
+                height:18px;
+                background-color:#fff;
+                border-radius:50%;
+                border:1px solid #c03;
+                cursor:pointer;
+                transition:all .3;
+                -webkit-transition:all .3;
+            }
+            .carousel_pointer_li_active{
+                background-color:#c03 !important;
+            }
+            li.carousel_pointer_li:hover{
+                box-shadow:2px 2px 5px #000;
+            }
+            li.carousel_pointer_li:last-child{
+                margin-right:0;
+            }
+            span.prev,
+            span.next{
+                position:absolute;
+                top:0;
+                width:20px;
+                height:20px;
+                border-radius:3px;
+                font-size:16px;
+                line-height:18px;
+                text-align:center;
+                color:#fff;
+                background-color:#c03;
+                cursor:pointer;
+                transition:all .3;
+                -webkit-transition:all .3;
+            }
+            span.prev:hover{
+                box-shadow:2px 2px 5px #000;
+            }
+            span.next:hover{
+                box-shadow:2px 2px 5px #000;
+            }
+            span.prev{
+                left:-40px;
+            }
+            span.next{
+                right:-40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <!--选项条-->
+            <div class="nav">
+                <h3 class="title">尼尔：机械纪元</h3>
+                <ul class="tab">
+                    <li class="tab_li tab_li_active">选项一</li>
+                    <li class="tab_li">选项二</li>
+                </ul>
+            </div>
+            <!--选项内容-->
+            <div class="content">
+                <ul class="content_ul">
+                    <li class="content_li carousel_li_active">
+                        <!--选项内容左部-->
+                        <div class="content_li_leftpart">
+                            <div class="content_li_leftpart_img"></div>
+                            <h5 class="content_li_leftpart_title">A2</h5>
+                        </div>
+                        <!--选项内容右部-->
+                        <div class="carousel">
+                            <!--轮播主体-->
+                            <ul class="carousel_content">
+                               <li class="carousel_content_li">
+                                   <div class="carousel_content_li_img"></div>
+                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
+                                   <p class="carousel_content_li_p">翻山倒海鸟别户姑获鸟别而通过入户姑获鸟别人替你</p>
+                               </li>
+                                <li class="carousel_content_li">
+                                   <div class="carousel_content_li_img"></div>
+                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
+                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
+                               </li>
+                                <li class="carousel_content_li">
+                                   <div class="carousel_content_li_img"></div>
+                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
+                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
+                               </li>
+                                <li class="carousel_content_li">
+                                   <div class="carousel_content_li_img"></div>
+                                   <h5 class="carousel_content_li_title">666</h5>
+                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
+                               </li>
+                            </ul>
+                            <!--轮播指示器-->
+                            <div class="carousel_pointer">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <ul class="carousel_pointer_ul">
+                                    <li class="carousel_pointer_li carousel_pointer_li_active"></li>
+                                    <li class="carousel_pointer_li"></li>
+                                    <li class="carousel_pointer_li"></li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>   
+            
+        <script type="text/javascript">           
+            window.onload = function(){
+                
+            }
+
+        </script>
+    </body>
+</html>
