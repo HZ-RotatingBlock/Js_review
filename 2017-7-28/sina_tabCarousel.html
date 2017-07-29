@@ -96,7 +96,7 @@
             }
             li.content_li{
                 display:none;
-                position:relative;
+                position:absolute;
                 width:100%;
                 height:100%;
             }
@@ -146,7 +146,7 @@
                 position:absolute;
                 top:0;
                 left:340px;
-                width:810px;
+                width:825px;
                 height:355px;
             }
             ul.carousel_content{
@@ -164,7 +164,6 @@
                 height:300px;
                 box-shadow:4px 4px 10px #000;
             }
-            li.carousel_content_li:last-child{margin-right:0;}
             .carousel_content_li_img{
                 position:absolute;
                 top:0;
@@ -244,13 +243,17 @@
                 color:#fff;
                 background-color:#c03;
                 cursor:pointer;
-                transition:all .3;
-                -webkit-transition:all .3;
+                transition:all .3s;
+                -webkit-transition:all .3s;
             }
             span.prev:hover{
+                transform:scale(1.2);
+                -webkit-transform:scale(1.2);
                 box-shadow:2px 2px 5px #000;
             }
             span.next:hover{
+                transform:scale(1.2);
+                -webkit-transform:scale(1.2);
                 box-shadow:2px 2px 5px #000;
             }
             span.prev{
@@ -283,37 +286,31 @@
                         <!--选项内容右部-->
                         <div class="carousel">
                             <!--轮播主体-->
-                            <ul class="carousel_content">
-                               <li class="carousel_content_li">
-                                   <div class="carousel_content_li_img"></div>
-                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
-                                   <p class="carousel_content_li_p">翻山倒海鸟别户姑获鸟别而通过入户姑获鸟别人替你</p>
-                               </li>
-                                <li class="carousel_content_li">
-                                   <div class="carousel_content_li_img"></div>
-                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
-                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
-                               </li>
-                                <li class="carousel_content_li">
-                                   <div class="carousel_content_li_img"></div>
-                                   <h5 class="carousel_content_li_title">发热本人因有人</h5>
-                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
-                               </li>
-                                <li class="carousel_content_li">
-                                   <div class="carousel_content_li_img"></div>
-                                   <h5 class="carousel_content_li_title">666</h5>
-                                   <p class="carousel_content_li_p">翻山倒海个人和而通过入户姑获鸟别人替你</p>
-                               </li>
-                            </ul>
+                            <ul class="carousel_content"></ul>
                             <!--轮播指示器-->
                             <div class="carousel_pointer">
                                 <span class="prev">&lt;</span>
                                 <span class="next">&gt;</span>
-                                <ul class="carousel_pointer_ul">
-                                    <li class="carousel_pointer_li carousel_pointer_li_active"></li>
-                                    <li class="carousel_pointer_li"></li>
-                                    <li class="carousel_pointer_li"></li>
-                                </ul>
+                                <ul class="carousel_pointer_ul"></ul>
+                            </div>
+                            
+                        </div>
+                    </li>
+                    <li class="content_li">
+                        <!--选项内容左部-->
+                        <div class="content_li_leftpart">
+                            <div class="content_li_leftpart_img"></div>
+                            <h5 class="content_li_leftpart_title">2B</h5>
+                        </div>
+                        <!--选项内容右部-->
+                        <div class="carousel">
+                            <!--轮播主体-->
+                            <ul class="carousel_content"></ul>
+                            <!--轮播指示器-->
+                            <div class="carousel_pointer">
+                                <span class="prev">&lt;</span>
+                                <span class="next">&gt;</span>
+                                <ul class="carousel_pointer_ul"></ul>
                             </div>
                             
                         </div>
@@ -324,7 +321,152 @@
             
         <script type="text/javascript">           
             window.onload = function(){
+                var tab_li = document.getElementsByClassName("tab_li");
+                var tab_li_length = tab_li.length;
+                var content_li  = document.getElementsByClassName("content_li");
+                var content_li_length = content_li.length;
+                var content_li_leftpart_img = document.getElementsByClassName("content_li_leftpart_img");
+                var carousel_content = null;
+                var carousel_content_li = null;
+                var carousel_pointer_ul = null;
+                var carousel_pointer_li = null;
+                var prev_btn = null;
+                var next_btn = null;
+                var tabImgArr = ["Nier_ 10","Nier_11.jpg"];
+                var carouselUrlArr = ["Nier_1.jpg","Nier_2.jpg","Nier_3.jpg","Nier_4.jpg","Nier_5.jpg","Nier_6.jpg","Nier_7.jpg","Nier_8.jpg","Nier_9.jpg"];
+                var carouselUrlArr_2 = ["Nier_10.jpg","Nier_11.jpg","Nier_12.jpg","Nier_13.jpg","Nier_14.jpg"];
+                var carouselLength = carouselUrlArr.length;
+                var carouselLength_2 = carouselUrlArr_2.length;
+                var carouselImgTitle = ["更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育","更换会计与天空教育"];
+                var carouselImgContent = ["而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏，里偶遇与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦","而合同如何已经预亏，里偶遇与口语苦苦","而合同如何已经预亏里偶遇路与口语苦苦"];
+                originFn(0);
                 
+                //选项切换
+                
+                for(let i = 0;i < tab_li_length;i++){
+                    tab_li[i].index = i;
+                    tab_li[i].onmouseover = function(){
+                        originFn(this.index);
+                    }                    
+                }
+                
+                //初始化函数
+                function originFn(index){
+                    carousel_content = document.getElementsByClassName("carousel_content")[index];
+                    carousel_content_li = carousel_content.getElementsByTagName("li");
+                    carousel_pointer_ul = document.getElementsByClassName("carousel_pointer_ul")[index];
+                    carousel_pointer_li = carousel_pointer_ul.getElementsByTagName("li");
+                    prev_btn = document.getElementsByClassName("prev")[index];
+                    next_btn = document.getElementsByClassName("next")[index];
+                    content_li_leftpart_img[index].style.backgroundImage = `url(images/${tabImgArr[index]})`;
+                    var num = 0;
+                    var pointerNum = 0;
+                    var move_status = true;
+                    for(let value of tab_li){
+                        value.className = "tab_li";
+                    }
+                    tab_li[index].className = "tab_li tab_li_active";
+                    for(let i = 0;i < content_li_length;i++){
+                        content_li[i].className = "content_li";
+                    }
+                    content_li[index].className = "content_li carousel_li_active";
+
+                        
+                    //初始化
+                    var str = "";
+                    var pointerStr = "";
+                    var pointerLiNum = null;
+                    if(index == 0){
+                        for(let i = 0;i < carouselLength;i++){
+                            str += `<li class="carousel_content_li">
+                                        <div class="carousel_content_li_img" style="background-image:url(images/${carouselUrlArr[i]})"></div>
+                                        <h5 class="carousel_content_li_title">${carouselImgTitle[i]}</h5>
+                                        <p class="carousel_content_li_p">${carouselImgContent[i]}</p>
+                                    </li>`
+                        }
+                        carousel_content.style.width = carouselLength * 275 + "px";
+                        pointerLiNum = Math.ceil(carouselLength / 3.0);
+                    }else if(index == 1){
+                        for(let i = 0;i < carouselLength_2;i++){
+                            str += `<li class="carousel_content_li">
+                                        <div class="carousel_content_li_img" style="background-image:url(images/${carouselUrlArr_2[i]})"></div>
+                                        <h5 class="carousel_content_li_title">${carouselImgTitle[i]}</h5>
+                                        <p class="carousel_content_li_p">${carouselImgContent[i]}</p>
+                                    </li>`
+                        }
+                        carousel_content.style.width = carouselLength_2 * 275 + "px";
+                        pointerLiNum = Math.ceil(carouselLength_2 / 3.0);
+                    }
+                    
+                    carousel_content.innerHTML = str;        
+                    for(let i = 0;i < pointerLiNum;i++){
+                        pointerStr  += `<li class="carousel_pointer_li"></li>`;
+                    }
+                    carousel_pointer_ul.innerHTML = pointerStr;
+                    carousel_pointer_ul.style.width = pointerLiNum * 20 + (pointerLiNum - 1) * 10 + "px";
+                    carousel_pointer_li[pointerNum].className = "carousel_pointer_li carousel_pointer_li_active";
+                    var target_num = 0;
+                    var carousel = document.getElementsByClassName("carousel")[0];
+                    var carousel_width = parseInt(getStyle(carousel,"width"));
+                        
+                        
+                    //向前轮播
+                    prev_btn.onclick = function(){
+                        if(move_status){
+                            target_num = parseInt(getStyle(carousel_content,"left")) - carousel_width;
+                            if(parseInt(getStyle(carousel_content,"left")) > -(carousel_width * (pointerLiNum - 1))){
+                                pointerNum++;
+                                carouse_tab(carousel_content,pointerNum,carousel_pointer_li,target_num);                          
+                            } 
+                        }                                   
+                    }
+                    //向后轮播
+                    next_btn.onclick = function(){
+                        if(move_status){
+                            target_num = parseInt(getStyle(carousel_content,"left")) + carousel_width;
+                            if(parseInt(getStyle(carousel_content,"left")) < 0){
+                                pointerNum--;                          
+                                carouse_tab(carousel_content,pointerNum,carousel_pointer_li,target_num);                          
+                            }
+                        }                                  
+                    }
+                }
+
+                function carouse_tab(obj,pointerNum,pointer_li,target_num){
+                    move_status = false;
+                    for(let value of pointer_li){
+                        value.className = "carousel_pointer_li";
+                    }
+                    pointer_li[pointerNum].className = "carousel_pointer_li carousel_pointer_li_active";
+                    doMove(obj,"left",10,target_num,function(){
+                        move_status = true;
+                    });
+                }
+
+
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.timer);
+                    
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+
+                        if(speed > target && moveNum > 0 || speed < target && moveNum < 0){
+                            speed = target;
+                        }
+
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },10);
+
+                }
+
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
             }
 
         </script>
