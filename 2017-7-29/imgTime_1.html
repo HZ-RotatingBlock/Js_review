@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>图片时间（升级版）</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                overflow:hidden;
+                position:absolute;
+                top:55%;
+                left:50%;
+                width:976px;
+                height:172px;
+                font-size:60px;
+                font-weight:700;
+                text-align:center;
+                line-height:500px;
+                color:#000;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            ul.time_ul{
+                position:absolute;
+                top:0;
+                left:50%;
+                width:976px;
+                height:344px;
+                background-color:#fff;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            li.time_li{
+                float:left;
+                position:relative;
+                margin-top:0;
+                margin-left:0;
+                width:122px;
+                height:344px;
+            }
+            li.colon{
+                height:172px !important;
+            }
+            img{
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <ul class="time_ul" id="time_ul">
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+                <li class="time_li colon">
+                    <img class="colon_img" src="images/colon_1.JPG" alt="colon"/>
+                </li>
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+                <li class="time_li colon">
+                    <img class="colon_img" src="images/colon_1.JPG" alt="colon"/>
+                </li>
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+                <li class="time_li time_change_li">
+                    <img class="time_li_num_top" src="images/0.JPG" alt="time_num">
+                    <img class="time_li_num_bottom" src="images/1.JPG" alt="time_num"/>
+                </li>
+
+            </ul>   
+        </div>
+            
+        <script type="text/javascript">           
+            window.onload = function(){
+                var main = document.getElementById("main");
+                var aImage = document.getElementsByClassName("time_num");
+                var time_change_li = document.getElementsByClassName("time_change_li");
+                var time_li_num_top = document.getElementsByClassName("time_li_num_top");
+                var time_li_num_bottom = document.getElementsByClassName("time_li_num_bottom");
+                var numLength = time_li_num_top.length;
+                var colon = document.getElementsByClassName("colon_img");
+                var colon_status = true;
+
+                //初始化
+                fnTime(time_li_num_top);
+                fnTime(time_li_num_bottom);
+                var timeChange = setInterval(function(){
+                    fnTime(time_li_num_bottom);
+                    for(let i = 0;i < numLength;i++){
+                        if(time_li_num_top[i].src != time_li_num_bottom[i].src){
+                            doMove(time_change_li[i],"top",10,-172,function(){
+                                fnTime(time_li_num_top);
+                                doMove(time_change_li[i],"top",172,0);
+                            });
+                        }
+                    }
+                },1000);
+                
+
+                //冒号变化
+                var timer_colon = setInterval(function(){
+                    if(colon_status){
+                        for(let value of colon){
+                            value.src = "images/colon_2.jpg";
+                        }
+                        colon_status = false;
+                    }else{
+                        for(let value of colon){
+                            value.src = "images/colon_1.jpg";
+                        }
+                        colon_status = true;
+                    }
+                },500);
+                //时间函数
+                function fnTime(obj){
+                    let myTime = new Date();
+                    let myHours = myTime.getHours();
+                    let myMinutes = myTime.getMinutes();
+                    let mySeconds = myTime.getSeconds();
+                    let str = timeNumTab(myHours) + timeNumTab(myMinutes) + timeNumTab(mySeconds);
+                    let strLength =str.length;
+                    for(let i = 0;i < strLength;i++){
+                        obj[i].src = `images/${str.charAt(i)}.jpg`;
+                    }
+                }
+                function timeNumTab(n){
+                    return n < 10 ? "0" + n : "" + n;
+                }
+                //移动函数                                    
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.timer);
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        if(speed > target && moveNum > 0 || speed < target && moveNum < 0){
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed === target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //样式获取函数
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>

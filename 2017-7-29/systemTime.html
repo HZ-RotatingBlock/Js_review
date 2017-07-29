@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>系统时间应用</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                position:absolute;
+                top:55%;
+                left:50%;
+                width:1200px;
+                height:500px;
+                font-size:60px;
+                font-weight:700;
+                text-align:center;
+                line-height:500px;
+                color:#000;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+
+        </div>
+            
+        <script type="text/javascript">           
+            window.onload = function(){
+                var main = document.getElementById("main");
+
+                fnTime();
+                setInterval(fnTime,1000);
+                function fnTime(){
+                    var myTime = new Date();
+                    var iYear = myTime.getFullYear();
+                    var iMonth = myTime.getMonth() + 1;
+                    var iDate = myTime.getDate();
+                    var iWeek = myTime.getDay();
+                    var iHours = myTime.getHours();
+                    var iMinutes = myTime.getMinutes();
+                    var iSeconds= myTime.getSeconds();
+
+                    switch(iWeek){
+                        case 0:iWeek = "星期日";break;
+                        case 1:iWeek = "星期一";break;
+                        case 2:iWeek = "星期二";break;
+                        case 3:iWeek = "星期三";break;
+                        case 4:iWeek = "星期四";break;
+                        case 5:iWeek = "星期五";break;
+                        case 6:iWeek = "星期六";break;
+                    }
+                    var time = `${iYear}年 ${toTwo(iMonth)}月 ${toTwo(iDate)}日 ${iWeek} ${toTwo(iHours)}时 ${toTwo(iMinutes)}分 ${toTwo(iSeconds)}秒`;
+                    main.innerHTML = time;
+                    function toTwo(n){
+                        return n < 10 ? "0" + n : n;
+                    }
+                }
+
+                
+                
+            }
+
+        </script>
+    </body>
+</html>
