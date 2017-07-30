@@ -1,0 +1,482 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>商城限时抢购功能</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                overflow:hidden;
+                position:absolute;
+                top:5%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:600px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-color:#eee;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            .goods{
+                position:relative;
+                margin:0 auto;
+                margin-top:20px;
+                width:1180px;
+                height:auto;
+                min-height:340px;
+                background-color:#eee;
+            }
+            h3.goods_title{
+                display:block;
+                margin-top:0;
+                margin-left:0;
+                width:100%;
+                height:40px;
+                font-size:25px;
+                font-weight:700;
+                text-align:left;
+                line-height:20px;
+                color:#c03;
+                border-bottom:2px solid #c03;
+            }
+            ul.goods_ul{
+                margin-top:20px;
+                margin-left:0;
+                width:100%;
+                height:340px;
+            }
+            li.goods_li{
+                float:left;
+                position:relative;
+                margin-right:20px;
+                width:220px;
+                height:340px;
+                background-image:url(images/goodsShelves.png);
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-position:center center;
+                box-shadow:2px 2px 10px #000;
+                border-radius:3px;
+                transition:all 3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            li.goods_li:hover{
+                transform:translateY(-2%);
+                -webkit-transform:translateY(-2%);
+                box-shadow:4px 4px 10px #000;
+            }
+            li.goods_li:last-child{margin-right:0;}
+            .goods_li_panel{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+                background-color:#fff;
+                border-radius:3px;
+            }
+            input.finish_time{
+                position:absolute;
+                top:5px;
+                left:5px;
+                width:150px;
+                height:18px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:18px;
+                color:#000;
+                border:1px solid #c03;
+                border-radius:3px;
+            }
+            .confirm{
+                position:absolute;
+                top:5px;
+                right:5px;
+                width:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:20px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+                cursor:pointer;
+                transition:all 3s;
+                -webkit-transition:all .3s;
+            }
+            .confirm:hover{box-shadow:2px 2px 5px #000;}
+            .remain{
+                margin-top:30px;
+                margin-left:0;
+                width:100%;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:20px;
+                color:rgba(0, 0, 0, .5);
+            }
+            img.goods_img{
+                display:block;
+                margin:0 auto;
+                margin-top:5px;
+                width:90%;
+                height:auto;
+            }
+            .goods_content{
+                display:block;
+                margin:0 auto;
+                margin-top:5px;
+                width:90%;
+                font-size:14px;
+                font-weight:500;
+                line-height:20px;
+                color:rgba(0, 0, 0, 1);
+            }
+            .goods_price{
+                position:relative;
+                margin:0 auto;
+                margin-top:5px;
+                width:90%;
+                font-size:14px;
+                font-weight:700;
+                line-height:20px;
+                color:rgba(0, 0, 0, .5);
+            }
+            .goods_price span{
+                display:inline-block;
+                font-size:16px;
+            }
+            .goods_price_line{
+                display:inline-block;
+                font-size:20px;
+                font-weight:700;
+                color:#c03;
+            }
+            .list{
+                position:relative;
+                margin:0 auto;
+                margin-top:50px;
+                width:1180px;
+            }
+            .list_header{
+                margin:0 auto;
+                margin-top:0;
+                width:1180px;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+            }
+            .list_header span{
+                float:left;
+                margin-left:0;
+                width:25%;
+                height:100%;
+            }
+            .list_header span.list_goodsimg{
+                width:50%;
+            }
+            ul.list_goods{
+                margin:0 auto;
+                margin-top:5px;
+                width:1180px;
+                height:auto;
+            }
+            li.list_goods_li{
+                position:relative;
+                margin-top:10px;
+                width:calc(100% - 4px);
+                height:150px;
+                background-color:#fff;
+                border:2px solid #c03;
+                border-radius:3px;
+            }
+            li.list_goods_li span{
+                overflow:hidden;
+                float:left;
+                margin-left:0;
+                width:25%;
+                height:100%;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:150px;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                color:#c03;
+            }
+            li.list_goods_li .list_goodsimgdiv{
+                float:left;
+                position:relative;
+                width:50%;
+                height:150px;
+            }
+            img.list_goodsimg{
+                position:absolute;
+                top:0;
+                left:50%;
+                width:auto;
+                height:100%;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            .price_total{
+                position:relative;
+                margin-top:20px;
+                font-size:22px;
+                font-weight:700;
+                color:#000;
+            }
+            .price_total strong{color:#c03;}
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <!--抢购列表-->
+            <div class="goods">
+                <h3 class="goods_title">限购时间</h3>
+                <ul class="goods_ul" id="goods_ul">
+                    <li class="goods_li">
+                        <div class="goods_li_panel">
+                            <input type="text" value="July 30,2017 20:21:59" class="finish_time"/>
+                            <div class="confirm">确定</div>
+                            <p class="remain">剩余00天00时00分00秒</p>
+                            <img src="images/1.ico" alt="商品图片" class="goods_img"/>
+                            <div class="goods_content">限时抢购Nier:Automata初回限定版只要359元</div>
+                            <div class="goods_price">
+                                <span>抢购价：</span>
+                                <div class="goods_price_line">￥<strong class="goods_price_num">359.00</strong></div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="goods_li">
+                        <div class="goods_li_panel">
+                            <input type="text" value="July 30,2017 20:21:30" class="finish_time"/>
+                            <div class="confirm">确定</div>
+                            <p class="remain">剩余00天00时00分00秒</p>
+                            <img src="images/2.ico" alt="商品图片" class="goods_img"/>
+                            <div class="goods_content">限时抢购Nier:Automata初回限定版只要459元</div>
+                            <div class="goods_price">
+                                <span>抢购价：</span>
+                                <div class="goods_price_line">￥<strong class="goods_price_num">459.00</strong></div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="goods_li">
+                        <div class="goods_li_panel">
+                            <input type="text" value="July 30,2017 20:17:59" class="finish_time"/>
+                            <div class="confirm">确定</div>
+                            <p class="remain">剩余00天00时00分00秒</p>
+                            <img src="images/3.ico" alt="商品图片" class="goods_img"/>
+                            <div class="goods_content">限时抢购Nier:Automata初回限定版只要559元</div>
+                            <div class="goods_price">
+                                <span>抢购价：</span>
+                                <div class="goods_price_line">￥<strong class="goods_price_num">559.00</strong></div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="goods_li">
+                        <div class="goods_li_panel">
+                            <input type="text" value="July 30,2017 20:22:30" class="finish_time"/>
+                            <div class="confirm">确定</div>
+                            <p class="remain">剩余00天00时00分00秒</p>
+                            <img src="images/4.ico" alt="商品图片" class="goods_img"/>
+                            <div class="goods_content">限时抢购Nier:Automata初回限定版只要659元</div>
+                            <div class="goods_price">
+                                <span>抢购价：</span>
+                                <div class="goods_price_line">￥<strong class="goods_price_num">659.00</strong></div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="goods_li">
+                        <div class="goods_li_panel">
+                            <input type="text" value="July 30,2017 20:25:59" class="finish_time"/>
+                            <div class="confirm">确定</div>
+                            <p class="remain">剩余00天00时00分00秒</p>
+                            <img src="images/5.ico" alt="商品图片" class="goods_img"/>
+                            <div class="goods_content">限时抢购Nier:Automata初回限定版只要759元</div>
+                            <div class="goods_price">
+                                <span>抢购价：</span>
+                                <div class="goods_price_line">￥<strong class="goods_price_num">759.00</strong></div>
+                            </div>  
+                        </div>
+                    </li>
+
+                </ul>   
+            </div>
+            <!--商品列表-->
+            <div class="list">
+                <div class="list_header">
+                    <span class="list_goodsname">商品名称</span>
+                    <span class="list_goodsprice">商品价格</span>
+                    <span class="list_goodsimg">商品图片</span>
+                </div>  
+                <ul class="list_goods" id="list_goods">
+                    <!-- <li class="list_goods_li">
+                        <span class="list_goodsname">限时抢购Nier:Automata初回限定版只要359元</span>
+                        <span class="list_goodsprice">359.00</span>
+                        <div class="list_goodsimgdiv">
+                            <img src="images/1.ico" alt="商品图片" class="list_goodsimg"/>
+                        </div>                       
+                    </li> -->
+                </ul>
+                <div class="price_total">
+                    总价：<strong id="price_total_num">00.00</strong>&nbsp;元
+                </div>
+            </div>  
+        </div>
+            
+        <script type="text/javascript">   
+            window.onload = function(){
+                //抢购列表
+                var goods_ul = document.getElementById("goods_ul");
+                var goods_li = goods_ul.getElementsByTagName("li");
+                var goods_li_lenght = goods_li.length;
+                var goods_li_panel = document.getElementsByClassName("goods_li_panel");
+                var finish_time = document.getElementsByClassName("finish_time");
+                var confirm = document.getElementsByClassName("confirm");
+                var remain = document.getElementsByClassName("remain");
+                var goods_img = document.getElementsByClassName("goods_img");
+                var goods_content = document.getElementsByClassName("goods_content");
+                var goods_price_num = document.getElementsByClassName("goods_price_num");
+                //商品列表
+                var list_goods = document.getElementById("list_goods");
+                var list_goodsname = document.getElementsByClassName("list_goodsname");
+                var list_goodsprice = document.getElementsByClassName("list_goodsprice");
+                var list_goodsimg = document.getElementsByClassName("list_goodsimg");
+                var price_total_num = document.getElementById("price_total_num");
+                //公有
+                var iNow = null;
+                var goodsTotal = 0; 
+                
+                
+                
+                for(let i = 0;i < goods_li_lenght;i++){
+                    confirm[i].onclick = function(){
+                        var _this = this;
+                        _this.finishTimer = null;
+                        countDown(finish_time[i],_this,remain[i],function(){
+                            if(remain[i].innerHTML == "剩余0天0时0分0秒"){
+                                shake(goods_li_panel[i],"left",20,function(){
+                                    doMove(goods_li_panel[i],"top",2,200);
+                                    opacity_tab(goods_li_panel[i],0.01,0,function(){
+                                        list_goods.innerHTML += `<li class="list_goods_li">
+                                                                    <span class="list_goodsname">${goods_content[i].innerHTML}</span>
+                                                                    <span class="list_goodsprice">${goods_price_num[i].innerHTML}</span>
+                                                                    <div class="list_goodsimgdiv">
+                                                                        <img src="${goods_img[i].src}" alt="商品图片" class="list_goodsimg"/>
+                                                                    </div>                       
+                                                                </li>`;                                     
+                                        goodsTotal += parseFloat(goods_price_num[i].innerHTML);
+                                        price_total_num.innerHTML = goodsTotal;
+                                    });
+                                    
+                                });
+                            }
+                        });
+                        
+                    }
+
+                }
+
+
+
+
+
+                //时间函数
+                function countDown(finishTimeObj,clickObj,displayObj,endFn){
+                    let iNew = new Date(finishTimeObj.value);
+                    clearInterval(clickObj.finishTimer);
+                    clickObj.finishTimer = setInterval(function(){
+                        let result = 0;
+                        let str = "";
+                        iNow = new Date();
+                        //毫秒=>秒
+                        result = Math.floor((iNew - iNow) / 1000);
+                        if(result >= 0){
+                            str = "剩余" + Math.floor(result / 86400) + "天" + Math.floor(result % 86400 / 3600) + "时" + Math.floor(result % 36400 % 3600 / 60) + "分" + result % 60 + "秒";
+                            displayObj.innerHTML = str;
+                            endFn && endFn();
+                        }else{
+                            clearInterval(clickObj.finishTimer);
+                        }
+                    },1000);
+                }
+                //透明度变化函数
+                function opacity_tab(obj,changeNum,targetNum,endFn){
+                    changeNum = parseFloat(getStyle(obj,"opacity")) > targetNum ? -changeNum : changeNum;
+                    clearInterval(obj.opacity_timer);
+                    obj.opacity_timer = setInterval(function(){
+                        let objOpacity = parseFloat(getStyle(obj,"opacity")) + changeNum;
+                        //透明度变化
+                        if(objOpacity > targetNum && changeNum > 0 || objOpacity < targetNum && changeNum < 0){
+                            objOpacity = targetNum;
+                        }
+                        obj.style.opacity = objOpacity;
+                        if(objOpacity === targetNum){
+                            clearInterval(obj.opacity_timer);
+                            endFn && endFn();
+                        }
+                    },10); 
+                }  
+                //抖动函数
+                function shake(obj,attr,shakeNum,endFn){
+                    let shakeArr = [];
+                    let pos = parseInt(getStyle(obj,attr));
+                    let timer = null;
+                    let num = 0;
+                    for(let i = shakeNum;i > 0;i--){
+                        shakeArr.push(i,-i);
+                    }
+                    shakeArr.push(0);
+                    let shakeArrLength = shakeArr.length;
+                    clearInterval(obj.shakeTimer);
+                    obj.shakeTimer = setInterval(function(){
+                        obj.style[attr] = pos + shakeArr[num % shakeArrLength] + "px";
+                        num++;
+                        if(num === shakeArrLength){
+                            clearInterval(obj.shakeTimer);
+                            endFn && endFn();
+                        }
+                    },10);
+
+                }
+                //元素移动函数
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.timer);
+                    obj.timer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        if(speed > target && moveNum > 0 || speed < target && moveNum < 0){
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.timer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //元素样式获取函数
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+
+        </script>
+    </body>
+</html>
