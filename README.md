@@ -54,6 +54,8 @@
 ## 2017-7-29
 * imgTime_0:[图片时间（简易版）](https://hz-rotatingblock.github.io/Js_review/2017-7-29/imgTime_0.html)
 * imgTime_1:[图片时间（升级版）](https://hz-rotatingblock.github.io/Js_review/2017-7-29/imgTime_1.html)
+## 2017-7-30
+* shoppingCountDown:[商域限时抢购功能](https://hz-rotatingblock.github.io/Js_review/2017-7-30/shoppingCountDown.html)
 
 
 
