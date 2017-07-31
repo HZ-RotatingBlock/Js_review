@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>字符串操作应用1(文本内容收缩展开显示)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                overflow:hidden;
+                position:absolute;
+                top:5%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:500px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-color:#eee;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            p{  
+                padding:25px;
+                color:#fff;
+                background-color:#c03;
+                border:20px solid rgba(51, 51, 51, .9);
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <p>
+                <span>《尼尔：机械纪元》故事背景设定在遥远的未来，讲述在被摧毁的地球上由人类的敌人外星人派来的机械生命体与人类方派出的人造人“尤尔哈”部队进行战斗的故事;<br/>外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战。这场战争将会成为打开未知奥秘的关键
+                </span>......<a href="javascript:;">>>收缩</a>
+            </p>
+        </div>
+            
+        <script type="text/javascript">   
+  
+            window.onload = function(){
+                var main = document.getElementById("main");
+                var oP = document.getElementsByTagName('p')[0];
+                var oSpan = document.getElementsByTagName('span')[0];
+                var oA = document.getElementsByTagName('a')[0];
+                var str = oSpan.innerHTML;
+                var pStatus = true;
+
+                oA.onclick = function(){             
+                    if(pStatus){
+                        oSpan.innerHTML = str.substring(0,str.indexOf("外星人突然入侵"));
+                        oA.innerHTML = ">>展开";
+                        pStatus = false;
+                    }else{
+                        oSpan.innerHTML = str;
+                        oA.innerHTML = ">>收缩";
+                        pStatus = true;
+                    }
+                    
+                }
+            }
+
+        </script>
+    </body>
+</html>
