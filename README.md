@@ -62,6 +62,8 @@
 * stringOperate3:[字符串操作应用3(文本关键词查询高亮显示)](https://hz-rotatingblock.github.io/Js_review/2017-7-31/stringOperate3.html)
 * stringOperate4:[字符串操作应用4(文本关键词替换)](https://hz-rotatingblock.github.io/Js_review/2017-7-31/stringOperate4.html)
 * searchAndReplace:[文本关键词查找及替换功能](https://hz-rotatingblock.github.io/Js_review/2017-7-31/searchAndReplace.html)
+## 2017-8-01
+* textCarry:[文字搬运工](https://hz-rotatingblock.github.io/Js_review/2017-8-01/textCarry.html)
 
 
  
