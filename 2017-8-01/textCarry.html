@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>文字搬运工</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:30%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_4.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            .left_content,
+            .right_content{
+                position:absolute;
+                top:10px;
+                padding:10px;
+                width:460px;
+                height:385px;
+                font-size:18px;
+                font-weight:700;
+                line-height:22px;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:rgba(255, 255, 255, .8);
+                border:10px solid #333;
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .left_content{
+                left:10px;    
+            }
+            .right_content{
+                right:10px;   
+            }
+            h3.title,
+            .operate_btn,
+            .progress,
+            .progress_ul,
+            .logo{
+                position:absolute;               
+                left:50%;
+                font-size:35px;
+                font-weight:700;
+                text-align:center;              
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            img.logo{
+                top:-180px;
+                width:120px;
+                height:120px;
+            }
+            h3.title{
+                top:-60px;
+                font-style:italic;
+                color:#fff;
+            }
+            .operate_btn{
+                top:15px;
+                width:150px;
+                height:50px;
+                font-size:20px;
+                line-height:50px;
+                color:#fff;
+                background-color:rgba(204, 0, 51, .7);
+                border-radius:5px;
+                transition:all .3s;
+                -webkit-transition:all .3s;               
+                cursor:pointer;
+            }
+            .operate_btn_active{
+                animation:operate_btn_animation 2s alternate infinite;
+            }
+            .operate_btn:hover{
+                background-color:rgba(204, 0, 51, 1);
+                box-shadow:2px 2px 10px #000;
+            }
+            @keyframes operate_btn_animation{
+                50%{
+                    background-color:rgba(204, 0, 51, 1);
+                    box-shadow:0 0 20px rgba(204, 0, 51, 1);
+                }
+            }
+            .progress{
+                top:75px;
+                font-size:25px;
+                font-weight:500;
+                color:#fff;
+            }
+            ul.progress_ul{
+                opacity:0;
+                top:125px;
+                width:115px;
+                height:20px;
+            }
+            li.progress_li{
+                float:left;
+                margin-right:5px;
+                width:10px;
+                height:20px;
+                background-color:rgba(51, 51, 51, .7);
+                border-radius:3px;
+            }
+            li.progress_li_active{
+                background-color:rgba(204, 0, 51, 1);
+            }
+            li.progress_li:last-child{margin-right:0;}
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <h3 class="title">Nier:Automata</h3>
+            <div class="operate_btn" id="operate_btn">将文字右移</div>
+            <span class="progress" id="progress">0/0</span>
+            <img src="images/7.ico" class="logo" alt="logo"/>
+            <ul class="progress_ul" id="progress_ul">
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+                <li class="progress_li"></li>
+            </ul>
+            <textarea class="left_content" id="left_content">《尼尔：机械纪元》故事背景设定在遥远的未来，讲述在被摧毁的地球上由人类的敌人外星人派来的机械生命体与人类方派出的人造人“尤尔哈”部队进行战斗的故事;外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战。这场战争将会成为打开未知奥秘的关键
+            </textarea>
+            <textarea class="right_content" id="right_content"></textarea>
+
+        </div>
+            
+        <script type="text/javascript">   
+            window.onload = function(){
+                var operate_btn = document.getElementById("operate_btn");
+                var progress = document.getElementById("progress");
+                var progress_ul = document.getElementById("progress_ul");
+                var progress_li = document.getElementsByClassName("progress_li");
+                var progress_li_length = progress_li.length;
+                var left_content = document.getElementById("left_content");
+                var right_content = document.getElementById("right_content");               
+                var middle_ele = "";
+                var progressNum = 0;
+
+                operate_btn.onclick = function(){
+                    right_content.value = "";
+                    var contentLength = left_content.value.length;
+                    progress.innerHTML = `${progressNum}/${contentLength}`;
+                    operate_btn.className = "operate_btn operate_btn_active";
+                    opacityTab(progress_ul,0.01,1);
+                    var timer = setInterval(function(){
+                        //进度变化
+                        progressNum++;
+                        progress.innerHTML = `${progressNum}/${contentLength}`;
+                        //内容截取
+                        right_content.value += left_content.value.substring(0,1);
+                        left_content.value = left_content.value.substring(1);
+                        for(let value of progress_li){
+                            value.style.backgroundColor = "rgba(51, 51, 51, .7)";
+                        }
+                        progress_li[progressNum % progress_li_length].style.backgroundColor = "rgba(204, 0, 51, 1)";
+                        if(progressNum == contentLength){
+                            opacityTab(progress_ul,0.01,0);
+                            operate_btn.className = "operate_btn";
+                            clearInterval(timer);
+                            progressNum = 0;
+                        }
+                        
+                    },50);
+                    
+                }
+
+                                         
+
+                //元素透明度变化
+                function opacityTab(obj,changeNum,targetNum,endFn){
+                    changeNum = parseFloat(getStyle(obj,"opacity")) > targetNum ? -changeNum : changeNum;
+                    clearInterval(obj.opacityTimer);
+                    obj.opacityTimer = setInterval(function(){
+                        let speed = parseFloat(getStyle(obj,"opacity")) + changeNum;
+                        if(speed > targetNum && changeNum > 0 || speed < targetNum && changeNum < 0){
+                            speed = targetNum;
+                        }
+                        obj.style.opacity = speed;
+                        if(speed == targetNum){
+                            clearInterval(obj.opacityTimer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //元素样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyls[attr] : window.getComputedStyle(obj)[attr];
+                }                        
+            }
+
+        </script>
+    </body>
+</html>
