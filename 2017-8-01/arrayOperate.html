@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>数组操作</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:30%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_4.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+ 
+
+        </div>
+            
+        <script type="text/javascript">   
+            window.onload = function(){
+                //pop()去掉数组最后一位，返回被去除的数组
+                //shift()去掉数组第一位，返回被去除的数组
+                //unshift()向数组第一位之前添加内容，返回新数组长度
+                //push(),向输入组后一位之后添加新的内容，返回新数组长度
+                //splice(),向指定位置删除或添加数组内容,返回被删除的值
+                var arr = [1,2,3,2,25,5,4,3,2];
+                for(let i = 0;i < arr.length;i++){
+                    for(let j = i + 1;j < arr.length;j++){
+                        if(arr[i] == arr[j]){
+                            arr.splice(j,1);
+                            //j--与j++抵消防止溢出
+                            j--;
+                        }
+                    }
+                }
+                alert(arr);
+            }
+
+        </script>
+    </body>
+</html>

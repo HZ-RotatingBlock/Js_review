@@ -160,32 +160,43 @@
                 var right_content = document.getElementById("right_content");               
                 var middle_ele = "";
                 var progressNum = 0;
+                var carryStatus = true;
 
                 operate_btn.onclick = function(){
-                    right_content.value = "";
-                    var contentLength = left_content.value.length;
-                    progress.innerHTML = `${progressNum}/${contentLength}`;
-                    operate_btn.className = "operate_btn operate_btn_active";
-                    opacityTab(progress_ul,0.01,1);
-                    var timer = setInterval(function(){
-                        //进度变化
-                        progressNum++;
-                        progress.innerHTML = `${progressNum}/${contentLength}`;
-                        //内容截取
-                        right_content.value += left_content.value.substring(0,1);
-                        left_content.value = left_content.value.substring(1);
-                        for(let value of progress_li){
-                            value.style.backgroundColor = "rgba(51, 51, 51, .7)";
+                    if(carryStatus){
+                        if(left_content.value.length != 0){
+                            carryStatus = false;
+                            right_content.value = "";
+                            var contentLength = left_content.value.length;
+                            progress.innerHTML = `${progressNum}/${contentLength}`;
+                            operate_btn.className = "operate_btn operate_btn_active";
+                            opacityTab(progress_ul,0.01,1);
+                            var timer = setInterval(function(){
+                                //进度变化
+                                progressNum++;
+                                progress.innerHTML = `${progressNum}/${contentLength}`;
+                                //内容截取
+                                right_content.value += left_content.value.substring(0,1);
+                                left_content.value = left_content.value.substring(1);
+                                for(let value of progress_li){
+                                    value.style.backgroundColor = "rgba(51, 51, 51, .7)";
+                                }
+                                progress_li[progressNum % progress_li_length].style.backgroundColor = "rgba(204, 0, 51, 1)";
+                                if(progressNum == contentLength){
+                                    opacityTab(progress_ul,0.01,0);
+                                    operate_btn.className = "operate_btn";
+                                    clearInterval(timer);
+                                    progressNum = 0;
+                                    carryStatus = true;
+                                }
+                                
+                            },50);
+                        }else{
+                            alert("输入点东西吧~")
                         }
-                        progress_li[progressNum % progress_li_length].style.backgroundColor = "rgba(204, 0, 51, 1)";
-                        if(progressNum == contentLength){
-                            opacityTab(progress_ul,0.01,0);
-                            operate_btn.className = "operate_btn";
-                            clearInterval(timer);
-                            progressNum = 0;
-                        }
-                        
-                    },50);
+                    }
+                    
+                    
                     
                 }
 

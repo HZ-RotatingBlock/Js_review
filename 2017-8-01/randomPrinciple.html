@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>随机数及随机公式推理</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:30%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_4.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+ 
+
+        </div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                //Math.round(Math.random());随机取0和1;
+                //Math.round(Math.random() * 10),取0到10之间的整数
+                //取5-10之间的随机数Math.round(Math.random() * 5 + 5)
+                //取 x ~ y 之间的随机数：Math.round(Math.random() * (y - x) + x);
+                //取 1 ~ x之间的数：Math.ceil(Math.random() * x);
+
+                //77-108
+                alert(Math.round(Math.random() * 31 + 77)); 
+
+            }
+        </script>
+    </body>
+</html>
