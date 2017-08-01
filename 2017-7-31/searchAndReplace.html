@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>字符串操作应用4(文本关键词替换)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;background-color:#333;}
+            .main{
+                position:absolute;
+                top:5%;
+                left:50%;
+                padding-bottom:50px;
+                width:1000px;
+                height:auto;
+                min-height:320px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_10.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            .spred{
+                position:absolute;
+                top:0;
+                right:-120px;
+                width:100px;
+                height:100px;
+                font-size:18px;
+                font-weight:700;
+                text-align:center;
+                line-height:100px;
+                color:#c03;
+                border-radius:50%;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+                box-shadow:4px 4px 10px #000;
+            }
+            .spred:hover .spred_li:last-child{
+                top:130%;
+            }
+            .spred:hover .spred_ul{
+                opacity:1;
+                top:110%;
+            }
+            .spred h3{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100px;
+                height:100px;
+                border-radius:50%;
+                background-color:#fff;
+                border:2px solid #c03;
+                border-radius:50%;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                box-shadow:4px 4px 10px #000;
+                cursor:pointer;
+            }
+            .spred h3:hover{
+                font-size:22px;
+                color:#fff;
+                background-color:#c03;
+                border:2px solid #fff;
+                transform:scale(1.1);
+                -webkit-transform:scale(1.1);
+            }
+            ul.spred_ul{
+                opacity:0;
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:100px;
+                height:100px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            li.spred_li{
+                position:absolute;
+                top:50%;
+                left:53%;
+                width:70px;
+                height:70px;
+                line-height:70px;
+                border-radius:50%;
+                background-color:#fff;
+                border:2px solid #c03;
+                border-radius:50%;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+                box-shadow:4px 4px 10px #000;
+            }
+            li.spred_li_active{
+                font-size:20px;
+                color:#fff;
+                background-color:#c03;
+                border:2px solid #fff;
+                transform:translate(-50%,-50%) scale(1.1);
+                -webkit-transform:translate(-50%,-50%) scale(1.1);
+            }
+            li.spred_li:last-child{
+                width:50px;
+                height:50px;
+                line-height:50px;
+            }
+            li.spred_li:hover{
+                font-size:20px;
+                color:#fff;
+                background-color:#c03;
+                border:2px solid #fff;
+                transform:translate(-50%,-50%) scale(1.1);
+                -webkit-transform:translate(-50%,-50%) scale(1.1);
+            }
+            .operate_pannel{
+                position:absolute;
+                bottom:-180px;
+                left:50%;
+                width:1000px;
+                height:150px;
+                border:2px solid #c03;
+                background-color:#fff;
+                border-radius:3px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }
+            ul.operate_tab{
+                margin:0 auto;
+                width:100%;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                color:#c03;
+                background-color:#c03;
+                border-bottom:2px solid #c03;
+            }
+            li.operate_tab_li{
+                float:left;
+                position:relative;
+                margin-top:5px;
+                margin-left:-10px;
+                width:100px;
+                height:40px;
+                line-height:40px;
+                background-color:rgba(255, 255, 255, .6);
+                border-top-right-radius:50%;
+                border-bottom-left-radius:50%;
+                transition:all .2s;
+                -webkit-transition:all .2s;
+                cursor:pointer;
+            }
+            li.operate_tab_li:hover{
+                transform:translateY(18%);
+                -webkit-transform:translateY(18%);
+                background-color:rgba(255, 255, 255, 1);
+            }
+            li.operate_tab_li_active{
+                transform:translateY(18%) !important;
+                -webkit-transform:translateY(18%) !important;
+                background-color:rgba(255, 255, 255, 1) !important;
+                box-shadow:4px 4px 10px #000;
+            }
+            li.operate_tab_li:first-child{margin-left:20px;}
+            ul.operate_part{
+                position:relative;
+                margin:0 auto;
+                margin-top:0;
+                width:95%;
+                height:100px;
+            }
+            li.operate_part_li{
+                display:none;
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100px;
+            }
+            li.operate_part_li_active{
+                display:block !important;
+            }
+            .input_frames,
+            .replace_frames{
+                position:relative;
+                margin-top:22px;
+                margin-left:20px;
+                width:300px;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                line-height:50px;
+                border-radius:3px;
+                border:2px solid #c03;;
+            }
+            .submit{
+                position:relative;
+                margin-top:22px;
+                margin-left:30px;
+                width:100px;
+                height:50px;
+                font-size:20px;
+                font-weight:700;
+                line-height:50px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+                border:none;
+                cursor:pointer;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            .submit:hover{box-shadow:4px 4px 10px #000;}
+            .cancel:hover{box-shadow:4px 4px 10px #000;}
+            p{  
+                position:absolute;
+                padding:25px;
+                height:280px;
+                color:#000;
+                background-color:rgba(255, 255, 255, .6);
+                border:20px solid rgba(51, 51, 51, .9);
+            }
+            .searched{
+                font-size:25px;
+                color:#fff;
+                background-color:#c03;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <p>
+                <span id="content">《尼尔：机械纪元》故事背景设定在遥远的未来，讲述在被摧毁的地球上由人类的敌人外星人派来的机械生命体与人类方派出的人造人“尤尔哈”部队进行战斗的故事;<br/>外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战。这场战争将会成为打开未知奥秘的关键
+                </span>......
+            </p>
+            <div class="spred" id="spred">
+                <h3>展开</h3>
+                <ul class="spred_ul">
+                    <li class="spred_li spred_li_active">查找</li>
+                    <li class="spred_li">替换</li>
+                </ul>   
+            </div>
+            <div class="operate_pannel">
+                <ul class="operate_tab">
+                    <li class="operate_tab_li operate_tab_li_active">查找</li>
+                    <li class="operate_tab_li">替换</li>
+                </ul>
+                <ul class="operate_part">
+                    <li class="operate_part_li operate_part_li_active">
+                        <input class="input_frames" type="text" placeholder="请输入关键词" />
+                        <input id="search" class="submit" type="button" value="查找" />
+                    </li>
+                    <li class="operate_part_li">
+                        <input class="input_frames" type="text" placeholder="请输入关键词" />
+                        <input id="replace_frames" class="replace_frames" type="text" placeholder="请输入替换词" />
+                        <input id="replace" class="submit" type="button" value="替换" />
+                    </li>
+                </ul>   
+            </div>
+        </div>
+            
+        <script type="text/javascript">   
+  
+            window.onload = function(){
+                var content = document.getElementById("content");
+                var inputFrames = document.getElementsByClassName("input_frames");
+                var replaceFrames = document.getElementById("replace_frames");
+                var search_btn = document.getElementById("search");
+                var replace_btn = document.getElementById("replace");
+                var operate_tab_li = document.getElementsByClassName("operate_tab_li");
+                var operate_part_li = document.getElementsByClassName("operate_part_li");
+                var operate_tab_li_length = operate_tab_li.length;
+                var spred_li = document.getElementsByClassName("spred_li");
+                var originalContent = content.innerHTML;
+                
+                
+                //查找功能
+                search_btn.onclick = function(){
+                    let str = inputFrames[0].value;
+                    if(str != ""){
+                        fnReplace(str,str);
+                    }else{
+                        alert("请输入需要查找的关键词！");
+                    }
+                }
+                //替换功能
+                replace_btn.onclick = function(){
+                    let str = inputFrames[1].value;
+                    let replaceStr = replaceFrames.value;
+                    if(str != "" && replaceFrames.value != ""){
+                        if(confirm("确定替换吗？")){
+                            fnReplace(str,replaceStr);
+                        }
+                    }else if(str != "" && replaceFrames.value == ""){
+                        if(confirm("确定删除查询内容吗？")){
+                            fnReplace(str,replaceStr);
+                        }
+                    }else{
+                        alert("请输入需要替换的关键词！");
+                    }
+                }
+                
+                //选项切换
+                for(let i = 0;i < operate_tab_li_length;i++){
+                    operate_tab_li[i].index = i;
+                    spred_li[i].index = i;
+                    operate_tab_li[i].onmouseover = function(){
+                        menuTab();
+                        this.className = "operate_tab_li operate_tab_li_active";
+                        spred_li[this.index].className = "spred_li spred_li_active";
+                        operate_part_li[this.index].className = "operate_part_li operate_part_li_active";
+                    }
+                    spred_li[i].onclick = function(){
+                        menuTab();
+                        this.className = "spred_li spred_li_active";
+                        operate_tab_li[this.index].className = "operate_tab_li operate_tab_li_active";
+                        operate_part_li[this.index].className = "operate_part_li operate_part_li_active";
+                    }
+                }
+                //查找/替换函数
+                function fnReplace(str,replaceStr){
+                    content.innerHTML = content.innerHTML.split('<strong class="searched">').join("").split('</strong>').join("");
+                    content.innerHTML = content.innerHTML.split(`${str}`).join(`<strong class="searched">${replaceStr}</strong>`);
+                    if(content.innerHTML.indexOf("searched") == -1){
+                        alert("没有找到查询词！");
+                    }
+                }
+                //选项初始化
+                function menuTab(){
+                    for(let i = 0;i < operate_tab_li_length;i++){
+                        spred_li[i].className = "spred_li";
+                        operate_tab_li[i].className = "operate_tab_li";
+                        operate_part_li[i].className = "operate_part_li";
+                    }
+                    
+                }
+                
+
+            }
+
+        </script>
+    </body>
+</html>
