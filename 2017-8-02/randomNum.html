@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>随机产生100个从0~1000之间不重复的整数</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:30%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }        
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+            
+   <script type="text/javascript">   
+            //concat数组拼接
+            //reverse()数组内容顺序颠倒
+            window.onload = function(){
+                //随机产生100个从0~1000之间不重复的整数
+                var arr = [];
+                var result = "";
+                var middle_ele = null;
+                for(let i = 0;i < 100;i++){
+                    middle_ele = Math.round(Math.random() * 1000);
+                    if(result.indexOf(middle_ele) === -1){
+                        result += middle_ele + ",";
+                    }else{
+                        i--;
+                    }
+                }
+                arr = result.split(",");
+                //arr长度100后面的元素舍弃
+                arr.length = 100;
+                
+                //检验
+                for(let i  = 0;i < arr.length;i++){
+                    for(let j = i + 1;j < arr.length;j++){
+                        if(arr[i] == arr[j]){
+                            arr.splice(j,1);
+                            j--;
+                            alert("有重复数字！");
+                        }else{
+                            alert("验证通过!");
+                        }
+                    }
+                }
+                
+            }
+        </script>
+    </body>
+</html>

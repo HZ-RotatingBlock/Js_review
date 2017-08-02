@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:30%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }        
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                function randomProduce(n,x,y){
+                    let status = y - x > n ? true : false;
+                    var arr = [];
+                    var result = "";
+                    var middleEle = null;
+                    if(status){                      
+                        for(let i = 0;i < n;i++){
+                            middleEle = Math.round(Math.random() * (y - x) + x);
+                            if(result.indexOf(middleEle) == -1){
+                                result += middleEle + ",";
+                            }else{
+                                i = i > 0 ? i-1 : 0;
+                            }                        
+                        }
+                        arr = result.split(",");
+                        arr.length = n;
+                        return arr;
+                    }else{
+                        alert("生成区间没有大于生成数！不符合生成规则！");
+                    }
+                }
+                var testArr = randomProduce(100,0,1000);
+                alert(testArr);
+                alert(testArr.length);
+                //检验
+                let testStatus = false;
+                for(let i  = 0;i < testArr.length;i++){
+                    for(let j = i + 1;j < testArr.length;j++){
+                        if(testArr[i] == testArr[j]){
+                            testArr.splice(j,1);
+                            j--;
+                            alert("有重复数字！");
+                            break;
+                        }
+                    }
+                }
+                
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>元素排序</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:550px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }   
+            .btn{
+                position:absolute;
+                top:30px;
+                left:50%;
+                width:100px;
+                height:40px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:40px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:3px;
+                transition:all .2s;
+                -webkit-transition:all .2s;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:2px 2px 5px #000;
+                cursor:pointer;
+            }    
+            .btn:hover{
+                box-shadow:4px 4px 10px #000;
+            } 
+            .asc_btn{left:40%;}
+            .desc_btn{left:50%;}
+            .chaos_btn{left:60%;}
+            ul.list{
+                position:absolute;
+                top:100px;
+                left:50%;
+                width:1120px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            li.list_li{
+                float:left;
+                position:relative;
+                margin-top:20px;
+                margin-right:20px;
+                width:265px;
+                height:200px;
+                color:#c03;
+                background-color:#fff;
+                border-radius:5px;
+                box-shadow:2px 2px 5px #000;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            li.list_li:nth-child(4n){margin-right:0;}
+            .list_li_img{
+                overflow:hidden;
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:160px;
+                border-radius:5px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            img.list_li_imgsrc{
+                position:absolute;
+                top:50%;
+                left:50%;
+                height:100%;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            li.list_li:hover{
+                transform:translateY(-5%);
+                -webkit-transform:translateY(-5%);
+                box-shadow:4px 4px 20px #000;
+            }           
+            h4.list_li_title{
+                position:absolute;
+                bottom:10px;
+                left:50%;
+                white-space:nowrap;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <div class="asc_btn btn" id="asc_btn">从小到大</div>
+            <div class="desc_btn btn" id="desc_btn">从大到小</div>
+            <div class="chaos_btn btn" id="chaos_btn">打乱排序</div>
+            <ul class="list" id="list">
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_4.jpg">
+                    </div>
+                    <h4 class="list_li_title">1-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_5.jpg">
+                    </div>
+                    <h4 class="list_li_title">2-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_6.jpg">
+                    </div>
+                    <h4 class="list_li_title">3-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_7.jpg">
+                    </div>
+                    <h4 class="list_li_title">4-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_8.jpg">
+                    </div>
+                    <h4 class="list_li_title">5-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_9.jpg">
+                    </div>
+                    <h4 class="list_li_title">6-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_10.jpg">
+                    </div>
+                    <h4 class="list_li_title">7-Nier:Automata</h4>
+                </li>
+                <li class="list_li">
+                    <div class="list_li_img">
+                        <img class="list_li_imgsrc" src="images/Nier_11.jpg">
+                    </div>
+                    <h4 class="list_li_title">8-Nier:Automata</h4>
+                </li>
+            </ul>
+        </div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                var asc_btn = document.getElementById("asc_btn");
+                var desc_btn = document.getElementById("desc_btn");
+                var chaos_btn = document.getElementById("chaos_btn");
+                var list = document.getElementById("list")
+                var list_li = list.getElementsByTagName("li");
+                var list_li_title = document.getElementsByClassName("list_li_title");
+                var list_li_length = list_li.length;
+                var li_title_arr = [];
+                for(let i = 0;i < list_li_length;i++){
+                    li_title_arr.push(parseInt(list_li_title[i].innerHTML));
+                }
+                asc_btn.onclick = function(){
+                    let temArr = asc(li_title_arr);
+                    liResort(temArr);
+                }
+                desc_btn.onclick = function(){
+                    let temArr = desc(li_title_arr);
+                    liResort(temArr);
+                }
+                chaos_btn.onclick = function(){
+                    let temArr = chaos(li_title_arr);
+                    liResort(temArr);
+                }
+                //重排
+                function liResort(temArr){
+                    let str = "";
+                    for(let i = 0;i < list_li_length;i++){
+                        str += `<li class="list_li">
+                                    <div class="list_li_img">
+                                        <img class="list_li_imgsrc" src="images/Nier_${temArr[i] + 4}.jpg">
+                                    </div>
+                                    <h4 class="list_li_title">${temArr[i]}-Nier:Automata</h4>
+                                </li>`
+                    }
+                    list.innerHTML = str;
+                }
+                //升序;从小到大
+                function asc(arr){
+                    return arr.sort(function(a,b){
+                        return parseInt(a) - parseInt(b);
+                    });             
+                }
+                //降序;从大到小
+                function desc(arr){
+                    return arr.sort(function(a,b){
+                        return parseInt(b) - parseInt(a);
+                    });
+                }
+                //乱序;打乱排序
+                function chaos(arr){
+                    return arr.sort(function(a,b){
+                        return Math.random() - 0.5;
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
