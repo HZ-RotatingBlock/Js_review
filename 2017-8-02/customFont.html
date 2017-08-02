@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自定义字体形状</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:500px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_16.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px; 
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }  
+            .title,
+            .info_content,
+            .font_select,
+            .input_frames,
+            .confirm{
+                display:block;
+                margin:0 auto;
+                margin-top:20px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                line-height:24px;
+                border-radius:3px;
+            }
+            h3.title{
+                margin-bottom:40px;
+                width:400px;
+                font-size:35px;
+                text-align:center;
+                white-space:nowrap;
+                color:#fff;
+            }
+            .info_content,
+            .input_frames{
+                width:90%;
+                min-height:200px;
+                background-color:rgba(255, 255, 255, .6);
+                border:2px solid #333;
+            }
+            .font_select{
+                width:200px;
+                height:40px;
+                line-height:40px;
+                border:2px solid #333;
+                cursor:pointer;
+            }
+            .confirm{
+                width:120px;
+                height:40px;
+                text-align:center;
+                line-height:40px;
+                color:#fff;
+                background-color:#333;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                box-shadow:2px 2px 5px #333;
+                cursor:pointer;
+            }
+            .confirm:hover{
+                box-shadow:4px 4px 10px #333;
+                transform:scale(1.1);
+                -webkit-transform:scale(1.1);
+            }
+            span.fontStyle{
+                display:inline-block;
+                width:30px;
+                height:30px;
+                font-size:20px;
+                font-weight:700;
+                color:#333;
+                line-height:30px;
+                background-repeat:no-repeat;
+                background-size:100%;
+                background-position:center center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <h3 class="title">自定义字体形状</h3>
+            <div class="info_content" id="info_content"></div>
+            <select class="font_select" id="font_select">
+                <option class="font_option">字体一</option>
+                <option class="font_option">字体二</option>
+                <option class="font_option">字体三</option>
+                <option class="font_option" selected="selected">字体四</option>
+                <option class="font_option">字体五</option>
+                <option class="font_option">字体六</option>
+            </select>
+            <textarea class="input_frames" id="input_frames" placeholder="请输入内容"></textarea>
+            <div class="confirm" id="confirm">确定</div>
+        </div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                var info_content = document.getElementById("info_content");
+                var font_select = document.getElementById("font_select");
+                var input_frames = document.getElementById("input_frames");
+                var font_option = document.getElementsByClassName("font_option");
+                var confirm_btn = document.getElementById("confirm");
+                var fontUrl = ["font_1.png","font_2.png","font_3.png","font_4.png","font_5.png","font_6.png"];
+                var fontUrlLength = fontUrl.length;
+                //索引值
+                for(let i = 0;i < fontUrlLength;i++){
+                    font_option[i].index = i;
+                }
+
+                confirm_btn.onclick = function(){
+                    let str = input_frames.value; 
+                    if(str != ""){
+                        let num = 0;
+                        let arr = str.split("");
+                        let arrLength = arr.length;
+                        num = font_select.selectedIndex;
+
+                        for(let i = 0;i < arrLength;i++){
+                            arr[i] = `<span class="fontStyle" style="font-size:${Math.round(Math.random() * 6 + 16)}px;background-image:url(images/${fontUrl[num]})">${arr[i]}</span>`
+                        }
+                        info_content.innerHTML += arr.join("") + "<br/>";
+                    }else{
+                        alert("输入点什么吧");
+                    }               
+                    
+                }
+
+            }
+        </script>
+    </body>
+</html>
