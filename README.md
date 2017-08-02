@@ -4,6 +4,7 @@
 * arrayIndexOf:为数组编写indexOf()的方法
 * randomNum:随机生成n个x~y之间不重复的整数写法
 * imageSort:[元素排序](https://hz-rotatingblock.github.io/Js_review/2017-8-02/imageSort.html)
+* randomImgScroll:[随机图片滚动](https://hz-rotatingblock.github.io/Js_review/2017-8-02/randomImgScroll.html)
 ## 2017-8-01
 * textCarry:[文字搬运工](https://hz-rotatingblock.github.io/Js_review/2017-8-01/textCarry.html)
 ## 2017-7-31
