@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-03
+* expressionRemove：[表情消除小游戏](https://hz-rotatingblock.github.io/Js_review/2017-8-03/expressionRemove.html)
 ## 2017-8-02
 * arrayIndexOf:为数组编写indexOf()的方法
 * randomNum:随机生成n个x~y之间不重复的整数写法
