@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>表情消除小游戏</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                padding-bottom:50px;
+                width:1300px;
+                height:auto;
+                min-height:450px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-image:url(images/Nier_23.jpg);
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                box-shadow:4px 4px 10px #000;
+            } 
+            h3.title,
+            span.play_introduction{
+                display:block;
+                margin:0 auto;
+                margin-top:10px;
+                font-size:35px;
+                font-weight:700;
+                text-align:center;
+                white-space:nowrap;
+                color:#333;
+            }     
+            span.play_introduction{
+                font-size:20px;
+                font-weight:500;
+            }  
+            .btn{
+                display:block;
+                margin:0 auto;
+                margin-top:10px;
+                width:150px;
+                height:40px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:40px;
+                color:#fff;
+                background-color:#333;
+                border-radius:3px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .btn:hover{
+                box-shadow:2px 2px 5px #000;
+            }
+            .btn_playing{
+                animation:playing 2s infinite alternate;
+            }
+            @keyframes playing{
+                50%{
+                    background-color:rgba(204, 0, 51, .8);
+                    box-shadow:0 0 20px #c03;
+                }
+            }
+            .pointer_display{
+                position:absolute;
+                top:160px;
+                left:10px;
+                width:100px;
+                height:100px;
+                background-color:rgba(255, 255, 255, .8);
+                border:1px solid #333;
+                border-radius:3px;
+                box-shadow:2px 2px 5px #333;
+            }
+            span.score,
+            span.lose{
+                display:block;
+                margin-top:17px;
+                font-size:18px;
+                font-weight:700;
+                text-align:center;
+            }
+            span.score strong,
+            span.lose strong{
+                vertical-align:middle;
+            }
+            .play_pannel{
+                overflow:hidden;
+                position:relative;
+                margin:0 auto;
+                margin-top:20px;
+                width:1040px;
+                height:450px;
+                background-color:rgba(255, 255, 255, .8);
+                box-shadow:4px 4px 10px #333;
+                border:1px solid #333;
+                border-radius:5px;
+            }
+            img.expression{
+                position:absolute;
+                top:530px;
+                left:10px;
+                width:100px;
+                height:auto;
+            }
+            img.down_expression{
+                position:absolute;
+                top:-40px;
+                left:0;
+                width:40px;
+                height:40px;
+                border-radius:50%;
+                /*animation:img_rotate linear 2s infinite;*/
+                cursor:pointer;
+            }
+            img.down_expression:hover{
+                transform:scale(1.2);
+                -webkit-transform:scale(1.2);
+            }
+            @keyframes img_rotate{
+                0%{
+                    transform:rotateZ(0deg);
+                }
+                100%{
+                    transform:rotateZ(360deg);
+                }
+            }
+            .shadowdiv{
+                opacity:0;
+                display:none;
+                position:fixed;
+                width:100%;
+                height:100%;
+                background-color:rgba(51, 51, 51, .5);
+            }
+            .playresult{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:600px;
+                height:500px;
+                background-color:rgba(255, 255, 255, 1);
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            h3.playresult_title,
+            .level_img,
+            .level_span,
+            .confirm_btn{
+                display:block;
+                margin:0 auto;
+                margin-top:20px;
+                font-size:50px;
+                font-weight:700;
+                text-align:center;
+                white-space:nowrap;
+                color:#c03;
+            }
+            img.level_img{ 
+                margin-top:-10px;
+                width:300px;
+            }
+            span.level_span{
+                margin-top:10px;
+                font-size:25px;
+            }
+            .confirm_btn{
+                width:120px;
+                height:40px;
+                font-size:20px;
+                line-height:40px;
+                color:#fff;
+                background-color:#c03;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                border-radius:3px;
+                box-shadow:2px 2px 5px #000;
+                cursor:pointer;
+            }
+            .confirm_btn:hover{
+                box-shadow:4px 4px 10px #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <h3 class="title">表情消除小游戏</h3>
+            <span class="play_introduction">点击"开始游戏，随机掉落表情，点中表情消除即可得分！</span>
+            <div class="btn" id="btn">开始游戏</div>
+            <div class="pointer_display">
+                <span class="score">得分：<strong id="score">0</strong>&nbsp;分</span>
+                <span class="lose">失分：<strong id="lose">0</strong>&nbsp;分</span>
+            </div>
+            <img class="expression" id="expression" src="images/left0.png" alt="表情"/>
+            <div class="play_pannel" id="play_pannel">
+                <img class="down_expression" id="down_expression" src="images/1.png" alt="掉落表情">
+            </div>
+        </div>
+        <div class="shadowdiv" id="shadowdiv">
+            <div class="playresult">
+                <h3 class="playresult_title">游戏结束</h3>
+                <img class="level_img" id="level_img" src="images/level_1.png" alt="段位">
+                <span class="level_span">恭喜您获得<strong class="level_name" id="level_name">白银</strong>徽章</span>
+                <div class="confirm_btn" id="confirm_btn">确定</div>
+            </h3>
+        </div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                var starBtn = document.getElementById("btn");
+                var score = document.getElementById("score");
+                var lose = document.getElementById("lose");
+                var expression = document.getElementById("expression");
+                var down_expression = document.getElementById("down_expression");
+                var play_pannel = document.getElementById("play_pannel");
+                var confirm_btn = document.getElementById("confirm_btn");
+                var level_img = document.getElementById("level_img");
+                var level_name = document.getElementById("level_name");
+                var shadowdiv = document.getElementById("shadowdiv");
+                var expressionUrl = ["1.png","2.png","3.png","4.png","5.png","6.png","7.png"];
+                var speed = 1;
+                var play_status = true;
+                //开始游戏
+                starBtn.onclick = function(){
+                    if(play_status){
+                        expression.src="images/left0.png";
+                        btn.innerHTML = "游戏进行中...";
+                        btn.className = "btn btn_playing";
+                        play_status = false; 
+                        boom(speed); 
+                    }
+                                
+                }
+                //元素掉落
+                function boom(speed){
+                    doMove(down_expression,"top",1 + speed,430,function(){
+                        if(parseInt(lose.innerHTML) < 10){
+                            down_expression.src = `images/${expressionUrl[Math.round(Math.random() * 6)]}`;
+                            down_expression.style.left = `${Math.round(Math.random() * 1000)}px`;
+                            down_expression.style.top = "-40px";
+                            expression.src="images/left1.png";
+                            shake(play_pannel,"top",20,function(){
+                                expression.src="images/left0.png";
+                            });                            
+                            lose.innerHTML ++;
+                        }else{
+                            //结果显示
+                            shadowdiv.style.display = "block";
+                            opacityTab(shadowdiv,0.05,1);
+                            if(parseInt(score.innerHTML) >= 0 && parseInt(score.innerHTML) <= 10){
+                                level_img.src="images/level_1.png";
+                                level_name.innerHTML = "白银";        
+                            }else if(parseInt(score.innerHTML) > 10 && parseInt(score.innerHTML) <= 20){
+                                level_img.src="images/level_2.png";
+                                level_name.innerHTML = "黄金";    
+                            }else if(parseInt(score.innerHTML) > 20){
+                                level_img.src="images/level_3.png";
+                                level_name.innerHTML = "铂金";
+                            }
+                            clearInterval(down_expression.moveTimer);                          
+                            down_expression.style.top = "-40px";
+                            expression.src="images/left1.png";
+                            lose.innerHTML = 0;
+                            score.innerHTML = 0;
+                            shake(play_pannel,"top",20);
+                            btn.innerHTML = "开始游戏";
+                            btn.className = "btn";
+                            play_status = true;
+                            speed = 0;
+                        }                      
+                    }); 
+                }
+                
+                //下落元素点击
+                down_expression.onclick = function(){
+                    let _this = this;
+                    clearInterval(down_expression.moveTimer);   
+                    down_expression.src = "images/0.png";               
+                    expression.src = "images/left2.png";
+                    shake(_this,"left",20,function(){
+                        expression.src = "images/left0.png";
+                        down_expression.src = `images/${expressionUrl[Math.round(Math.random() * 6)]}`;
+                        down_expression.style.left = `${Math.round(Math.random() * 1000)}px`;
+                        down_expression.style.top = "-40px";                   
+                        score.innerHTML++;
+                        boom(speed);
+                        speed = speed + 0.08;
+                    });
+                }
+                //结果点击
+                confirm_btn.onclick = function(){
+                    opacityTab(shadowdiv,0.05,0,function(){
+                        shadowdiv.style.display = "none";
+                    });
+                    
+                }
+
+                //元素透明度变化
+                function opacityTab(obj,changeNum,targetNum,endFn){
+                    changeNum = parseFloat(getStyle(obj,"opacity")) > targetNum ? -changeNum : changeNum;
+                    clearInterval(obj.opacity_timer);
+                    obj.opacity_timer = setInterval(function(){
+                        let objOpacity = parseFloat(getStyle(obj,"opacity")) + changeNum;
+                        //透明度变化
+                        if(objOpacity > targetNum && changeNum > 0 || objOpacity < targetNum && changeNum < 0){
+                            objOpacity = targetNum;
+                        }
+                        obj.style.opacity = objOpacity;
+                        if(objOpacity === targetNum){
+                            clearInterval(obj.opacity_timer);
+                            endFn && endFn();
+                        }
+                    },25);
+                }
+                //元素抖动
+                function shake(obj,attr,shakeNum,endFn){
+                    let shakeArr = [];
+                    let objStyle = parseInt(getStyle(obj,attr));
+                    let num = 0;
+                    for(let i = shakeNum;i >= 0;i--){
+                        shakeArr.push(i,-i);
+                    }
+                    shakeArr.push(0);
+                    let shakeArrLength = shakeArr.length;
+                    clearInterval(obj.shakeTimer)
+                    obj.shakeTimer = setInterval(function(){
+                        obj.style[attr] = objStyle + shakeArr[num % shakeArrLength] + "px";
+                        num++;
+                        if(num == shakeArrLength){
+                            clearInterval(obj.shakeTimer);
+                            endFn & endFn();
+                        }
+                    },25);
+                }
+                //元素运动
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.moveTimer);
+                    obj.moveTimer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        if(speed > target && moveNum > 0 || speed < target && moveNum < 0){
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            //clearInterval(obj.moveTimer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //元素样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+        </script>
+    </body>
+</html>
