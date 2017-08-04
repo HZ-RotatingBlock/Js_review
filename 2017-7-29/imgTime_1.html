@@ -119,12 +119,12 @@
                 var timer_colon = setInterval(function(){
                     if(colon_status){
                         for(let value of colon){
-                            value.setAttribute("src","images/colon_2.jpg");
+                            value.setAttribute("src","https://raw.githubusercontent.com/HZ-RotatingBlock/Js_review/master/2017-7-29/images/colon_2.jpg");
                         }
                         colon_status = false;
                     }else{
                         for(let value of colon){
-                            value.setAttribute("src","images/colon_1.jpg");
+                            value.setAttribute("src","https://raw.githubusercontent.com/HZ-RotatingBlock/Js_review/master/2017-7-29/images/colon_1.jpg");
                         }
                         colon_status = true;
                     }
@@ -138,7 +138,7 @@
                     str = timeNumTab(myHours) + timeNumTab(myMinutes) + timeNumTab(mySeconds);
                     let strLength =str.length;
                     for(let i = 0;i < strLength;i++){
-                        obj[i].setAttribute("src",`images/${str.charAt(i)}.jpg`);
+                        obj[i].setAttribute("src",`https://raw.githubusercontent.com/HZ-RotatingBlock/Js_review/master/2017-7-29/images/${str.charAt(i)}.jpg`);
                     }
                 }
                 function timeNumTab(n){
