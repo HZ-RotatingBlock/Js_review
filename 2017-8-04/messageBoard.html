@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>简易留言板</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:20px;
+                left:50%;
+                margin-bottom:50px;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:500px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:24px;
+                color:#000;
+                background-color:#e4e1dc;
+                background-image:url(images/Nier_6.jpg);
+                background-repeat:no-repeat;
+                background-size:100%;
+                background-position:top center;
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            .title{
+                margin:0 auto;
+                margin-top:30px;
+                font-size:35px;
+                color:#333;
+            }
+            .input_frames{
+                margin:0 auto;
+                margin-top:30px;
+                padding:20px;
+                width:760px;
+                height:260px;
+                font-size:20px;
+                font-weight:700;
+                line-height:24px;
+                background-color:rgba(255, 255, 255, .5);
+                border:2px solid #333;
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .submit{
+                opacity:.9;
+                display:block;
+                margin:0 auto;
+                margin-top:20px;
+                width:120px;
+                height:40px;           
+                font-size:22px;
+                line-height:40px;
+                color:#fff;
+                background-color:#333;
+                border-radius:20px;
+                box-shadow:2px 2px 5px #333;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .submit:hover{
+                opacity:1;
+                box-shadow:0 0 5px #fff;
+            }
+            .return{
+                margin:0 auto;
+                margin-top:20px;
+                padding:20px;
+                padding-bottom:50px;
+                width:760px;
+                height:auto;
+                min-height:300px;
+                font-size:20px;
+                line-height:24px;
+                background-color:rgba(255, 255, 255, .5);
+                border-radius:5px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .prompt{
+                display:block;
+            }
+            ul.return_ul{
+                margin:0 auto;
+                margin-top:20px;
+                top:0;
+                left:0;
+                width:95%;
+                height:auto;
+            }
+            li.return_li{
+                opacity:0;
+                position:relative;
+                margin:0 auto;
+                margin-top:25px;
+                width:100%;
+                min-height:80px;
+                height:auto;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                animation:limove 1s forwards;
+            }
+            @keyframes limove{
+                100%{
+                    opacity:1;
+                    transform:translateX(0);
+                    -webkit-transform:translateX(0);
+                }
+            }
+            li.return_li:hover .del_btn{
+                opacity:1;
+                transform:translateX(0);
+                -webkit-transform:translateX(0);
+            }
+            img.reheader{
+                position:absolute;
+                top:0;
+                left:0;
+                width:80px;
+                height:80px;
+                border-radius:50%;
+            }
+            span.trangel{
+                position:absolute;
+                top:20px;
+                left:85px;
+                width:0;
+                height:0;
+                border-top:10px solid transparent;
+                border-right:10px solid rgba(51, 51, 51, .7);
+                border-bottom:10px solid transparent;
+            }
+            .return_li_content{
+                margin-left:95px;
+                padding:20px;
+                width:calc(100% - 180px);
+                font-size:16px;
+                font-weight:500;
+                line-height:22px;
+                text-align:left;
+                color:#fff;
+                background-color:rgba(51, 51, 51, .7);
+                border-radius:10px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .floor{
+                position:absolute;
+                top:80px;
+                left:25px;
+                font-size:16px;
+                color:#333;
+            }
+            .del_btn{
+                opacity:0;
+                position:absolute;
+                top:15px;
+                right:-30px;
+                width:60px;
+                height:30px;
+                font-size:16px;
+                line-height:30px;
+                color:#fff;
+                background-color:#c03;
+                border-radius:5px;
+                box-shadow:0 0 10px #000;
+                transform:translateX(30%);
+                -webkit-transform:translateX(30%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .del_btn:hover{
+                box-shadow:2px 2px 10px #000;
+            }
+        </style>
+    </head>
+    <body>
+         <div class="main" id="main">
+             <h3 class="title">简易留言板</h3>
+            <textarea class="input_frames" id="input_frames" placeholder="在此输入要回复的内容..."></textarea>  
+            <div class="submit" id="submit">提交</div> 
+            <div class="return">
+                <div class="prompt" id="prompt">在这里显示回复内容...</div>
+                <ul class="return_ul" id="return_ul"></ul>
+            </div>
+        </div>  
+        
+            
+        <script type="text/javascript">  
+            window.onload = function(){
+                var input_frames = document.getElementById("input_frames");
+                var submit = document.getElementById("submit");           
+                var prompt = document.getElementById("prompt");
+                var return_ul = document.getElementById("return_ul");
+                var return_li = return_ul.getElementsByTagName("li");
+                var floornum = document.getElementsByClassName("floornum");
+                var reHeaderArrUrl = ["1.ico","2.ico","3.ico","4.ico","5.ico","6.ico","7.ico","8.ico","9.ico"];
+                var num = 0;
+                var objDel = null;
+                var timer = null;
+                //内容提交
+                submit.onclick = function(){
+                    let inputVal = input_frames.value;
+                    let reLiLength = return_li.length;
+                    let reContent = "";
+                    if(inputVal == ""){
+                        alert("回复点什么吧~");
+                    }else{
+                        if(reLiLength >= 0){
+                            prompt.style.display = "none";
+                            reContent = `<li class="return_li">
+                                            <span class="floor"><strong class="floornum">${reLiLength + 1}</strong>楼</span>
+                                            <img class="reheader" src="images/${reHeaderArrUrl[Math.round(Math.random() * 8)]}" alt="header"/>
+                                            <span class="trangel"></span>
+                                            <div class="return_li_content">${inputVal}</div>
+                                            <div class="del_btn">删除</div>
+                                        </li>`;
+                            return_ul.innerHTML += reContent;
+                            //内容删除
+                            var del_btn = document.getElementsByClassName("del_btn");
+                            for(let value of del_btn){                               
+                                value.onclick = function(){                                
+                                    clearTimeout(timer);                              
+                                    reLiLength = return_li.length;
+                                    this.parentNode.remove();
+                                    var floornum = document.getElementsByClassName("floornum");
+                                    for(let i = 0;i < floornum.length;i++){
+                                        floornum[i].innerHTML = i + 1;
+                                    }
+                                    timer = setTimeout(function(){                                      
+                                        if(reLiLength == 1){
+                                            prompt.style.display = "block";
+                                        }
+                                    },1000);
+                                }
+                                
+                            }
+                        }                    
+                    }
+                }
+                
+                
+                
+
+
+            }
+            
+                
+        </script>
+    </body>
+</html>

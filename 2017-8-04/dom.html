@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DOM操作</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#fff;}
+            #tab{
+                text-align:center;
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <table border="1" id="tab">
+            <thead>
+                <th>商品全选<input type="checkbox"></th>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>商品删除</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>    
+        
+            
+  <script type="text/javascript">  
+            //offsetTop：获取元素相对于参照定位的祖先元素定位的top值(Number)
+            //offsetLeft：获取元素相对于参照定位的祖先元素定位的left值(Number)
+            //offsetParent:定位父级,获取元素相对的最接近的进行定位过的祖先元素
+            //getBoundingClientRect():获取某个元素的信息(相对于浏览器视窗),获取的值会根据滚动条变化
+            //不要直接用路径值作为对比（因为每个浏览器路径显示不一），而是使用getAttribute()获取行间属性的路径来比对
+            //clientHeight/clientWidth:不计算边框的元素的高度/宽度;不支持margin,支持padding
+            //offsetHeight/offsetWidth:计算边框的元素的高度/宽度;不支持margin,支持padding
+            //document.documentElement.clientHeight/document.documentElement.clientWidth:可视区宽高
+            //实例让一个不确定宽高的元素居中显示:
+            //左右居中:(document.documentElement.clientWidth - obj.offsetWidth)/2 + "px";
+            //上下居中:(document.documentElement.clientHeight - offsetHeight)/2 + "px";
+            //cloneNode()默认只克隆元素本身，不会克隆该元素下的子节点; 若为cloneNode(true)则连该元素的子元素也克隆，但不会克隆元素本身带有的事件
+            //注意appednChild/insertBefore/replaceChild是将已有的元素移动而不是赋值一份进行操作
+            //table.tHead获取表格头部;table.rows获取行数（一组）;table.tFoot获取表格尾行;table.tBodies获取所有的tBody（组）;row[n].cells[n],获取表格的单元格
+            window.onload = function(){    
+                var aData = [
+                        {
+                            "num":1,
+                            "name":"雪碧",
+                            "price":2.2,
+                            "count":50
+                        },
+                        {
+                            "num":2,
+                            "name":"可乐",
+                            "price":2.7,
+                            "count":60
+                        },
+                        {
+                            "num":3,
+                            "name":"辣条",
+                            "price":3.2,
+                            "count":50
+                        },
+                        {
+                            "num":4,
+                            "name":"泡面",
+                            "price":4.2,
+                            "count":10
+                        },
+                        {
+                            "num":5,
+                            "name":"尖角脆",
+                            "price":0.5,
+                            "count":99
+                        },
+                        {
+                            "num":6,
+                            "name":"红茶",
+                            "price":3.0,
+                            "count":30
+                        },
+                        {
+                            "num":7,
+                            "name":"红茶",
+                            "price":3.0,
+                            "count":30
+                        },
+                        {
+                            "num":8,
+                            "name":"红茶",
+                            "price":3.0,
+                            "count":30
+                        },
+                        {
+                            "num":9,
+                            "name":"红茶",
+                            "price":3.0,
+                            "count":30
+                        }
+                    ];
+                     
+                var aDataLength = aData.length;                 
+                var tab = document.getElementById("tab");
+                var tBody = tab.tBodies[0];
+                //创建tr
+                for(let i = 0;i < aDataLength;i++){
+                    var tr = document.createElement("tr");
+                    if(i % 2){
+                        tr.style.backgroundColor = "yellowgreen";
+                    }else{
+                        tr.style.backgroundColor = "pink";
+                    }
+                    //生成的全选
+                    var td = document.createElement("td");
+                    td.innerHTML = `<input type="checkbox"/>`;
+                    tr.appendChild(td);
+                    var checked = td.children[0];
+                    checked.onclick = function(){
+                        setColor();
+                    }
+                    //生成的数据
+                    for(let attr in aData[i]){
+                        var td = document.createElement("td");
+                        td.innerHTML = aData[i][attr];
+                        tr.appendChild(td);
+                    }
+                    //生成的删除
+                    var td = document.createElement("td");
+                    td.innerHTML = `<a href="javascript:;">删除</a>`;
+                    tr.appendChild(td);
+                    //点击删除
+                    var a = td.children[0];
+                    a.onclick = function(){
+                        tBody.removeChild(this.parentNode.parentNode);
+                        for(let i = 0;i < aChecked.length;i++){
+                            if(i % 2){
+                                aChecked[i].parentNode.parentNode.style.backgroundColor = "yellowgreen";
+                            }else{
+                                aChecked[i].parentNode.parentNode.style.backgroundColor = "pink";
+                            }
+                        }
+                    }
+
+                    tBody.appendChild(tr);
+                }
+                
+                var aChecked = tBody.getElementsByTagName("input");
+                function setColor(){
+                    for(let i = 0;i < aChecked.length;i++){
+                        if(aChecked[i].checked){
+                            aChecked[i].parentNode.parentNode.style.backgroundColor = "yellow";
+                        }else{
+                            if(i % 2){
+                                aChecked[i].parentNode.parentNode.style.backgroundColor = "yellowgreen";
+                            }else{
+                                aChecked[i].parentNode.parentNode.style.backgroundColor = "pink";
+                            }
+                        }
+                    }
+                }
+            
+            }
+                
+        </script>
+    </body>
+</html>
