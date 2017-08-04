@@ -97,6 +97,7 @@
                 var numLength = time_li_num_top.length;
                 var colon = document.getElementsByClassName("colon_img");
                 var colon_status = true;
+                var str = "";
 
                 //初始化
                 fnTime(time_li_num_top);
@@ -104,7 +105,7 @@
                 var timeChange = setInterval(function(){
                     fnTime(time_li_num_bottom);
                     for(let i = 0;i < numLength;i++){
-                        if(time_li_num_top[i].src != time_li_num_bottom[i].src){
+                        if(time_li_num_top[i].getAttribute("src") != time_li_num_bottom[i].getAttribute("src")){
                             doMove(time_change_li[i],"top",10,-172,function(){
                                 fnTime(time_li_num_top);
                                 doMove(time_change_li[i],"top",172,0);
@@ -118,12 +119,12 @@
                 var timer_colon = setInterval(function(){
                     if(colon_status){
                         for(let value of colon){
-                            value.src = "images/colon_2.jpg";
+                            value.setAttribute("src","images/colon_2.jpg");
                         }
                         colon_status = false;
                     }else{
                         for(let value of colon){
-                            value.src = "images/colon_1.jpg";
+                            value.setAttribute("src","images/colon_1.jpg");
                         }
                         colon_status = true;
                     }
@@ -134,10 +135,10 @@
                     let myHours = myTime.getHours();
                     let myMinutes = myTime.getMinutes();
                     let mySeconds = myTime.getSeconds();
-                    let str = timeNumTab(myHours) + timeNumTab(myMinutes) + timeNumTab(mySeconds);
+                    str = timeNumTab(myHours) + timeNumTab(myMinutes) + timeNumTab(mySeconds);
                     let strLength =str.length;
                     for(let i = 0;i < strLength;i++){
-                        obj[i].src = `images/${str.charAt(i)}.jpg`;
+                        obj[i].setAttribute("src",`images/${str.charAt(i)}.jpg`);
                     }
                 }
                 function timeNumTab(n){
