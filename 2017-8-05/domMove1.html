@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DOM元素上下移动(简易版)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:800px;
+                height:600px;
+                background-image:url(images/Nier_25.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            ul.list{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:350px;
+                height:auto;
+                border:2px solid #333;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            li.list_li{
+                position:relative;
+                margin-top:0;
+                width:350px;
+                height:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                background-color:rgba(255, 255, 255, .5);
+                border-bottom:2px solid #333;
+                border-radius:3px;
+                transition:all .2s;
+                -webkit-transition:all .2s;
+                cursor:pointer;
+            }
+            li.list_li:hover{
+                color:#fff;
+                background-color:rgba(51, 51, 51, .8);
+            }
+            .list_li_p,
+            .list_strong{
+                position:absolute;
+                top:50%;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            .list_strong{
+                left:20px;
+            }
+            .list_li_p{
+                left:60px;
+            }
+            
+            .upmove,
+            .downmove{
+                position:absolute;
+                top:50%;
+                width:50px;
+                height:30px;
+                line-height:30px;
+                font-size:16px;
+                color:#fff;
+                background-color:#333;
+                border-radius:3px;
+                box-shadow:2px 2px 5px #000;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            .upmove{
+                right:70px;
+            }
+            .upmove:hover{
+                box-shadow:0 0 10px #fff;
+            }
+            .downmove{
+                right:10px;
+            }
+            .downmove:hover{
+                box-shadow:0 0 10px #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <ul class="list" id="list">
+                <li class="list_li">
+                    <strong class="list_strong">1</strong> 
+                    <p class="list_li_p">我是内容一</p>                   
+                    <div class="upmove">上移</div>
+                    <div class="downmove">下移</div>
+                </li>  
+                <li class="list_li">
+                    <strong class="list_strong">2</strong> 
+                    <p class="list_li_p">我是内容二</p>                   
+                    <div class="upmove">上移</div>
+                    <div class="downmove">下移</div>
+                </li> 
+                <li class="list_li">
+                    <strong class="list_strong">3</strong> 
+                    <p class="list_li_p">我是内容三</p>                   
+                    <div class="upmove">上移</div>
+                    <div class="downmove">下移</div>
+                </li> 
+                <li class="list_li">
+                    <strong class="list_strong">4</strong> 
+                    <p class="list_li_p">我是内容四</p>                   
+                    <div class="upmove">上移</div>
+                    <div class="downmove">下移</div>
+                </li> 
+                <li class="list_li">
+                    <strong class="list_strong">5</strong> 
+                    <p class="list_li_p">我是内容五</p>                   
+                    <div class="upmove">上移</div>
+                    <div class="downmove">下移</div>
+                </li> 
+  
+            </ul>  
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){
+                var list = document.getElementById("list");
+                var list_li = list.getElementsByTagName("li");
+                var upmove_btn = document.getElementsByClassName("upmove");
+                var downmove_btn = document.getElementsByClassName("downmove");
+                var list_li_length = list_li.length;
+                var str = "";
+
+                for(let i = 0;i < list_li_length;i++){
+                    upmove_btn[i].onclick = function(){
+                        if(this.parentNode.previousElementSibling){
+                            list.insertBefore(this.parentNode,this.parentNode.previousElementSibling);
+                        }else{
+                            list.appendChild(this.parentNode);
+                        }                       
+                    }
+                    downmove_btn[i].onclick = function(){
+                        if(this.parentNode.nextElementSibling){
+                            list.insertBefore(this.parentNode.nextElementSibling,this.parentNode);
+                        }else{
+                            list.insertBefore(this.parentNode,list.firstElementChild);
+                        }
+                    }
+                }
+
+            }                               
+        </script>
+    </body>
+</html>
