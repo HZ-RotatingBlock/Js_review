@@ -3,6 +3,8 @@
 ## 2017-8-05
 * domMove1:[DOM元素上下移动(简易版)](https://hz-rotatingblock.github.io/Js_review/2017-8-05/domMove1.html)
 * domMove2:[DOM元素上下移动(拓展版)](https://hz-rotatingblock.github.io/Js_review/2017-8-05/domMove2.html)
+* sort:[dom排序](https://hz-rotatingblock.github.io/Js_review/2017-8-05/sort.html)
+* tips:[Tips提示(控制提示不超出内容区可视范围)](https://hz-rotatingblock.github.io/Js_review/2017-8-05/tips.html)
 ## 2017-8-04
 * messageBoard:[简易留言板](https://hz-rotatingblock.github.io/Js_review/2017-8-04/messageBoard.html)
 ## 2017-8-03
