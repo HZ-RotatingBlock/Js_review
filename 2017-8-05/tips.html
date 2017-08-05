@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tips提示(控制提示不超出内容区可视范围)</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:800px;
+                height:500px;
+                background-image:url(images/Nier_25.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            .content{
+                margin:0 auto;
+                margin-top:1%;
+                padding:30px;
+                width:calc(98% - 60px);
+                height:calc(97% - 60px);
+                font-size:22px;
+                line-height:26px;
+                background-color:rgba(255,255,255,.6);
+                border-radius:5px;
+            }
+            h3.title{
+                margin:0 auto;
+                font-size:30px;
+                font-weight:700;
+                text-align:center;
+                line-height:30px;
+                white-space:nowrap;
+                color:#333;
+            }
+            p.content_p{
+                margin-top:20px;
+            }
+            .strong_a{
+                position:relative;
+                color:#c03;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            .strong_a:hover{
+                text-decoration:underline;
+                color:red;
+            }
+            .tips{
+                position:absolute;
+                bottom:-160px;
+                left:-20px;
+                padding:20px;
+                padding-bottom:40px;
+                width:300px;
+                font-size:16px;
+                line-height:22px;
+                color:#fff;
+                background-color:#6cf;
+                border:2px solid #fff;
+                border-radius:5px;
+                z-index:98;
+            }
+            .trangle_top{
+                display:block;
+                position:absolute;
+                top:-12px;
+                left:30px;
+                width:0;
+                height:0;
+                border-right:12px solid transparent;
+                border-bottom:12px solid #fff;
+                border-left:12px solid transparent;
+            }
+            .trangle_bottom{
+                display:none;
+                position:absolute;
+                bottom:-12px;
+                left:30px;
+                width:0;
+                height:0;
+                border-right:12px solid transparent;
+                border-top:12px solid #fff;
+                border-left:12px solid transparent;
+            }
+            .detail{
+                position:absolute;
+                bottom:10px;
+                right:20px;
+                font-size:16px;
+                font-weight:500;
+                color:#fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <div class="content" id="content">
+                <h3 class="title">尼尔：机械纪元(Nier:Automata)</h3>
+                <p class="content_p">
+                &nbsp;&nbsp;《尼尔：机械纪元》是由<a class="strong_a" href="" title="">史克威尔艾尼克斯</a>与<a class="strong_a" href="" title="">白金工作室</a>双方联合开发的M级动作冒险游戏，为《尼尔：人工生命》与《尼尔：型态》续作。<br/>
+                &nbsp;&nbsp;《尼尔：机械纪元》于2016年12月22日在日本地区开放发售预订，由Square Enix发行。该作Demo于2016年12月22日登陆北美和欧洲市场（上线PS4平台），完整版在2017年2月23日于日本首发，登陆的平台为<a class="strong_a" href="" title="">PlayStation 4</a>，PC端延迟至3月17日发售，并上架<a class="strong_a" href="" title="">Steam</a>商店，其中，中国区于4月27日解锁。<br/>
+                &nbsp;&nbsp;《尼尔：机械纪元》游戏官方于2017年5月31日宣布，至该日游戏全球出货量和数字版销量已突破150万，游戏的PC版中，中国区销量占到了12.68%，国区玩家比例则是19.94%，均排在第二位，国区玩家约在7万人左右。<br/>
+                &nbsp;&nbsp;《尼尔：机械纪元》故事发生在和前作相同的世界，重新设立一个全新的故事剧情，和1代几乎没有关联，剧情与<a class="strong_a" href="" title="">《龙背上的骑兵3》</a>有关联。</p>
+            </div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){
+                var content = document.getElementById("content");
+                var strong_a = document.getElementsByClassName("strong_a");
+                var strong_aLength = strong_a.length;
+                var tipsContent =  {
+                    "tipslist":[
+                        {
+                            "title":"史克威尔艾尼克斯",
+                            "href":"https://baike.baidu.com/item/%E5%8F%B2%E5%85%8B%E5%A8%81%E5%B0%94%E8%89%BE%E5%B0%BC%E5%85%8B%E6%96%AF",
+                            "content":"史克威尔艾尼克斯（株式会社スクウェア・エニックス、（SQUARE ENIX CO., LTD.）），是日本的游戏软件制作开发公司以及发行商。简称是スクエニ（SQEX）"
+                        },
+                        {
+                            "title":"白金工作室",
+                            "href":"https://baike.baidu.com/item/%E7%99%BD%E9%87%91%E5%B7%A5%E4%BD%9C%E5%AE%A4",
+                            "content":"白金工作室（プラチナゲームズ株式会社，Platinum Games Inc.）成立于2006年2月。是由三上真司、神谷英树、稻叶敦志所设立的SEEDS以及三并达也所设立的ODD合并而成，为一间制作家用电子游戏机软件的公司"
+                        },
+                        {
+                            "title":"PlayStation 4",
+                            "href":"https://baike.baidu.com/item/ps4/5619865?fr=aladdin&fromid=8450143&fromtitle=playstation+4",
+                            "content":"PlayStation 4（简称PS4）是索尼电脑娱乐公司（SCE）推出的家用游戏机。是PlayStation游戏机系列的第四代游戏主机，采用AMD Jaguar 8core处理器"
+                        },
+                        {
+                            "title":"Steam",
+                            "href":"https://baike.baidu.com/item/steam/10092959?fr=aladdin",
+                            "content":"Steam平台是Valve公司聘请BitTorrent(BT下载)发明者布拉姆·科恩亲自开发设计的游戏平台。Steam平台目前是一款全球最大的综合性数字发行平台。玩家可以在该平台购买、下载、讨论、上传和分享游戏和软件"
+                        },
+                        {
+                            "title":"《龙背上的骑兵3》",
+                            "href":"https://baike.baidu.com/item/%E9%BE%99%E8%83%8C%E4%B8%8A%E7%9A%84%E9%AA%91%E5%85%B53",
+                            "content":"《龙背上的骑兵3》是由Access Games研发的一款动作角色扮演类游戏，于2013年12月19日在SONY的PS3平台上正式发行"
+                        }
+                    ]
+                }
+
+                for(let i = 0;i < strong_aLength;i++){
+                    strong_a[i].setAttribute("title",`${tipsContent.tipslist[i]["title"]}`);
+                    strong_a[i].setAttribute("href",`${tipsContent.tipslist[i]["href"]}`);
+                    strong_a[i].onmouseover = function(){ 
+                        var tipsSpan = document.createElement("span"); 
+                        tipsSpan.className = "tips";
+                        tipsSpan.innerHTML = `<span class="trangle_top"></span>${tipsContent.tipslist[i]["content"]}<span class="trangle_bottom"></span><span class="detail">详细>></span>`;
+                        this.appendChild(tipsSpan);
+                        tipsSpan.getElementsByClassName("trangle_top")[0].style.left = (this.offsetWidth / 2) + "px";
+                        tipsSpan.getElementsByClassName("trangle_bottom")[0].style.left = (this.offsetWidth / 2) + "px";
+                        if(content.offsetHeight -  this.offsetTop > tipsSpan.offsetHeight){
+                            tipsSpan.getElementsByClassName("trangle_top")[0].style.display = "block";
+                            tipsSpan.getElementsByClassName("trangle_bottom")[0].style.display = "none";
+                            tipsSpan.style.bottom = -tipsSpan.offsetHeight - 10 + "px";
+                        }else{
+                            tipsSpan.getElementsByClassName("trangle_top")[0].style.display = "none";
+                            tipsSpan.getElementsByClassName("trangle_bottom")[0].style.display = "block";
+                            tipsSpan.style.bottom = this.offsetHeight + 10 + "px";
+                        } 
+                        if((tipsSpan.offsetWidth + parseInt(getStyle(tipsSpan,"left"))) > (content.clientWidth - this.offsetLeft)){
+                            //tips超出content可视区部分
+                            var overNum = ((tipsSpan.offsetWidth + parseInt(getStyle(tipsSpan,"left"))) - (content.clientWidth - this.offsetLeft));
+
+                            tipsSpan.style.left = -overNum - 10 + "px";
+                            tipsSpan.getElementsByClassName("trangle_top")[0].style.left = (this.offsetWidth / 2) + overNum +  "px";
+                            tipsSpan.getElementsByClassName("trangle_bottom")[0].style.left = (this.offsetWidth / 2) + overNum +  "px";
+                        }
+                        
+                    }
+                    strong_a[i].onmouseout = function(){
+                        var tipsSpan = this.children[0]; 
+                        this.removeChild(tipsSpan);
+                    }
+                }
+
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+            
+            
+                
+        </script>
+    </body>
+</html>
