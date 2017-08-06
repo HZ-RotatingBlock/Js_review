@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>元素下落</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1300px;
+                height:650px;
+                background-image:url(images/Nier_10.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+            ul.list{
+                position:absolute;
+                top:10px;
+                left:50%;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }
+            li.list_li{
+                position:absolute;
+                top:0;
+                width:80px;
+                height:80px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:80px;
+                color:#fff;
+                background-color:#333;
+                border-radius:5px;
+                box-shadow:2px 2px 10px #000;
+                cursor:pointer
+            }
+             li.list_li:hover{
+                background-color:#c03;
+                box-shadow:0 0 20px #000;
+                transform:scale(1.1);
+                -webkit-transform:scale(1.1);
+            } 
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <ul class="list" id="list">
+                <li class="list_li">1</li>
+                <li class="list_li">2</li>
+                <li class="list_li">3</li>
+                <li class="list_li">4</li>
+                <li class="list_li">5</li>
+                <li class="list_li">6</li>
+                <li class="list_li">7</li>
+                <li class="list_li">8</li>
+                <li class="list_li">9</li>
+                <li class="list_li">10</li>
+                <li class="list_li">11</li>
+                <li class="list_li">12</li>
+                <li class="list_li">13</li>
+                <li class="list_li">14</li>
+            </ul>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){
+                var list = document.getElementById("list");
+                var list_li = list.getElementsByTagName("li");
+                var list_length = list_li.length;
+                var timer = null;
+                var prevTimer = null;
+                var nextTimer = null;
+                var prevStatus = true;
+                var nextStatus = true;
+                list.style.width = list_length * 90 + "px";
+                for(let i = 0;i < list_length;i++){       
+                    list_li[i].style.left = i * 90 + "px";
+                    list_li[i].moveStatus = true;   
+                    list_li[i].onclick = function(){
+                        var _this = this;
+                        clearInterval(timer);
+                        var preEle = _this.previousElementSibling ? _this.previousElementSibling : false;
+                        var nextEle = _this.nextElementSibling ? _this.nextElementSibling : false;
+                        doMove(this,"top",10,560);
+                        if(preEle){
+                            moveTab(preEle,560,true,false);
+                        }
+                        if(nextEle){
+                            moveTab(nextEle,560,false,true);
+                        }
+                        
+                    }
+                }
+
+                //元素判断
+                function moveTab(obj,target,prevStatus,nextStatus){
+                    obj.timer = setInterval(function(){
+                        if(obj.moveStatus){
+                            obj.moveStatus = false;
+                            doMove(obj,"top",10,target,function(){
+                                obj.moveStatus = true;
+                            });
+                        }                           
+                        if(obj.previousElementSibling && prevStatus && !nextStatus){
+                            obj = obj.previousElementSibling;                         
+                        }else if(obj.nextElementSibling && nextStatus && !prevStatus){
+                            obj = obj.nextElementSibling;
+                        }else{
+                            clearInterval(obj.timer);
+                        }
+                    },100);
+                    
+                }
+                
+                //元素移动
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) > target ? -moveNum : moveNum;
+                    clearInterval(obj.moveTimer);
+                    obj.moveTimer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        //值变化
+                        if ( speed > target && moveNum > 0 ||  speed < target && moveNum < 0  ) {
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.moveTimer);
+                            endFn && endFn();
+                        }
+                    },10);
+
+                }
+
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }
+            
+            
+                
+        </script>
+    </body>
+</html>
