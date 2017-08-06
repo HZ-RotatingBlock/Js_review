@@ -1,6 +1,8 @@
 # Js_review
 - **js基础知识点回顾**
 ## 2017-8-05
+* domEleDown:[DOM控制元素下落](https://hz-rotatingblock.github.io/Js_review/2017-8-06/domEleDown.html)
+## 2017-8-05
 * domMove1:[DOM元素上下移动(简易版)](https://hz-rotatingblock.github.io/Js_review/2017-8-05/domMove1.html)
 * domMove2:[DOM元素上下移动(拓展版)](https://hz-rotatingblock.github.io/Js_review/2017-8-05/domMove2.html)
 * sort:[dom排序](https://hz-rotatingblock.github.io/Js_review/2017-8-05/sort.html)
@@ -38,7 +40,7 @@
 * item_carousel：[淘宝商品广告效果](https://hz-rotatingblock.github.io/Js_review/2017-7-26/item_carousel.html)
 * delay_menu:[延迟消失菜单](https://hz-rotatingblock.github.io/Js_review/2017-7-26/delay_menu.html)
 * float_loop：[js控制元素循环飘动](https://hz-rotatingblock.github.io/Js_review/2017-7-26/float_loop.html)
-autoTabCarousel：[自动轮播](https://hz-rotatingblock.github.io/Js_review/2017-7-27/autoTabCarousel.html)
+* autoTabCarousel：[自动轮播](https://hz-rotatingblock.github.io/Js_review/2017-7-27/autoTabCarousel.html)
 ## 2017-7-25
 * btn_scroll:[按钮控制商品图片上下滚动](https://hz-rotatingblock.github.io/Js_review/2017-7-25/btn_scroll.html)
 ## 2017-7-24
