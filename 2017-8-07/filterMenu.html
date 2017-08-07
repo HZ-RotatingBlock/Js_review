@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>筛选菜单</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1300px;
+                height:600px;
+                background-image:url(images/Nier_5.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }      
+            .menu{
+                overflow:hidden;
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:800px;
+                height:560px;
+                background-color:rgba(255, 255, 255, .9);
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }    
+            /*选择结果*/   
+            .filter_result{
+                position:relative;
+                margin-top:0;
+                padding:10px 20px;
+                width:calc(100% - 40px);
+                height:40px;
+                font-size:18px;
+                font-weight:700;
+                line-height:40px;
+                vertical-align:middle;
+                color:#333;
+                background-color:rgba(233, 233, 233, .5);
+            } 
+            .filter_result_name{
+                position:absolute;
+                top:50%;
+                left:20px;
+                height:40px;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+            }
+            ul.result_ul{
+                display:inline-block;
+                margin-left:100px;
+                height:40px;
+            }
+            ul.result_ul li{
+                overflow:hidden;
+                opacity:.8;
+                float:left;
+                margin-top:5px;
+                position:relative;
+                margin-right:10px;
+                padding:0 10px;
+                width:78px;
+                height:38px;
+                border-radius:3px;
+                border:1px solid #333;
+                font-size:18px;
+                font-weight:500;
+                text-align:left;
+                line-height:38px;
+                color:#333;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            ul.result_ul li:hover{
+                opacity:1;
+            }
+            ul.result_ul li:hover img.delete{
+                animation:delanimation linear .2s forwards;
+            }
+            @keyframes delanimation{
+                50%{
+                    transform:translateX(150%);
+                }
+                51%{
+                    transform:translate(150%,150%);
+                }
+                52%{
+                    transform:translateY(150%);
+                }
+            }
+            ul.result_ul li img{
+                position:absolute;
+                top:5px;
+                right:5px;
+                width:30px;
+                height:30px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                z-index:8;
+            }
+            /*筛选栏*/
+            .filter_menu{
+                margin-top:10px;
+                padding:20px;
+                width:calc(100% - 40px);
+                height:490px;
+            } 
+            .filter_menu ul{
+                margin:0 auto;
+                width:95%;
+                height:60px;
+                border-bottom:1px dashed #333;
+            }
+            .filter_menu ul li{
+                float:left;
+                margin-right:20px;
+                height:60px;
+                font-size:16px;
+                line-height:60px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .filter_menu ul li:hover{
+                text-decoration:underline;
+            }
+            .filter_menu ul li:first-child{
+                color:#666;
+            }
+            .filter_menu ul li:first-child:hover{
+                text-decoration:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <div class="menu">
+                <!-- 选择结果 -->
+                <div class="filter_result">
+                    <h4 class="filter_result_name">你的选择：</h4>
+                    <ul class="result_ul" id="result_ul"></ul>
+                </div>
+                <!-- 筛选栏 -->
+                <div class="filter_menu" id="filter_menu"></div>
+            </div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){      
+                var result_ul = document.getElementById("result_ul");
+                var result_li = result_ul.getElementsByTagName("li");       
+                var filter_menu = document.getElementById("filter_menu");
+                var arr = [
+                    {
+                        "type":"品牌",
+                        "className":"brand",
+                        "content":["苹果","小米","荣耀","魅族","华为","三星","OPPO","vivo","乐视","360","中兴","索尼"]
+                    },
+                    {
+                        "type":"尺寸",
+                        "className":"size",
+                        "content":["3.0以下","3.0~3.9英寸","4.0~4.5英寸","4.6~4.9英寸","5.0~5.5英寸","6.0英寸以上"]
+                    },
+                    {
+                        "type":"系统",
+                        "className":"system",
+                        "content":["安卓(Android)","苹果(IOS)","微软(WindowsPhone)","无","其他"]
+                    },
+                    {
+                        "type":"网络",
+                        "className":"internet",
+                        "content":["联通3G","双卡单4G","双卡双4G","联通4G","电信4G","三星","移动4G"]
+                    }
+                ];
+                //列表渲染
+                for(let ele in arr){
+                    let str = "";
+                    let ul = document.createElement("ul");
+                    let li = document.createElement("li");
+                    li.className = "filter_type";
+                    ul.className = arr[ele]["className"];
+                    li.innerHTML = arr[ele]["type"];
+                    ul.appendChild(li);
+                    for(let i = 0;i < arr[ele]["content"].length;i++){
+                        str += `<li>${arr[ele]["content"][i]}</li>`;
+                    }
+                    ul.innerHTML += str;
+                    filter_menu.appendChild(ul);
+                }
+                //事件配置
+                //筛选列表
+                var filterUl = filter_menu.getElementsByTagName("ul");
+                var filterUlLength = filterUl.length;
+                for(let value of filterUl){
+                    value.status = true;  
+                    value.delLiNum = null;              
+                    for(let i = 0;i < value.children.length;i++){
+                        value.children[i].onclick = function(){
+                            if(this.parentNode.status){
+                                this.parentNode.status = false;
+                                if(this.className != "filter_type"){
+                                    let str = this.innerHTML;
+                                    result_ul.innerHTML += `<li data-belong="${this.parentNode.getAttribute("class")}">
+                                                                ${str}<img src="images/close.png" alt="删除该项" class="delete"/>    
+                                                            </li>`;
+                                    value.delLiNum = i;
+                                    this.style.display = "none";
+                                }
+                            }
+                            //结果撤销
+                            for(let ulEle of result_li){
+                                ulEle.onclick = function(){
+                                    for(let ele of filterUl){
+                                        if(ele.className == this.getAttribute("data-belong")){
+                                            ele.children[ele.delLiNum].style.display = "block";
+                                            ele.delLiNum = null;
+                                            ele.status = true;
+                                        }
+                                    }
+                                    this.remove();
+                                }
+                            }                         
+                        }
+                    }                                    
+                }
+                
+
+
+            }
+            
+            
+                
+        </script>
+    </body>
+</html>
