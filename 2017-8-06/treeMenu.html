@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>树形菜单</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:50%;
+                left:50%;
+                width:1300px;
+                height:650px;
+                background-image:url(images/Nier_10.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }      
+            /*各级标题*/        
+            h3{
+                margin-top:0;
+                width:100%;
+                height:50px;
+                font-size:16px;
+                font-weight:700;
+                text-align:left;
+                text-indent:11em;
+                line-height:50px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                color:#333;
+                cursor:pointer;
+            }
+            h3.title1{
+                height:60px;
+                font-size:22px;
+                line-height:60px;
+                text-indent:3em;
+                color:#fff;
+                background-color:#333;
+                border-top-left-radius:5px;
+                border-top-right-radius:5px;
+            }           
+            h3.title2{
+                height:55px;
+                font-size:20px;
+                text-indent:5em;
+                line-height:55px;
+            }
+            h3.title3{
+                height:55px;
+                font-size:18px;
+                text-indent:7em;
+                line-height:55px;
+            }
+            h3.title4{
+                height:55px;
+                font-size:17px;
+                text-indent:9em;
+                line-height:55px;
+            }
+            h3:hover{
+                color:#fff !important;
+                background-color:rgba(51, 51, 51, .8);
+            }
+            h3.title1:hover{
+                color:#fff !important;
+                background-color:rgba(51, 51, 51, 1);
+            }
+            ul img{
+                position:absolute;
+                top:20px;
+                left:20px;
+                width:20px;
+                height:20px;
+                border-radius:50%;
+                transform:translateY(-50%);
+                -webkit-transform:translateY(-50%);
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                z-index:9;    
+            }
+            img.line1{
+                left:20px;
+                width:30px;
+                height:30px;
+            }
+            img.line2{
+                left:40px;
+                width:25px;
+                height:25px;
+            }
+            img.line3{
+                left:60px;
+                width:20px;
+                height:20px;
+            }
+            img.line4{
+                left:80px;
+                width:15px;
+                height:15px;
+            }
+            /*一级菜单*/
+            ul.list{
+                position:absolute;
+                top:20px;
+                left:50%;              
+                width:300px;
+                height:auto;
+                text-align:left;
+                text-indent:4em;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                z-index:7;
+            }
+            li{
+                position:relative;
+                margin-top:0;
+                width:100%;
+                height:auto;
+            }
+            ul.list li{
+                overflow:hidden;
+                margin-top:5px;
+                cursor:pointer;
+                border-radius:5px;
+            }
+            ul.list li li{
+                margin-top:0;
+            }
+            ul.list ul{
+                overflow:hidden;
+                background-color:#fff;
+                border-radius:5px;
+            }                    
+            .show{
+                display:block !important;
+            }
+            .hide{
+                display:none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <ul class="list" id="list">            
+                <!-- <li>
+                    <img src="images/line1.png" class="level1"/>
+                    <h3 class="title1">一级菜单</h3>
+
+                    <ul class="show">
+                        <li>
+                            <img src="images/line.png" class="line2"/>
+                            <h3 class="title2">二级菜单</h3>
+
+                            <ul class="show">
+                                <li>
+                                    <img src="images/line.png" class="line3"/>
+                                    <h3 class="title3">三级菜单</h3>
+                                    <ul class="show">
+                                        <li>
+                                            <img src="images/line.png" class="line4"/>
+                                            <h3 class="title4">四级菜单</h3>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <img src="images/line.png" class="line3"/>
+                                    <h3 class="title3">三级菜单</h3>
+                                </li>
+                                <li>
+                                    <img src="images/line.png" class="line3"/>
+                                    <h3 class="title3">三级菜单</h3>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li> -->
+                
+
+                
+            </ul>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){
+                var list = document.getElementById("list");
+                var downBtn = list.getElementsByTagName("h3");
+                var imgIcons = list.getElementsByTagName("img");              
+                var status = true;
+                var arr = [
+                    {
+                        "title":"第一级菜单",
+                        "child":[
+                            {"title":"第二级菜单"},
+                            {
+                                "title":"第二级菜单",
+                                "child":[
+                                    {"title":"第三级菜单"},
+                                    {"title":"第三级菜单"},
+                                    {
+                                        "title":"第三级菜单",
+                                        "child":[
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"}
+
+                                        ]
+                                    }
+                                ]
+                            },
+                            {"title":"第二级菜单"}
+                        ]
+                    },
+                    {
+                        "title":"第一级菜单",
+                        "child":[                         
+                            {
+                                "title":"第二级菜单",
+                                "child":[
+                                    {"title":"第三级菜单"},
+                                    {"title":"第三级菜单"},
+                                    {
+                                        "title":"第三级菜单",
+                                        "child":[
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"}
+
+                                        ]
+                                    }
+                                ]
+                            },
+                            {"title":"第二级菜单"},
+                            {"title":"第二级菜单"}
+                        ]
+                    },
+                    {
+                        "title":"第一级菜单",
+                        "child":[
+                            {"title":"第二级菜单"},
+                            {"title":"第二级菜单"},
+                            {
+                                "title":"第二级菜单",
+                                "child":[
+                                    {"title":"第三级菜单"},
+                                    {
+                                        "title":"第三级菜单",
+                                        "child":[
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"},
+                                            {"title":"第四级菜单"}
+
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ];
+                
+
+                //菜单渲染(非递归json遍历)
+                for(let ele1 in arr){
+                    let level_1_li = document.createElement("li");
+                    level_1_li.innerHTML = `<img src="images/level1.png" class="line1"/>
+                            <h3 class="title1">${arr[ele1]["title"]}</h3>`;
+                    list.appendChild(level_1_li);
+                    if(arr[ele1]["child"]){
+                        let level_2 = document.createElement("ul"); 
+                        level_2.className = "hide"; 
+                        level_1_li.appendChild(level_2);           
+                        for(let ele2 in arr[ele1]["child"]){
+                            let level_2_li = document.createElement("li"); 
+                            level_2_li.innerHTML = `<img src="images/line.png" class="line2"/>
+                                                     <h3 class="title2">${arr[ele1]["child"][ele2]["title"]}</h3>`;
+                            level_2.appendChild(level_2_li);
+                            if(arr[ele1]["child"][ele2]["child"]){
+                                let level_3 = document.createElement("ul"); 
+                                level_3.className = "hide"; 
+                                level_2_li.appendChild(level_3);
+                                for(let ele3 in arr[ele1]["child"][ele2]["child"]){
+                                    let level_3_li = document.createElement("li"); 
+                                    level_3_li.innerHTML = `<img src="images/line.png" class="line3"/>
+                                                            <h3 class="title2">${arr[ele1]["child"][ele2]["child"][ele3]["title"]}</h3>`;
+                                    level_3.appendChild(level_3_li);
+                                    if(arr[ele1]["child"][ele2]["child"][ele3]["child"]){
+                                        let level_4 = document.createElement("ul");
+                                        level_4.className = "hide"; 
+                                        level_3_li.appendChild(level_4);
+                                        for(let ele4 in arr[ele1]["child"][ele2]["child"][ele3]["child"]){
+                                            let level_4_li = document.createElement("li"); 
+                                            level_4_li.innerHTML = `<img src="images/line.png" class="line4"/>
+                                                                    <h3 class="title2">${arr[ele1]["child"][ele2]["child"][ele3]["child"][ele4]["title"]}</h3>`;
+                                            level_4.appendChild(level_4_li);
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }        
+                }
+                //展开标志定位
+                for(let i = 0;i < imgIcons.length;i++){
+                    imgIcons[i].style.top = parseInt(getStyle(imgIcons[i].nextElementSibling,"height")) / 2 + "px";
+                }
+                //菜单操作
+                var downBtn = list.getElementsByTagName("h3");
+                var downBtnLength = downBtn.length;
+                var levelBtn1 = list.getElementsByClassName("title1");
+                var levelBtn1Length = levelBtn1.length;
+                for(let i = 0;i < downBtnLength;i++){
+                    if(downBtn[i].nextElementSibling && downBtn[i].nextElementSibling.className == "hide"){
+                        if(downBtn[i].className != "title1"){
+                            downBtn[i].nextElementSibling.parentNode.children[0].setAttribute("src","images/level.png");
+                        }
+                        
+                    }
+                    downBtn[i].onclick = function(){
+                        if(this.nextElementSibling){
+                            menuTab(this);
+                        }
+                    }
+                }
+                //菜单切换
+                function menuTab(obj){
+                    if(obj.nextElementSibling.className == "show"){
+                        obj.nextElementSibling.className = "hide";
+                        if(obj.className != "title1"){
+                            obj.parentNode.children[0].setAttribute("src","images/level.png");
+                        }else{
+                            obj.parentNode.children[0].setAttribute("src","images/level1.png");
+                            
+
+                        }
+                        
+                    }else if(obj.nextElementSibling.className == "hide"){                   
+                        if(obj.className != "title1"){
+                            obj.nextElementSibling.className = "show";
+                            obj.parentNode.children[0].setAttribute("src","images/line.png");
+                        }else{
+                            for(let value of levelBtn1){
+                                value.nextElementSibling.className = "hide";
+                                value.parentNode.children[0].setAttribute("src","images/level1.png");
+                            }
+                            obj.nextElementSibling.className = "show";
+                            obj.parentNode.children[0].setAttribute("src","images/line1.png");
+                        }
+                        
+                    }
+                }
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+                
+            }
+            
+            
+                
+        </script>
+    </body>
+</html>
