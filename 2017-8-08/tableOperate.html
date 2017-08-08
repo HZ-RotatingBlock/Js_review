@@ -1,0 +1,606 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>表单表格数据操作</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#69f;}
+            .main{
+                position:absolute;
+                top:20px;
+                left:50%;
+                padding-bottom:50px;
+                width:1300px;
+                min-height:600px;
+                background-image:url(images/Nier_3.jpg);
+                background-color:#fff;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                box-shadow:4px 4px 10px #000;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+            }    
+            .list_li_operate img{
+                width:30px;
+                height:30px;
+            }  
+            .title{
+                display:block;
+                margin:0 auto;
+                margin-top:20px;
+                width:400px;
+                font-size:35px;
+                font-weight:700;
+                text-align:center;
+                color:#69f;
+            }
+            /* 添加内容填写 */
+            .infoinput{
+                position:relative;
+                margin:0 auto;
+                margin-top:20px;
+                width:800px;
+                height:150px;
+                font-size:18px;
+                font-weight:700;
+                color:#000;
+                background-color:rgba(255, 255, 255, .9);
+                border-radius:20px;
+                box-shadow:4px 4px 10px #000;
+            }
+            .nameInput,
+            .ageInput,
+            .sexInput,
+            .add_btn,
+            .sortnum,
+            .sorttype,
+            .deletebtn,
+            .sortbtn{
+                position:absolute;
+                width:250px;
+                height:40px;
+                line-height:40px;
+                border-radius:20px;
+            }
+            .nameInput,
+            .sexInput,
+            .sortnum,
+            .sorttype{
+                left:10%;
+            }
+            .ageInput,
+            .add_btn,
+            .sortbtn,
+            .deletebtn{
+                right:10%;
+            }
+            .nameInput,
+            .ageInput,
+            .sortnum,
+            .sortbtn{
+                top:20px;
+            }
+            .sexInput,
+            .add_btn,
+            .deletebtn,
+            .sorttype{
+                top:80px;
+            }
+            .inputname{
+                position:absolute;
+                top:0;
+                left:0;
+                width:50px;
+                height:40px;
+                font-size:20px;
+                font-weight:700;
+                line-height:40px;
+                border-radius:20px;
+                color:#000;
+            }
+            .inputframes{
+                position:absolute;
+                top:0;
+                right:0;
+                padding:0 20px;
+                width:150px;
+                height:40px;
+                font-size:20px;
+                font-weight:700;
+                color:#69f;
+                background-color:rgba(255, 255, 255, .1);
+                border:2px solid #69f;
+                border-radius:20px;
+            }
+            select.inputframes{
+                width:194px;
+            }
+            .sortnum .inputname,
+            .sorttype .inputname{
+                width:100px;
+            }
+            .sortnum .inputframes,
+            .sorttype .inputframes{
+                width:150px;
+            }
+
+            .add_btn,
+            .deletebtn,
+            .sortbtn{
+                opacity:.8;
+                text-align:center;
+                color:#fff;
+                background-color:#69f;
+                border-radius:20px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .add_btn:hover{
+                opacity:1;
+                box-shadow:2px 2px 10px #000;
+            }
+            .deletebtn:hover{
+                opacity:1;
+                box-shadow:2px 2px 10px #000;
+            }
+            .sortbtn:hover{
+                opacity:1;
+                box-shadow:2px 2px 10px #000;
+            }
+            /* 排序选择 */
+            .sort_select{
+                position:relative;
+                margin:0 auto;
+                margin-top:10px;
+                width:800px;
+                height:150px;
+                font-size:18px;
+                font-weight:700;
+                background-color:rgba(255, 255, 255, .9);
+                border-radius:20px;
+                box-shadow:4px 4px 10px #000;
+            }
+            /* 添加列表 */
+            .list{
+                position:relative;
+                margin:0 auto;
+                margin-top:10px;
+                width:800px;
+                height:200px;
+                height:auto;
+                font-size:18px;
+                font-weight:500;
+                color:#69f;
+                border-radius:20px;
+            }
+            .list_header{
+                position:relative;
+                margin-top:0;
+                width:100%;
+                height:50px;
+                font-size:18px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                background-color:#69f;
+                border-radius:10px;
+                box-shadow:2px 2px 10px #000;
+            }
+            .list_header input{
+                float:left;
+                margin-top:15px;
+                width:10%;
+                height:25px;
+                color:#69f;
+                background-color:rgba(255, 255, 255, .9);
+                border:none;
+                border-radius:10px;
+            }
+            .list_header span{
+                float:left;
+                width:15%;
+                height:50px;
+            }
+            span.checkbox_name{
+                position:absolute;
+                top:0;
+                left:50px;
+                width:60px;
+                height:50px;
+            }
+            span.list_operate{
+                width:30%;
+            }
+            ul.list_ul{
+                position:relative;
+                margin-top:5px;
+                width:100%;
+                height:auto;
+            }
+            ul.list_ul li{
+                position:absolute;
+                width:100%;
+                height:50px;
+                font-weight:700;
+                line-height:50px;
+                text-align:center;
+                background-color:rgba(255, 255, 255, .9);
+                border-radius:10px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+                box-shadow:2px 2px 10px #000;
+                cursor:pointer;
+            }
+            ul.list_ul li:hover{
+                background-color:rgba(255, 255, 255, 1);
+            }
+            .list_li_check{
+                float:left;
+                margin-top:15px;
+                width:10%;
+                height:25px;
+                color:#69f;
+                background-color:rgba(255, 255, 255, .9);
+                border:none;
+                border-radius:10px;           
+            }
+            ul.list_ul li div{
+                float:left;
+                width:15%;
+                height:50px;
+            }
+            .list_li_operate{
+                position:relative;
+                width:30% !important;
+            }
+            .upmove,
+            .downmove,
+            .delete{
+                position:absolute;
+                top:10px;
+                transition:all .3s;
+                -webkit-transition:all .3s;
+            }
+            .upmove{
+                left:100px;
+            }
+            .downmove{
+                left:140px;
+            }
+            .delete{
+                left:180px;
+            }
+            .upmove:hover{
+                transform:rotateZ(360deg);
+                -webkit-transform:rotateZ(360deg);
+            }
+            .downmove:hover{
+                transform:rotateZ(360deg);
+                -webkit-transform:rotateZ(360deg);
+            }
+            .delete:hover{
+                transform:rotateZ(10deg);
+                -webkit-transform:rotateZ(10deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <h3 class="title">表单表格数据操作</h3>
+            <!-- 添加内容填写 -->
+            <div class="infoinput">
+                <div class="nameInput">
+                    <span class="inputname" value="哈雷">姓名</span>
+                    <input type="text" class="inputframes" id="namecontentt"/>
+                </div>
+                <div class="ageInput">
+                    <span class="inputname">年龄</span>
+                    <input type="text" class="inputframes" id="agecontent"/>
+                </div>
+                <div class="sexInput">
+                    <span class="inputname">性别</span>
+                    <select class="inputframes" id="sexcontent">
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+                <div class="add_btn" id="add_btn">添加</div>               
+            </div>
+            <!-- 排序选择 -->
+            <div class="sort_select">
+                <div class="sortnum">
+                    <span class="inputname">排序依据</span>
+                    <select class="inputframes" id="sortaccord">
+                        <option>编号</option>
+                        <option>年龄</option>
+                    </select>
+                </div>
+                <div class="sorttype">
+                    <span class="inputname">排序方式</span>
+                    <select class="inputframes" id="sortselect">
+                        <option>升序</option>
+                        <option>降序</option>
+                    </select>
+                </div>
+                <div class="sortbtn" id="sortbtn">排序</div>
+                <div class="deletebtn" id="deletebtn">批量删除</div>
+            </div>
+            <!-- 添加列表 -->
+            <div class="list">
+                <div class="list_header">
+                    <input type="checkbox" id="allchecked"/>
+                    <span class="checkbox_name">全选</span>
+                    <span class="list_id">ID</span>
+                    <span class="list_name">姓名</span>
+                    <span class="list_age">年龄</span>
+                    <span class="list_sex">性别</span>
+                    <span class="list_operate">操作</span>
+                </div>
+                <ul class="list_ul" id="list_ul">
+                    <li>
+                        <input type="checkbox" class="list_li_check"/>
+                        <div class="list_li_id">1</div>
+                        <div class="list_li_name">阿加西</div>
+                        <div class="list_li_age">18</div>
+                        <div class="list_li_sex">男</div>
+                        <div class="list_li_operate">
+                            <img src="images/upmove.png" alt="上移" title="上移" class="upmove"/>
+                            <img src="images/downmove.png" alt="下移" title="下移" class="downmove"/>
+                            <img src="images/delete.png" alt="删除" title="删除" class="delete"/>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="list_li_check"/>
+                        <div class="list_li_id">2</div>
+                        <div class="list_li_name">阿西吧</div>
+                        <div class="list_li_age">19</div>
+                        <div class="list_li_sex">男</div>
+                        <div class="list_li_operate">
+                            <img src="images/upmove.png" alt="上移" title="上移" class="upmove"/>
+                            <img src="images/downmove.png" alt="下移" title="下移" class="downmove"/>
+                            <img src="images/delete.png" alt="删除" title="删除" class="delete"/>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="list_li_check"/>
+                        <div class="list_li_id">3</div>
+                        <div class="list_li_name">阿莫莫</div>
+                        <div class="list_li_age">20</div>
+                        <div class="list_li_sex">男</div>
+                        <div class="list_li_operate">
+                            <img src="images/upmove.png" alt="上移" title="上移" class="upmove"/>
+                            <img src="images/downmove.png" alt="下移" title="下移" class="downmove"/>
+                            <img src="images/delete.png" alt="删除" title="删除" class="delete"/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){      
+                var list_ul = document.getElementById("list_ul");
+                var list_li = list_ul.getElementsByTagName("li");
+                var list_li_height = parseInt(getStyle(list_li[0],"height"));
+                var namecontentt = document.getElementById("namecontentt");
+                var agecontent = document.getElementById("agecontent");
+                var sexcontent = document.getElementById("sexcontent");
+                var sortaccord = document.getElementById("sortaccord");
+                var sortselect = document.getElementById("sortselect");
+                var add_btn = document.getElementById("add_btn");
+                var sortbtn = document.getElementById("sortbtn");
+                var deletebtn = document.getElementById("deletebtn");
+                var list_li_check = document.getElementsByClassName("list_li_check");
+                var allchecked = document.getElementById("allchecked");
+                //声明idNum值用于删除列表项后id不重新计算而是由生成过的最大id值继续增加
+                var IdNum = list_li.length;
+                //列表元素定位初始化
+                reList();
+                //列表添加
+                add_btn.onclick = function(){
+                    let name = namecontentt.value;
+                    let age = agecontent.value;
+                    if(name != "" && age != ""){
+                        let sex = sexcontent.options[sexcontent.selectedIndex].value;
+                        let newLi = document.createElement("li");
+                        newLi.innerHTML = `<input type="checkbox" class="list_li_check"/>
+                            <div class="list_li_id">${IdNum + 1}</div>
+                            <div class="list_li_name">${name}</div>
+                            <div class="list_li_age">${age}</div>
+                            <div class="list_li_sex">${sex}</div>
+                            <div class="list_li_operate">
+                                <img src="images/upmove.png" alt="上移" title="上移" class="upmove"/>
+                                <img src="images/downmove.png" alt="下移" title="下移" class="downmove"/>
+                                <img src="images/delete.png" alt="删除" title="删除" class="delete"/>
+                            </div>`;
+                        list_ul.appendChild(newLi);
+                        //namecontentt.value = "";
+                        //agecontent.value = "";
+                        reList();
+                        IdNum++;
+                    }else{
+                        alert("请输入完整的信息~");
+                    }
+                    
+                }
+                
+
+                //批量删除
+                deletebtn.onclick = function(){
+                    for(let i = 0;i < list_li.length;i++){
+                        if(list_li[i].children[0].checked){
+                            list_li[i].remove();
+                            i--;
+                        }
+                    }
+                    reList();
+                }
+                //全选
+                allchecked.onclick = function(){
+                    if(allchecked.checked){
+                        for(let ele of list_li_check){
+                            ele.checked = true;
+                        }
+                    }else{
+                        for(let ele of list_li_check){
+                            ele.checked = false;
+                        }
+                    }
+                    
+                }
+                //排序
+                sortbtn.onclick = function(){
+                    if(sortaccord.options[sortaccord.selectedIndex].value == "年龄"){
+                        sortJudge(sortselect.options[sortselect.selectedIndex],"list_li_age");
+                    }else if(sortaccord.options[sortaccord.selectedIndex].value == "编号"){
+                        sortJudge(sortselect.options[sortselect.selectedIndex],"list_li_id");
+                    }
+                }
+                //排序
+                function sortJudge(selectDiv,compareObjClassName){
+                    if(selectDiv.value == "升序"){                      
+                        let computedNum = 1;
+                        listSort(compareObjClassName,computedNum);
+                    }else if(selectDiv.value == "降序"){                     
+                        let computedNum = -1;
+                        listSort(compareObjClassName,computedNum);
+                    }
+                }
+                //升序/降序判断
+                function listSort(compareObjClassName,computedNum){
+                    let arr = [];
+                    for(let i = 0;i < list_li.length;i++){
+                        arr.push(list_li[i]);
+                    }
+                    arr.sort(function(a,b){
+                        return (parseInt(a.getElementsByClassName(compareObjClassName)[0].innerHTML) - parseInt(b.getElementsByClassName(compareObjClassName)[0].innerHTML))  * computedNum;
+                    });
+                    list_ul.innerHTML = "";
+                    //重置列表元素定位，避免此前arr数组中排序后的列表元素依然使用旧的定位样式
+                    reList();
+                    for(let i = 0;i < arr.length;i++){
+                        list_ul.appendChild(arr[i]);
+                    }
+                    //列表元素重定位
+                    reList();
+                }
+                //编号重置
+                function IDResort(){
+                    for(let i = 0;i < list_li.length;i++){
+                        list_li[i].getElementsByClassName("list_li_id")[0].innerHTML = i + 1;
+                    }
+                }
+                //列表元素重置
+                function reList(){
+                    list_ul.style.height = list_li.length * (list_li_height + 5) + "px";  
+                    for(let i = 0;i < list_li.length;i++){
+                        list_li[i].style.top = i * 55 + "px";
+                    }       
+                    allchecked.checked = false;
+                    //选项框事件赋予/单项删除事件赋予/单项上移/单项下移
+                    for(let i = 0;i < list_li.length;i++){
+                        //选项框事件赋予
+                        list_li_check[i].onclick  = function(){
+                            checkboxTab();
+                        }
+                        //单项删除事件赋予
+                        let singleDelete = list_ul.getElementsByClassName("delete");
+                        singleDelete[i].onclick = function(){
+                            if(confirm("确定删除该项吗？(该过程不可逆)")){
+                                this.parentNode.parentNode.remove();
+                                reList();
+                                checkboxTab();                             
+                            }
+                        }
+                        //单项上移
+                        let upmove = list_ul.getElementsByClassName("upmove");
+                        upmove[i].onclick = function(){
+                            let _this = this;
+                            _this.moveStatus = true;
+                            if(_this.moveStatus){                             
+                                clearInterval(_this.insertTimer);
+                                if(_this.parentNode.parentNode.previousElementSibling){
+                                    //移动状态moveStatus改设为false以避免多次重复点击
+                                    _this.moveStatus = false;
+                                    let parentLi = _this.parentNode.parentNode;
+                                    //元素视觉上交换
+                                    parentLi.previousElementSibling.style.top = parseInt(getStyle(parentLi.previousElementSibling,"top")) + (list_li_height + 5) + "px";
+                                    parentLi.style.top = parseInt(getStyle(parentLi,"top")) - (list_li_height + 5) + "px";
+                                    //元素视觉交换后DOM交换并将移动状态重置为true
+                                    _this.insertTimer = setTimeout(function(){
+                                        list_ul.insertBefore(parentLi,parentLi.previousElementSibling);
+                                        _this.moveStatus = true;
+                                    },500);
+                                }  
+                            }
+                                                 
+                        }
+                        //单项下移
+                        let downmove = list_ul.getElementsByClassName("downmove");
+                        downmove[i].onclick = function(){
+                            let _this = this;
+                            _this.moveStatus = true;
+                            if(_this.moveStatus){
+                                clearInterval(_this.insertTimer);
+                                if(_this.parentNode.parentNode.nextElementSibling){
+                                    //移动状态moveStatus改设为false以避免多次重复点击
+                                    _this.moveStatus = false;
+                                    let parentLi = _this.parentNode.parentNode;
+                                    //元素视觉上交换
+                                    parentLi.nextElementSibling.style.top = parseInt(getStyle(parentLi.nextElementSibling,"top")) - (list_li_height + 5) + "px";
+                                    parentLi.style.top = parseInt(getStyle(parentLi,"top")) + (list_li_height + 5) + "px";
+                                    //元素视觉交换后DOM交换并将移动状态重置为true
+                                    _this.insertTimer = setTimeout(function(){
+                                        list_ul.insertBefore(parentLi.nextElementSibling,parentLi);
+                                        _this.moveStatus = true;
+                                    },500);
+                                }
+                            }
+                             
+                        }
+                    }
+                }
+                //选项框变化
+                function checkboxTab(){
+                    let num = 0;
+                    for(let j = 0;j < list_li.length;j++){
+                        if(list_li_check[j].checked){
+                            num++;
+                        }
+                    }
+                    if(num == list_li.length){
+                        allchecked.checked = true;
+                    }else{
+                        allchecked.checked = false;
+                    }
+                }
+                //元素移动
+                function doMove(obj,attr,moveNum,target,endFn){
+                    moveNum = parseInt(getStyle(obj,attr)) >  target ? -moveNum : moveNum;
+                    cleartInterval(obj.moveTimer)
+                    obj.moveTimer = setInterval(function(){
+                        let speed = parseInt(getStyle(obj,attr)) + moveNum;
+                        if(speed > target && moveNum > 0 || speed < target && moveNum < 0){
+                            speed = target;
+                        }
+                        obj.style[attr] = speed + "px";
+                        if(speed == target){
+                            clearInterval(obj.moveTimer);
+                            endFn && endFn();
+                        }
+                    },10);
+                }
+                //元素样式获取
+                function getStyle(obj,attr){
+                    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj)[attr];
+                }
+            }                             
+        </script>
+    </body>
+</html>
