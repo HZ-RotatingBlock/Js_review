@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>排序</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }        
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                //插入排序
+                function insertSort(arr){
+                    if(arr.length <= 1){
+                        return arr;
+                    }
+                    for(let i = 0;i < arr.length;i++){
+                        for(let j = i - 1;j >= 0;j--){
+                            if(arr[j] > arr[j + 1]){
+                                let temp = arr[j + 1];
+                                arr[j + 1] = arr[j];
+                                arr[j] = temp;
+                            }
+                        }
+                    }
+                    return arr;
+                }              
+                //冒泡排序
+                function bubbleSort(arr){
+                    if(arr.length <= 1){
+                        return arr;
+                    }
+                    for(let i = 0;i < arr.length;i++){
+                        for(let j = 0;j < arr.length;j++){
+                            if(arr[j] > arr[j + 1]){
+                                let temp = arr[j + 1];
+                                arr[j + 1] = arr[j];
+                                arr[j] = temp;
+                            }
+                        }
+                    }
+                    return arr;
+                }
+                //选择排序
+                function selectSort(arr){
+                    let len = arr.length;
+                    let minIndex, temp;
+                    for (let i = 0; i < len - 1; i++) {
+                        minIndex = i;
+                        for (let j = i + 1; j < len; j++) {
+                            if (arr[j] < arr[minIndex]) {     
+                                minIndex = j;                 
+                            }
+                        }
+                        temp = arr[i];
+                        arr[i] = arr[minIndex];
+                        arr[minIndex] = temp;
+                    }
+                    return arr;
+                }
+                //快速排序
+                function quickSort(arr) {
+                    if (arr.length <= 1) {
+                        return arr.slice(0);
+                    }
+
+                    let left = [];
+                    let right = [];
+                    let mid = [arr[0]]; //first number as a pivot
+
+                    for (let i = 1; i < arr.length; i++) {
+                        if (arr[i] < mid[0]) {
+                        left.push(arr[i]);
+                        } else {
+                        right.push(arr[i]);
+                        }
+                    }
+
+                    return quickSort(left).concat(mid.concat(quickSort(right)));
+                }
+                //希尔排序
+                function shellSort(arr) {
+                    let len = arr.length,
+                        temp,
+                        gap = 1;
+                    while(gap < len / 3) {          //动态定义间隔序列
+                        gap = gap * 3 + 1;
+                    }
+                    for (gap; gap > 0; gap = Math.floor(gap / 3)) {
+                        for (var i = gap; i < len; i++) {
+                            temp = arr[i];
+                            for (var j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+                                arr[j + gap] = arr[j];
+                            }
+                            arr[j + gap] = temp;
+                        }
+                    }
+                    return arr;
+                }
+
+                //测试
+                var testArr = [45,4,7,45,75,45,987,34,9,56,89,65,4,5];
+                var testArr1 = [45,4,7,45,75,45,987,34,9,56,89,65,4,5];
+                var testArr2 = [45,4,7,45,75,45,987,34,9,56,89,65,4,5];
+                var testArr3 = [45,4,7,45,75,45,987,34,9,56,89,65,4,5];
+                var testArr4 = [45,4,7,45,75,45,987,34,9,56,89,65,4,5];
+                console.log("插入排序：\n" + insertSort(testArr));
+                console.log("冒泡排序：\n" + bubbleSort(testArr1));
+                console.log("选择排序：\n" + selectSort(testArr2));
+                console.log("快速排序：\n" + quickSort(testArr3));
+                console.log("希尔排序：\n" + shellSort(testArr4));
+
+
+            }
+        </script>
+    </body>
+</html>

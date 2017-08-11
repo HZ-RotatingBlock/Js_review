@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>队列</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }        
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                //Queue类
+                class Queue{
+                    constructor(){
+                        this.dataStore = [];
+                    }
+                    enqueue(ele){
+                        this.dataStore.push(ele);
+                    }
+                    //优先级最高（code值最小）者先出队
+                    dequeue(ele){
+                        var entry = 0;
+                        for(let i = 0;i < this.dataStore.length;++i){
+                            if(this.dataStore[i].code > this.dataStore[entry].code){
+                                entry = i;
+                            }
+                        }
+                        return this.dataStore.splice(entry,1);
+                    }
+                    front(){
+                        return this.dataStore[0];
+                    }
+                    back(){
+                        return this.dataStore[this.dataStore.length - 1];
+                    }
+                    toString(){
+                        let retStr = "";
+                        for(let i = 0;i < this.dataStore.length;++i){
+                            retStr += this.dataStore[i].name + " code: " + this.dataStore[i].code + "\n";
+                        }
+                        return retStr;
+                    }
+                    empty(){
+                        return this.dataStore.length == 0 ? true : false;
+                    }
+                    
+                }
+                /************************************************************/
+                //测试
+                // var q = new Queue();
+                // q.enqueue("Hello");
+                // q.enqueue("world");
+                // q.enqueue("Vue");
+                // console.log(q.toString());
+                // q.dequeue();
+                // console.log(q.toString());
+                // console.log("Front of queue " + q.front());
+                // console.log("Back of queue " + q.back());
+                //基数排序
+                //参数digit表示个位或十位上的值,nums为传入的待排数组,queues为用以存储结果的空数组（二维九列,每列为Queue的实例）,n为列数，digit为个位排序（此时应为1）或十位排序（此时应为10）
+                // function distribute(nums,queues,n,digit){
+                //     for(let i = 0;i < n;++i){
+                //         if(digit == 1){
+                //             queues[nums[i] % 10].enqueue(nums[i]);
+                //         }else{
+                //             queues[Math.floor(nums[i] / 10)].enqueue(nums[i]);
+                //         }
+                //     }
+                // }
+                // function collect(queues,nums){
+                //     var i = 0;
+                //     for(let digit = 0;digit < 10;++digit){
+                //         if(!queues[digit].empty()){
+                //             nums[i++] = queues[digit].dequeue();
+                //         }                       
+                //     }
+                // }
+                //测试
+                // var queues = [];
+                // for(let i = 0;i < 10;++i){
+                //     queues[i] = new Queue();
+                // }
+                // var nums = [];
+                // //随机取10个0到100之间的值
+                // for(let i = 0;i < 10;++i){
+                //     nums[i] = Math.floor(Math.floor(Math.random() * 101));
+                // }
+                // console.log("排序前数组:" + "\n" + nums);
+                // distribute(nums,queues,10,1);   
+                // alert(queues);            
+                // collect(queues,nums);
+                //alert(queues);
+                //alert(nums);
+                //distribute(nums,queues,10,10);
+                //collect(queues,nums);
+                //console.log("排序后的数组：" + "\n" + nums);
+                //优先队列
+                function Patient(name,code){
+                    this.name = name;
+                    this.code = code;
+                }           
+                //测试
+                var p = new Patient("史密斯",5);
+                var ed = new Queue();
+                ed.enqueue(p);
+                p = new Patient("约翰",4);
+                ed.enqueue(p);
+                var p = new Patient("法兰克林",6);
+                ed.enqueue(p);
+                p = new Patient("布隆",1);
+                ed.enqueue(p);
+                p = new Patient("格兰",1);
+                ed.enqueue(p);
+                //输出各元素优先级
+                console.log(ed.toString());
+                var seen = ed.dequeue();
+                console.log("Patient being treated: " + seen[0].name);
+                console.log("Patient waiting to be seen: ");
+                console.log(ed.toString());
+                //下一轮
+                var seen = ed.dequeue();
+                console.log("Patient being treated: " + seen[0].name);
+                console.log("Patient waiting to be seen: ");
+                console.log(ed.toString());
+                //下一轮
+                var seen = ed.dequeue();
+                console.log("Patient being treated: " + seen[0].name);
+                console.log("Patient waiting to be seen: ");
+                console.log(ed.toString());
+                //Deque类，较之Queue基本功能外允许从队列两端添加和删除元素的双向队列
+                class Deque extends Queue{
+                    constructor(){
+                        super();
+                    }
+                    //从队列头部添加元素
+                    headEnqueue(ele){
+                        this.dataStore.unshift(ele);
+                    }
+                    //从队列尾部删除元素
+                    backDequeue(ele){
+                        this.dataStore.pop();
+                    }
+                    //回文判断
+                    palindrome(ele){
+                        console.log(ele == ele.split("").reverse().join("") ? `${ele}是一个回文` : `${ele}不是一个回文`);
+                    }
+                }
+                //测试
+                var test = new Deque();
+                test.headEnqueue("1");
+                test.headEnqueue("2");
+                test.headEnqueue("3");
+                test.headEnqueue("4");
+                console.log(test.dataStore);
+                test.backDequeue();
+                console.log(test.dataStore);
+                test.palindrome("racecar");
+                test.palindrome("hello");
+            }
+        </script>
+    </body>
+</html>

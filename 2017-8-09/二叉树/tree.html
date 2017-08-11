@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>二叉树</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#333;}
+            .main{
+                position:absolute;
+                top:10%;
+                left:50%;
+                padding-bottom:50px;
+                width:1200px;
+                height:auto;
+                min-height:400px;
+                font-size:20px;
+                font-weight:700;
+                color:#000;
+                background-position:center center;
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-color:#fff;
+                border-radius:5px;
+                transform:translateX(-50%);
+                -webkit-transform:translateX(-50%);
+                box-shadow:4px 4px 10px #000;
+            }        
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main"></div>
+            
+   <script type="text/javascript">   
+            window.onload = function(){
+                //Node类
+                class Node{
+                    constructor(data,left,right){
+                        this.data = data;
+                        this.left = left;
+                        this.right = right;
+                    }
+                    show(){
+                        return this.data;
+                    }
+                }
+                //BST类
+                class BST{
+                    constructor(){
+                        this.root = null;
+                    }
+                    insert(data){
+                        let n = new Node(data,null,null);
+                        if(this.root == null){
+                            this.root = n;
+                        }else{
+                            let current = this.root;
+                            let parent;
+                            while(true){
+                                parent = current;
+                                if(data < current.data){
+                                    current = current.left;
+                                    if(current == null){
+                                        parent.left = n;
+                                        break;
+                                    }
+                                }else{
+                                    current = current.right;
+                                    if(current == null){
+                                        parent.right = n;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //查找指定值
+                function find(data){
+                    let current = this.root;
+                    if(!(current == null)){
+                        if(current.data == data){
+                            return current;
+                        }else if(data < current.data){
+                            current = current.left;
+                        }else if(data > current.data){
+                            current = current.right;
+                        }
+                    }
+                    return null;
+                }
+                //查找最小值
+                function getMin(){
+                    let current = this.root;
+                    if(current.left != null){
+                        current = current.left;
+                    }
+                    return current.data;
+                }
+                //查找最大值
+                function getMax(){
+                    let current = this.root;
+                    if(current.right != null){
+                        current = current.right;
+                    }
+                    return current.data;
+                }
+                //先序遍历查找
+                function preOrder(node){
+                    if(!(node == null)){
+                        preOrder(node.left);
+                        console.log(node.show() + " ");
+                        preOrder(node.right);
+                    }
+                }
+                //中序遍历查找
+                function inOrder(node){
+                    if(!(node == null)){
+                        console.log(node.show() + " ");
+                        inOrder(node.left);
+                        inOrder(node.right);
+                    }
+                }
+                //后序遍历
+                function nextOrder(node){
+                    if(!(node == null)){
+                        nextOrder(node.left);
+                        nextOrder(node.right);
+                        console.log(node.show() + " ");
+                    }
+                }
+                //测试
+                var nums = new BST();
+                nums.insert(23);
+                nums.insert(45);
+                nums.insert(16);
+                nums.insert(37);
+                nums.insert(3);
+                nums.insert(99);
+                nums.insert(22);
+                console.log("先序遍历查找顺序为：");
+                inOrder(nums.root);
+                console.log("中序遍历查找顺序为：");
+                preOrder(nums.root);
+                console.log("后序遍历查找顺序为：");
+                nextOrder(nums.root);
+
+            }
+        </script>
+    </body>
+</html>
