@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>弹性盒模型布局</title>
+
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;font-family:"Microsoft YaHei";background-color:#fff;}    
+            .box{
+                display:flex;
+                display:-webkit-flex;
+                flex-flow:row nowrap;
+                justify-content:center;
+                align-items:space-between;
+                align-content:space-between;
+                padding:10px;
+                height:900px;
+                background-color:#333;
+                border:10px solid #333;
+            }
+            .box div{
+                margin:10px;
+                width: 20%;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:100px;
+                color:#fff;
+                background-color:#c03;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center center;
+                border-radius:3px;
+                -webkit-transition:all .3s;
+                cursor:pointer;
+            }
+            .box div:nth-child(1){
+                background-image:url(images/1.jpg);
+            }
+            .box div:nth-child(2){
+                background-image:url(images/2.jpg);
+            }
+            .box div:nth-child(3){
+                background-image:url(images/3.jpg);
+                flex-shrink:0;
+            }
+            .box div:nth-child(4){
+                background-image:url(images/4.jpg);
+            }
+            .box div:nth-child(5){
+                background-image:url(images/5.jpg);
+            }
+            .box div:hover{
+                flex-grow:1;
+                width:40%;
+            }
+            /*元素自适应比例分配*/
+            /*            
+            .box div:nth-child(1){width:100px;}
+            .box div:nth-child(2){-webkit-box-flex:1;}
+            .box div:nth-child(3){-webkit-box-flex:3;}
+            .box div:nth-child(4){-webkit-box-flex:1;}
+            .box div:nth-child(5){width:100px;} 
+            */
+        </style>
+    </head>
+    <body>
+        <div class="box" id="box">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){      
+                
+            }                             
+        </script>
+    </body>
+</html>
