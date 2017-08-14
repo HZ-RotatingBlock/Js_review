@@ -1,10 +1,10 @@
 # Js_review
 - **js基础知识点回顾**
 ## 2017-8-09~2017-8-14
-* [CSS3渐变进度条及光斑模拟](https://github.com/HZ-RotatingBlock/Js_review/tree/master/2017-8-14/CSS3LinearGradient.html)
-* [CSS3媒体查询](https://github.com/HZ-RotatingBlock/Js_review/tree/master/2017-8-14/CSS3Media.html)
-* [CSS3镜像效果](https://github.com/HZ-RotatingBlock/Js_review/tree/master/2017-8-14/CSS3Reflect.html)
-* [弹性盒模型布局](https://github.com/HZ-RotatingBlock/Js_review/tree/master/2017-8-14/flexBox.html)
+* [CSS3渐变进度条及光斑模拟](https://hz-rotatingblock.github.io/Js_review/2017-8-14/CSS3LinearGradient.html)
+* [CSS3媒体查询](https://hz-rotatingblock.github.io/Js_review/2017-8-14/CSS3Media.html)
+* [CSS3镜像效果](https://hz-rotatingblock.github.io/Js_review/2017-8-14/CSS3Reflect.html)
+* [弹性盒模型布局](https://hz-rotatingblock.github.io/Js_review/2017-8-14/flexBox.html)
 ## 2017-8-09~2017-8-11
 * [数据结构和算法js实现](https://github.com/HZ-RotatingBlock/Js_review/tree/master/2017-8-09)
 ## 2017-8-08
