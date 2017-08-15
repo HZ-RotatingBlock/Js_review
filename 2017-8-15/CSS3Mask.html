@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS3径向渐变及遮罩</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#333;}  
+            .box{
+                display: block;
+                margin:0 auto;
+                margin-top:200px;
+                padding:20px;
+                font-size:60px;
+                font-weight:700;  
+                text-align:center;
+                white-space:nowrap;
+                line-height:60px;
+                color:rgba(255, 255, 255, .3);
+                background:-webkit-linear-gradient(-30deg,rgba(255, 255, 255, 0) 100px,rgba(255, 255, 255, 1) 180px,rgba(255, 255, 255, 1) 240px,rgba(255, 255, 255, 0) 300px) -200px; 
+                -webkit-background-clip:text;
+                -webkit-transition: all 2s;
+                cursor: pointer;
+                animation:linear_gradient linear 3s infinite;
+            }
+            @keyframes linear_gradient{
+                100%{
+                    background-position:1200px 0;
+                }
+            }
+            .mask{
+                display: block;
+                margin:0 auto;
+                margin-top:20px;
+                width:100%;
+                height:800px;
+                background:url(images/bg.jpg) no-repeat center center/cover;
+                border:10px solid #000;
+                -webkit-mask:url(images/mask.png) no-repeat right 0;
+                -webkit-transition:all 1s;
+                animation:mask linear 10s infinite alternate;
+            }
+            @keyframes mask{
+                10%{
+                    -webkit-mask-position:40% 70%;
+                }
+                20%{
+                    -webkit-mask-position:bottom left;
+                }
+                30%{
+                    -webkit-mask-position:top left;
+                }
+                40%{
+                    -webkit-mask-position:bottom center;
+                }
+                50%{
+                    -webkit-mask-position:top 70%;
+                }
+                60%{
+                    -webkit-mask-position:bottom right;
+                }
+                70%{
+                    -webkit-mask-position:top 30%;
+                }
+                80%{
+                    -webkit-mask-position:80% right;
+                }
+                90%{
+                    -webkit-mask-position:90% right;
+                }
+                100%{
+                    -webkit-mask-position:top center;
+                }
+            }
+            .mask:hover{
+                -webkit-mask-position:100% 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">Hello World!</div>
+        <div class="mask"></div>
+
+      <script type="text/javascript">  
+            window.onload = function(){      
+                
+
+            }                             
+        </script>
+    </body>
+</html>

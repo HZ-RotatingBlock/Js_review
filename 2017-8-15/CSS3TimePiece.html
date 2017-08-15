@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS3钟表</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;}  
+            .wrap{
+                overflow:hidden;
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:400px;
+                height: 400px;
+                background-color:#fff;
+                background:url(images/1.jpg) no-repeat center/cover;
+                border:10px solid #000;
+                border-radius:50%;
+                transform:translate(-50%,-50%);
+                animation:breath linear 1s infinite alternate;
+                box-shadow: 0 0 20px #000;
+            }
+            @keyframes breath{
+                50%{
+                    box-shadow: 0 0 70px #000; 
+                }
+            }
+            .wrap ul{
+                position: relative;
+                height:400px;
+            }
+            .wrap ul li{
+                position: absolute;
+                top:0;
+                left: 198px;
+                width:2px;
+                height:20px;
+                background-color:#000;
+                border-bottom-left-radius:30%;
+                border-bottom-right-radius:30%;
+                -webkit-transform-origin:center 200px;
+            }
+            .wrap ul li:nth-child(1){
+                height:30px;
+                background-color:#c03;
+                transform:rotateZ(0);
+            }
+            .wrap ul li:nth-child(5n+1){
+                width:4px;
+                height:30px;
+                background-color:#c03;             
+            }
+            .circle{
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:20px;
+                height: 20px;
+                background-color:#000;
+                border-radius:50%;
+                transform:translate(-50%,-50%)
+            }
+            .hour,
+            .min,
+            .second{
+                position: absolute;
+                top:30px;
+                left:50%;
+                width:8px;
+                height: 170px;
+                background-color:#000;
+                border-top-left-radius:30%;
+                border-top-right-radius:30%;
+                border-bottom-left-radius:4px;
+                border-bottom-right-radius:4px;
+                -webkit-transform-origin:center 170px ;
+                transform:translateX(-50%);
+            }
+            .hour{
+                top:80px;
+                height:120px;             
+                -webkit-transform-origin:center 120px ;
+            }
+            .min{
+                width:6px;
+            }
+            .second{
+                top:10px;
+                width:2px;
+                height: 190px;
+                background-color:#69f;
+                border-top-left-radius:50%;
+                border-top-right-radius:50%;
+                -webkit-transform-origin:center 190px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">
+            <ul id="wrap_ul"></ul>
+            <div class="hour" id="hour"></div>
+            <div class="min" id="min"></div>
+            <div class="second" id="second"></div>
+            <div class="circle"></div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){      
+                var pointer = document.getElementById("wrap_ul");
+                var pointerLi = pointer.getElementsByTagName("li");                             
+                var oSecond = document.getElementById("second");
+                var oMin = document.getElementById("min");
+                var oHour = document.getElementById("hour");
+                var deg = 0;
+                var str = "";
+                for(let i = 0;i < 60;i++){
+                    pointer.innerHTML += `<li style="transform:rotateZ(${i * 6}deg);"></li>`;
+                }
+                toTime();
+                var timer = setInterval(function(){
+                    toTime();
+                },1000);            
+                function toTime(){
+                    let oDate = new Date();
+                    let iSec = oDate.getSeconds();
+                    let iMin = oDate.getMinutes() + iSec / 60;
+                    let iHour = oDate.getHours() + iMin / 60;
+                    oSecond.style.webkitTransform = `rotateZ(${iSec * 6}deg)`;
+                    oMin.style.webkitTransform = `rotateZ(${iMin * 6}deg)`;
+                    oHour.style.webkitTransform = `rotateZ(${iHour * 30}deg)`;
+                }
+            }                             
+        </script>
+    </body>
+</html>
