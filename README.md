@@ -3,7 +3,7 @@
 ## 2017-8-09~2017-8-15
 * CSS3Sector：[CSS3扇形菜单](https://hz-rotatingblock.github.io/Js_review/2017-8-15/CSS3Sector.html)
 * CSS3Mask：[CSS3径向渐变及遮罩](https://hz-rotatingblock.github.io/Js_review/2017-8-15/CSS3Mask.html)
-* CSS3Sector：[CSS3斜角及应用](https://hz-rotatingblock.github.io/Js_review/2017-8-15/CSS3Sector.html)
+* CSS3Skew：[CSS3斜角及应用](https://hz-rotatingblock.github.io/Js_review/2017-8-15/CSS3Skew.html)
 * CSS3TimePiece：[CSS3钟表](https://hz-rotatingblock.github.io/Js_review/2017-8-15/CSS3TimePiece.html)
 ## 2017-8-09~2017-8-14
 * CSS3LinearGradient：[CSS3渐变进度条及光斑模拟](https://hz-rotatingblock.github.io/Js_review/2017-8-14/CSS3LinearGradient.html)
