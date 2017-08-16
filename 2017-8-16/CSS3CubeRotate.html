@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS3-3D立方体</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;}  
+            .wrap{
+                -webkit-transform-style:preserve-3d;
+                position: absolute;
+                top:50%;
+                left: 50%;
+                width:600px;
+                height: 600px;
+                border:3px solid #000;
+                border-radius:3px;
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transition:all .3s;
+                cursor: pointer;
+                -webkit-perspective:1000px;
+                -webkit-perspective-origin:center center; 
+            }
+            .wrap:hover{
+                -webkit-transform:perspective(1000px) translate(-50%,-50%) rotateY(-20deg);
+            }
+            /* @keyframes wrapRotate{
+                0%{
+                    -webkit-transform:perspective(1000px) translate(-50%,-50%) rotateY(-20deg);
+                }
+                100%{
+                    -webkit-transform:perspective(1000px) translate(-50%,-50%) rotateY(-1080deg);
+                }
+            } */
+            .box{
+                position:relative;
+                margin:0 auto;
+                margin-top:200px;
+                width:200px;
+                height:200px;
+                -webkit-transform-style:preserve-3d;
+                -webkit-transform-origin:center center -100px;
+                transition:all .3s;
+                animation:boxRotate linear 10s infinite;
+            }
+            /* .box:hover{
+                -webkit-transform:rotateX(180deg) scale(1.2);
+            } */
+            @keyframes boxRotate{
+                0%{
+                    -webkit-transform:rotateX(0deg) scale(1.2);
+                }
+                100%{
+                    -webkit-transform:rotateX(1080deg) scale(1.2);
+                }
+            }
+            .box div{
+                position: absolute;
+                width:200px;
+                height: 200px;
+                font-size:50px;
+                text-align:center;
+                line-height:200px;
+                color:#fff;
+                background:url(images/1.jpg) no-repeat center center/cover;
+            }
+            .box div:nth-child(1){
+                top:0;
+                left:0;
+                background-image:url(images/1.jpg);
+                /* -webkit-transform-origin:bottom;
+                -webkit-transform:rotateX(60deg); */
+            }
+            .box div:nth-child(2){
+                top:0;
+                left:-200px;
+                background-image:url(images/2.jpg);
+                -webkit-transform-origin:right;
+                -webkit-transform:rotateY(-90deg);
+            }
+            .box div:nth-child(3){
+                top:0;
+                left:200px;
+                background-image:url(images/3.jpg);
+                -webkit-transform-origin:left;
+                -webkit-transform:rotateY(90deg);
+            }
+            .box div:nth-child(4){
+                top:-200px;
+                left:0;
+                background-image:url(images/4.jpg);
+                -webkit-transform-origin:bottom;
+                -webkit-transform:rotateX(90deg);
+            }
+            .box div:nth-child(5){
+                bottom:-200px;
+                left:0;
+                background-image:url(images/5.jpg);
+                -webkit-transform-origin:top;
+                -webkit-transform:rotateX(-90deg);
+            }
+            .box div:nth-child(6){
+                top:0;
+                left:0;
+                background-image:url(images/6.jpg);
+                -webkit-transform:translateZ(-200px) rotateX(180deg); 
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">      
+            <div class="box">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+            </div>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){   
+                
+
+            }                             
+        </script>
+    </body>
+</html>

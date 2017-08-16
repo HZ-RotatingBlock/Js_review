@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS3弹性3D轮播</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .wrap{
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:800px;
+                height:400px;
+                transform:translate(-50%,-50%);
+                -webkit-perspective:1000px;
+            }
+            .prev,
+            .next{
+                display:block;
+                position: absolute;
+                top:50%;
+                width:100px;
+                height: 100px;
+                font-size:80px;
+                font-weight:700;
+                text-align:center;
+                line-height:90px;
+                color:#fff;
+                background-color:#0073bc;
+                border-radius:50%;
+                transform:translateY(-50%);
+                transition:all .3s;
+                cursor: pointer;
+            }
+            .prev{left:-140px;}
+            .prev:hover{background-color:#c03;transform:translate(-10%,-50%);}
+            .next{right:-140px;}
+            .next:hover{background-color:#c03;transform:translate(10%,-50%);}
+            .carousel{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width:100%;
+                height:800px;             
+            }
+            .carousel li{
+                opacity:0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width:100%;
+                height: 400px;
+                background:no-repeat center/cover;
+                border-radius:5px;
+                -webkit-transform-origin:bottom;
+                -webkit-transform-style:preserve-3d;
+                /* -webkit-transform:rotateX(180deg); */
+            }
+            @-webkit-keyframes show{
+                0%{
+                    opacity: 0;
+                    -webkit-transform: rotateX(180deg);
+                }
+                70%{
+                    opacity: 1;
+                    -webkit-transform: rotateX(-10deg);
+                }
+                80%{
+                    opacity: 1;
+                    -webkit-transform: rotateX(5deg);
+                }
+                90%{
+                    opacity: 1;
+                    -webkit-transform: rotateX(-5deg);
+                }
+                100%{
+                    opacity: 1;
+                    -webkit-transform: rotateX(0);
+                }
+            }
+            @-webkit-keyframes hide{
+                0%{
+                    opacity: 1;
+                    -webkit-transform: rotateX(0);
+                }              
+                100%{
+                    opacity: 0;
+                    -webkit-transform: rotateX(-180deg);
+                }
+            }
+            .show{
+                -webkit-transform:rotateX(180deg);
+                animation:show 1s forwards; 
+            }
+            .hide{
+                -webkit-transform:rotateX(0);
+                animation:hide 1s forwards;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">      
+            <span class="prev" id="prev"><</span>
+            <span class="next" id="next">></span>
+            <ul class="carousel" id="carousel"></ul>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var carousel = document.getElementById("carousel");
+                var carouselLi = carousel.getElementsByTagName("li");
+                var prev = document.getElementById("prev");
+                var next = document.getElementById("next");
+                var imgArr = ["carousel_1.jpg","carousel_2.jpg","carousel_3.jpg","carousel_4.jpg","carousel_5.jpg"];  
+                var imgArrLength = imgArr.length;
+                var str = "";
+                var iNow = 0;
+                var timer = null;
+                for(let i = 0;i < imgArrLength;i++){
+                    str += `<li style="background-image:url(images/${imgArr[i]})"></li>`
+                }  
+                carousel.innerHTML = str; 
+                carouselLi[iNow].className = "show"; 
+                carouselTab();       
+                removeTimer(prev);
+                removeTimer(next);
+                next.onclick = function(){
+                    clearInterval(timer);
+                    carouselNext();
+                }  
+                prev.onclick = function(){
+                    clearInterval(timer);
+                    carouselLi[iNow].className = "hide";
+                    iNow = iNow == 0 ? imgArrLength - 1 : iNow - 1;
+                    carouselLi[iNow].className = "show";
+                }
+                
+                function carouselTab(){
+                    timer = setInterval(function(){
+                        carouselNext();
+                    },2000);
+                }
+                function carouselNext(){
+                    carouselLi[iNow].className = "hide";
+                    iNow = iNow == imgArrLength - 1 ? 0 : iNow + 1;
+                    carouselLi[iNow].className = "show";
+                }
+                function removeTimer(obj){
+                    obj.onmouseover = function(){
+                        clearInterval(timer);
+                    }
+                    obj.onmouseout = function(){
+                        carouselTab();
+                    }
+                }
+            }                             
+        </script>
+    </body>
+</html>

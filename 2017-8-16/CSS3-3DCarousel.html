@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS33D幻灯</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;}  
+            .wrap{
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:1000px;
+                height: 500px;
+                transform:translate(-50%,-50%);
+            }
+            ol.btns{
+                position: absolute;
+                bottom:-140px;
+                left:50%;
+                width:260px;
+                height: 50px;
+                transform:translate(-50%,-50%);
+            }
+            ol.btns li{
+                float: left;
+                margin-right:20px;
+                width:50px;
+                height: 50px;
+                font-size:20px;
+                font-weight:700;
+                text-align:center;
+                line-height:50px;
+                color:#fff;
+                background-color:#0073bc;
+                border-radius:50%;
+                box-shadow:4px 4px 10px #333;
+                -webkit-transition:all .3s;
+                cursor: pointer;
+            }
+            ol.btns li:hover{
+                -webkit-transform:scale(1.2);
+            }
+            ol.btns li:last-child{margin-right:0;}
+            ul.picList{
+                position: absolute;
+                top:0;
+                left: 0;
+                width:100%;
+                height:100%;           
+                -webkit-perspective:800px;
+            }
+            ul.picList li{
+                float: left;
+                display:block;
+                position:relative;
+                margin-left:0;
+                width:40px;
+                height:100%;
+                transition:all .3s;
+                -webkit-transform-style:preserve-3d;
+                -webkit-transform-origin:center center -250px;
+            }
+            ul.picList li a{
+                display:block;
+                position: absolute;
+                top:0;
+                left: 0;
+                width:100%;
+                height:500px;
+                background:no-repeat center/cover;
+            }        
+            ul.picList li span{
+                position: absolute;
+                top:0;
+                left: 0;
+                width:500px;
+                height: 500px;
+                background-color:rgba(0, 0, 0, .3);
+                transition:all .3s;
+            }
+            ul.picList li a:nth-of-type(1){
+                background-image:url(images/carousel_1.jpg);   
+                -webkit-transform:translateZ(-500px) rotateX(180deg);         
+            }
+            ul.picList li a:nth-of-type(2){
+                background-image:url(images/carousel_2.jpg);
+                -webkit-transform-origin:top;
+                -webkit-transform:translateY(500px) rotateX(-90deg);
+            }
+            ul.picList li a:nth-of-type(3){
+                background-image:url(images/carousel_3.jpg);
+                -webkit-transform-origin:bottom;
+                -webkit-transform:translateY(-500px) rotateX(90deg);
+            }
+            ul.picList li a:nth-of-type(4){ 
+                background-image:url(images/carousel_4.jpg);            
+            }
+            ul.picList li span:nth-of-type(1){
+                -webkit-transform-origin:left;
+                -webkit-transform:rotateY(90deg);               
+            }
+            ul.picList li span:nth-of-type(2){    
+                -webkit-transform-origin:left;
+                -webkit-transform:translateX(40px) rotateY(90deg);            
+            }
+            .btns .active{
+                background-color:#c03;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">      
+            <ul class="picList" id="picList">
+                <li>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <span></span>
+                    <span></span>
+                </li>          
+            </ul>
+            <ol class="btns" id="btns">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ol>
+        </div>
+
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var picList = document.getElementById("picList");
+                var btns = document.getElementById("btns");
+                var btns_li = btns.getElementsByTagName("li");
+                var oCss = document.getElementById("css");
+                var sCss = "";
+                var iZindex = 0;
+                var iLiw = picList.children[0].clientWidth;
+                var liNum = picList.clientWidth / iLiw;
+                var str = "";
+                var num = 0;
+                var pointerNum = 0;
+                var timer = null;   
+                //初始化           
+                for(let i = 0;i < liNum;i++){
+                    i > (liNum / 2) ? iZindex-- : iZindex++;
+                    str += `<li>
+                                <a href="#"></a>
+                                <a href="#"></a>
+                                <a href="#"></a>
+                                <a href="#"></a>
+                                <span></span>
+                                <span></span>
+                            </li>`;
+                    //依次更改幻灯li的背景位置及层级数
+                    sCss += `.picList li:nth-of-type(${i + 1}) a{background-position: -${i * iLiw}px 0;}`;
+                    sCss += `.picList li:nth-of-type(${i + 1}){z-index:${iZindex};}`;
+                }
+                picList.innerHTML = str;
+                oCss.innerHTML += sCss;
+                var aLi = picList.getElementsByTagName("li");
+                var aLiLength = aLi.length;
+                carouselTab();
+                for(let i = 0;i < btns_li.length;i++){                  
+                    btns_li[i].onclick = function(){
+                        pointerNum = i;
+                        animationStatus();
+                    }
+                    btns_li[i].onmouseover = function(){
+                        clearInterval(timer);
+                    }
+                    btns_li[i].onmouseout = function(){
+                        clearInterval(timer);
+                        carouselTab();
+                    }
+                }
+                //轮播
+                function carouselTab(){
+                    timer = setInterval(function(){
+                        animationStatus();
+                    },3000);
+                }
+                
+                //幻灯函数
+                function animationStatus(){              
+                    for(let z = 0;z < btns_li.length;z++){
+                        btns_li[z].className = "";
+                    }
+                    btns_li[pointerNum].className = "active";
+                    for(let j = 0;j < liNum;j++){
+                        aLi[j].style.webkitTransform = `rotateX(-${pointerNum * 90}deg)`;
+                        aLi[j].style.webkitTransition = `0.5s ${j * 30}ms`;
+                    }
+                    pointerNum = pointerNum == btns_li.length - 1 ? 0 : pointerNum + 1;
+                                     
+                }
+                
+            }                           
+        </script>
+    </body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .btn_open,
+            .btn_close{
+                opacity: .8;
+                position: absolute;
+                width: 100px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color:#fff;
+                background-color: #c03;
+                border-radius: 3px;
+                cursor: pointer;
+                -webkit-transition: all .3s;
+            }
+            .btn_open{
+                top: 90px;
+                left: 100px;
+            }
+            .btn_open:hover{
+                opacity: 1;
+            }
+            .btn_close{
+                top: 150px;
+                left:100px;
+            }
+            .btn_close:hover{
+                opacity: 1;
+            }
+            .wrap{
+                position: absolute;
+                top:30%;
+                left:50%;
+                width:200px;
+                height:400px;
+                text-align:center;
+                transform:translate(-50%,-50%);
+                -webkit-perspective:1000px;
+                -webkit-transform-style:preserve-3d;
+            }
+            .wrap h2{
+                z-index: 9;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 200px;
+                height: 50px;
+                font-size:20px;
+                line-height:50px;
+                border-radius:3px;
+                color:#fff;
+                background-color: #0073bc;
+                border-bottom:2px solid #fff;
+                cursor: pointer;
+            }
+            .wrap div{
+                position: absolute;
+                top: 42px;
+                left: 0;
+                width:100%;
+                -webkit-transform-style:preserve-3d;
+                -webkit-transform-origin: top;
+                -webkit-transform: rotateX(-120deg);
+            }
+            .wrap>div:nth-of-type(1){
+                top:52px;
+            }
+            .wrap span{
+                opacity: .9;
+                display: block;
+                height: 40px;
+                font-weight:700;
+                line-height:40px;
+                color: #fff;
+                border-radius: 3px;
+                background-color: rgba(0, 115, 188, 1);
+                box-shadow: inset 0 0 0 20px rgba(0, 0, 0, .5);
+                cursor: pointer;                               
+            }
+            .wrap span:hover{
+                opacity: 1;
+                background-color: rgba(0, 115, 188, 1);
+            }
+            .wrap .show{
+                animation:show 1.2s forwards;
+            }
+            .wrap .show>span{
+                box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0);
+            }
+            .wrap .hide{
+                animation:hide 1s forwards;
+            }
+            .wrap .hide>span{
+                box-shadow: inset 0 0 0 20px rgba(0, 0, 0, .5);
+            }
+            @-webkit-keyframes show{
+                0%{
+                    -webkit-transform: rotateX(-120deg) rotateY(30deg);
+                }
+                30%{
+                    -webkit-transform: rotateX(35deg) rotateY(30deg);
+                }
+                50%{
+                    -webkit-transform: rotateX(-20deg) rotateY(30deg);
+                }
+                75%{
+                    -webkit-transform: rotateX(13deg) rotateY(30deg);
+                }
+                100%{
+                    -webkit-transform: rotateX(0) rotateY(0);
+                }
+            }
+            @-webkit-keyframes hide{
+                0%{
+                    -webkit-transform: rotateX(0deg);
+                }
+                100%{
+                    -webkit-transform: rotateX(-120deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">      
+            <h2 id="title">我是大标题</h2>
+            <div>
+                <span>我是选项一</span>
+                <div>
+                    <span>我是选项二</span>
+                    <div>
+                        <span>我是选项三</span>
+                        <div>
+                            <span>我是选项四</span>
+                            <div>
+                                <span>我是选项五</span>
+                                <div>
+                                    <span>我是选项六</span>
+                                    <div>
+                                        <span>我是选项八</span>
+                                        <div>
+                                            <span>我是选项九</span>
+                                            <div> 
+                                                <span>我是选项十</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        <div class="btn_open" id="btn_open">展开</div>
+        <div class="btn_close" id="btn_close">关闭</div>
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var openBtn = document.getElementById("btn_open");
+                var closeBtn = document.getElementById("btn_close");
+                var wrap = document.getElementById("wrap");
+                var oDiv = wrap.getElementsByTagName("div");
+                var title = document.getElementById("title");
+                var oDivLength = oDiv.length;
+                var timer = null;
+                var timerStatus = true;
+                var iDelay = 100;
+                var num = 0;
+                title.onclick = function(){
+                    optionDown();         
+                }
+                openBtn.onclick = function(){
+                    optionDown();                 
+                }
+                closeBtn.onclick = function(){
+                    if(timerStatus){
+                        num = oDivLength - 1;
+                        timerStatus = false;
+                        oDiv[num].className = "show";
+                        timer = setInterval(function(){
+                            oDiv[num].className = "hide";
+                                num--;                         
+                            if(num < 0){
+                                clearInterval(timer); 
+                                timerStatus = true;                              
+                            }                                                         
+                        },150);
+                    }else{
+                        return;
+                    }
+                }
+                function optionDown(){
+                    if(timerStatus){
+                        num = 0;
+                        timerStatus = false;
+                        oDiv[num].className = "show";
+                        timer = setInterval(function(){
+                            oDiv[num].className = "show";
+                            num++;
+                            if(num == oDivLength){
+                                clearInterval(timer);
+                                timerStatus = true;                             
+                            }
+                        },iDelay);
+                    }else{
+                        return;
+                    }  
+                }
+            }                             
+        </script>
+    </body>
+</html>
