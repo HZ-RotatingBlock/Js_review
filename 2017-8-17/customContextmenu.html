@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>自定义右键菜单</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .contextmenu{
+                opacity: 0;
+                position: absolute;
+                width: 150px;
+                height: 246px;
+                border-radius:3px;
+                border: 2px solid #c03;
+                box-shadow: 4px 4px 10px #000;
+                -webkit-transition:height .5s;
+            }
+            .contextmenu li{
+                margin-top: 0;
+                width: 150px;
+                height: 40px;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color: #c03;
+                border-bottom: 1px solid #c03;
+                -webkit-transition: all .2s;
+                cursor: pointer;
+            }
+            .contextmenu li:hover{
+                color: #fff;
+                background-color: #c03;
+            }
+        </style>
+    </head>
+    <body>
+        <ul class="contextmenu" id="contextmenu">
+            <li>选项一</li>
+            <li>选项二</li>
+            <li>选项三</li>
+            <li>选项四</li>
+            <li>选项五</li>
+            <li>选项六</li>
+        </ul>
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var contextmenu = document.getElementById("contextmenu");
+                var contextmenuLi = contextmenu.getElementsByTagName("li");
+                var contextmenuLiLength = contextmenuLi.length;
+                //自定义右键菜单  
+                document.oncontextmenu = function(ev){
+                    var ev = ev || event;
+                    contextmenu.style.opacity = 1;
+                    contextmenu.style.top = ev.clientY + "px";
+                    contextmenu.style.left = ev.clientX + "px"; 
+                    for(let j = 0;j < contextmenuLiLength;j++){
+                        contextmenuLi[j].style.opacity = 1;
+                    }
+                    //返回false取消默认事件                                                   
+                    return false;
+                }
+                //点击文档自定义菜单消失
+                document.onclick = function(){
+                    for(let i = 0;i < contextmenuLiLength;i++){
+                        contextmenuLi[i].style.opacity = 0;
+                    }
+                    contextmenu.style.opacity = 0;
+                }
+
+            }      
+        </script>
+    </body>
+</html>

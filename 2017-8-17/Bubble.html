@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>事件冒泡</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            div{
+                padding:40px;
+            }
+            #div1{
+                background: #c03;
+            }
+            #div2{
+                background: #333;
+            }
+            #div3{
+                background: #0073bc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">
+            <div id="div1">
+                <div id="div2">
+                    <div id="div3"></div>
+                </div>
+            </div>
+        </div>
+
+      <script type="text/javascript">  
+            //能够响应用户操作的元素才可以有焦点如select/input/textarea/a/form等
+            //进如页面时自动为某一交互内容获取焦点,js使用obj.focus();HTML5使用autofocus
+            //obj.blur()取消指定元素的焦点
+            //obj.select()选中指定元素的文本内容,他能选中的内容只能是用户可以输入的内容
+            //event当前触发事件的细节相关的内容,如果想要调用一个事件里面的事件对象的话，事件对象是通过事件函数的第一个参数传入的，( fn(ev){var ev = ev || event} )必须在事件函数中调用才有相对的信息;IE/chrome用event,其他浏览器用
+            //stopPropagation的作用跟cancelBubble是一样的．都是用来阻止浏览器默认的事件冒泡行为．他们的不同之处是:stopPropagation符合W3C标准．适用于FireFox等浏览器，不支持IE.而cancelBubble方法不符合W3C的标准．且只支持IE浏览器
+            /*
+            //阻止冒泡
+                function stopBubble(e){
+                    //如果传入了e事件对象，那么就是非ie浏览器
+                    if(e){
+                        e.stopPropagation();
+                    }else{
+                        window.event.cancelBubble = true;
+                    }
+                }
+            */
+            window.onload = function(){   
+                var wrap = document.getElementById("wrap");
+                var div1 = document.getElementById("div1");
+                var div2 = document.getElementById("div2");
+                var div3 = document.getElementById("div3");
+                
+                div1.onclick = fn;
+                div2.onclick = fn;
+                div3.onclick = fn;
+                function fn(ev){
+                    var ev = ev || event;
+                    ev.stopPropagation();
+                    alert(this.id);
+                }
+            }                             
+        </script>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>BOM相关方法及属性</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .wrap{
+                width:1900px;
+                height:1800px;
+            }
+            .btn{
+                width: 100px;
+                height: 30px;
+                background-color: #c03;
+                border-radius: 3px;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                box-shadow: 2px 2px 10px #000;
+            }
+            .testDiv{
+                overflow: hidden;
+                margin: 10px;
+                padding: 10px;
+                width: 100px;
+                height: 100px;
+                border: 1px solid #c03;
+                border-radius: 3px;
+            }
+            .testDivChild{
+                width: 100px;
+                height: 200px;
+                background-color: #0073bc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">      
+            <input type="button" class="btn" id="btn" value="打开"/>    
+            <div class="testDiv" id="testDiv">
+                <div class="testDivChild" id="testDivChild">
+
+                </div>
+            </div>        
+        </div>
+
+      <script type="text/javascript">  
+            //window.navigator.userAgent
+            // window.location;window.location.href
+            //window.location.search弹出url?后面的内容
+            //window.location.hash弹出url#后面的内容
+            //document.documentElement.clientWidth可视区宽;document.documentElement.clientHeight可视区高;
+            //scrollWidth/scrollHeight对象的滚动宽高
+            //scrolltop对象滚动距离（距离顶部）,在chrome浏览器中认为滚动条不属于文档而属于body，因此需要document.body.scrollTop才可以取到当前滚动过的距离，而在其他浏览器中认为滚动条属于文档因此用document.documentElement.scrollTop即可取到滚动条滚动过的距离
+            //scrollTop：内容高度
+            //scrollWidth/scrollHeight:返回元素的宽/高，包括带滚动条的隐蔽的地方
+            //offsetWidth/offsetHeight获取内容宽高,获取文档内容宽高推荐用document.body.Width和document.body.offsetHeight(因为一般我们都会重置样式，所以body不会有默认margin,所以其值与document.documentElement的一致)
+            //onscroll事件按照一定时间内触发计算，比如5ms内计为一次触发滚动条滚动事件
+            window.onload = function(){   
+                var btn = document.getElementById("btn");
+                var i = 0;
+                window.onscroll = function(){
+                    document.title = i++;
+                }
+            }                             
+        </script>
+    </body>
+</html>

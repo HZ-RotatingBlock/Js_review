@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .contextmenu{
+                opacity: 0;
+                position: absolute;
+                width: 100px;
+                height: 0;
+                border-radius:3px;
+                border: 2px solid #c03;
+                box-shadow: 4px 4px 10px #000;
+                -webkit-transition:height .5s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="contextmenu" id="contextmenu"></div>
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var contextmenu = document.getElementById("contextmenu");
+        
+                //自定义右键菜单  
+                document.oncontextmenu = function(ev){
+                    var ev = ev || event;
+                    contextmenu.style.opacity = 0;
+                    contextmenu.style.height = 0 + "px";
+                    var iTimer = setTimeout(function(){
+                        contextmenu.style.opacity = 1;
+                        contextmenu.style.top = ev.clientY + "px";
+                        contextmenu.style.left = ev.clientX + "px";
+                        contextmenu.style.height = 200 + "px"; 
+                        clearTimeout(iTimer);
+                    },300)    
+                    //返回false取消默认事件                                                   
+                    return false;
+                }
+                //点击文档自定义菜单消失
+                document.onclick = function(){
+                    contextmenu.style.opacity = 0;
+                    contextmenu.style.height = 0 + "px";
+                }
+
+
+                //兼容型的事件绑定函数封装
+                Object.prototype.bind = function(eventName,fn){
+                    if(this.addEventListener){
+                        this.addEventListener(eventName,fn,false);
+                    }else{
+                        this.attachEvent("on" + eventName,function(){
+                            fn.call(this);
+                        });
+                    }
+                }
+            }      
+        </script>
+    </body>
+</html>

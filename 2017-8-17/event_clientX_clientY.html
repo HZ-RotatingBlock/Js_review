@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>event和clientX/clientY</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .wrap{
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                width:100px;
+                height:100px;
+                background-color: #c03;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap"></div>
+
+      <script type="text/javascript">  
+            //能够响应用户操作的元素才可以有焦点如select/input/textarea/a/form等
+            //进如页面时自动为某一交互内容获取焦点,js使用obj.focus();HTML5使用autofocus
+            //obj.blur()取消指定元素的焦点
+            //obj.select()选中指定元素的文本内容,他能选中的内容只能是用户可以输入的内容
+            //event当前触发事件的细节相关的内容,如果想要调用一个事件里面的事件对象的话，事件对象是通过事件函数的第一个参数传入的，( fn(ev){var ev = ev || event} )必须在事件函数中调用才有相对的信息;IE/chrome用event,其他浏览器用
+            window.onload = function(){   
+                var wrap = document.getElementById("wrap");
+                document.onmouseover  = function(ev){
+                    var ev = ev || event;
+                    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+                    wrap.style.top = ev.clientY + scrollTop - wrap.clientWidth / 2 + "px";
+                    wrap.style.left = ev.clientX + scrollLeft - wrap.clientHeight / 2 + "px";
+                }
+            }                             
+        </script>
+    </body>
+</html>

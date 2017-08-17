@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>键盘事件及定时器解决持续按住启动停顿问题</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .odiv{
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                width: 50px;
+                height: 50px;
+                background-color: #c03;
+                border-radius: 5px;
+                -webkit-transition:all .1s;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="odiv" id="odiv"></div>
+
+      <script type="text/javascript">  
+            //onkeydown:当键盘按下时触发,如果按下不放开，那么会连续触发
+            //onkeyuup:当键盘抬起时触发
+            //event.keyCode:数字类型，键盘按键的值
+            //功能键（皆为布尔值）：ev.ctrlKey,ev.shiftKey,ev.altKey，当他们对应的键处于按下状态时则返回true，否则返回false
+            //定时器解决连续按下停顿问题
+            window.onload = function(){   
+                var oDiv = document.getElementById("odiv");
+                var moveLeft = false;
+                var moveTop = false;
+                var moveRight = false;
+                var moveBottom = false;
+                //键盘控制元素移动
+                //计时器为元素提供移动距离及消除键盘持续按住时初期的卡顿
+                var timer = setInterval(function(){
+                    if(moveLeft){oDiv.style.left = oDiv.offsetLeft - 10 + "px"}
+                    if(moveTop){oDiv.style.top = oDiv.offsetTop - 10 + "px"}
+                    if(moveRight){oDiv.style.left = oDiv.offsetLeft + 10 + "px"}
+                    if(moveBottom){oDiv.style.top = oDiv.offsetTop + 10 + "px"}
+                },50);
+                //键盘事件决定元素方向
+                document.onkeydown = function(){
+                    var ev = ev || event;
+                    switch(ev.keyCode){
+                        case 37:
+                            moveLeft = true;
+                            break;
+                        case 38:
+                            moveTop = true;
+                            break;
+                        case 39:
+                            moveRight = true;
+                            break;
+                        case 40:
+                            moveBottom = true;
+                            break;
+                    }
+                }
+                document.onkeyup = function(){
+                    var ev = ev || event;
+                    switch(ev.keyCode){
+                        case 37:
+                            moveLeft = false;
+                            break;
+                        case 38:
+                            moveTop = false;
+                            break;
+                        case 39:
+                            moveRight = false;
+                            break;
+                        case 40:
+                            moveBottom = false;
+                            break;
+                    }
+                }
+
+                
+                
+
+
+
+
+
+
+                //兼容型的事件绑定函数封装
+                Object.prototype.bind = function(eventName,fn){
+                    if(this.addEventListener){
+                        this.addEventListener(eventName,fn,false);
+                    }else{
+                        this.attachEvent("on" + eventName,function(){
+                            fn.call(this);
+                        });
+                    }
+                }
+            }      
+        </script>
+    </body>
+</html>

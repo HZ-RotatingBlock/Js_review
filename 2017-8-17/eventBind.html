@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>事件绑定的第二种方法</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .wrap{
+                margin: 0 auto;
+                width: 200px;
+                height: 200px;
+                background-color: #c03;
+                border-radius: 5px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="wrap" id="wrap">
+
+        </div>
+
+      <script type="text/javascript">  
+            //document.attachEvent():1、在IE下使用，执行顺序是倒序（同一对象最后绑定的事件先执行）,无事件捕获设置，this的指向不是当前绑定事件的对象而是全局window对象，绑定的事件名前有on
+            //document.addEventListener("click",fn,false);标准下使用，执行顺序正序（同一对象最先绑定的事件先执行）,有事件捕获设置（默认为事件冒泡false,设置为true时为事件捕获）,this的指向为当前绑定事件的对象，绑定的事件名前没有on
+            //fn()等同于fn.call(),call()方法可以更改当前函数的this指向（给call()传的第一个参数）
+            //事件取消绑定,IE:obj.detachEvent(事件名称,事件函数);其他:obj.removeEventListener(事件名称,事件函数，是否捕获)
+            window.onload = function(){   
+                var wrap = document.getElementById("wrap");
+                // bind(document,"click",function(){
+                //     alert(1);
+                // });
+                // bind(document,"click",function(){
+                //     alert(2);
+                // })
+                wrap.bind("click",function(ev){
+                    var ev = ev || event;
+                    ev.stopPropagation();
+                    alert("wrap绑定成功~~~~");
+                });
+                wrap.bind("click",function(ev){
+                    var ev = ev || event;
+                    ev.stopPropagation();
+                    alert("wrap绑定成功2~~~~");
+                });
+                document.bind("click",function(){
+                    alert("绑定成功!!!!!");
+                })
+                document.bind("click",function(){
+                    alert("绑定成功2!!!!!");
+                })
+
+            }      
+            //兼容型的事件绑定函数封装
+            Object.prototype.bind = function(eventName,fn){
+                if(this.addEventListener){
+                    this.addEventListener(eventName,fn,false);
+                }else{
+                    this.attachEvent("on" + eventName,function(){
+                        fn.call(this);
+                    });
+                }
+            }
+            function bind(obj,eventName,fn){
+                if(obj.addEventListener){
+                    obj.addEventListener(eventName,fn,false);
+                }else{
+                    obj.attachEvent("on" + eventName,function(){
+                        fn.call(obj);
+                    });
+                }
+            }                    
+        </script>
+    </body>
+</html>
