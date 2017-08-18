@@ -1,8 +1,13 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-18
+* dragAndMagnetic：[元素拖拽与磁性吸附](https://hz-rotatingblock.github.io/Js_review/2017-8-18/dragAndMagnetic.html)
+* impact：[碰撞检测](https://hz-rotatingblock.github.io/Js_review/2017-8-18/impact.html)
+* simulateScrollBarOperateEle：[模拟滚动条控制元素变化](https://hz-rotatingblock.github.io/Js_review/2017-8-18/simulateScrollBarOperateEle.html)
+* simulateScrollBarOperateEleScroll：[模拟滚动条操作元素内容滚动](https://hz-rotatingblock.github.io/Js_review/2017-8-18/simulateScrollBarOperateEleScroll.html)
 ## 2017-8-17
 * customContextmenu：[自定义右键菜单](https://hz-rotatingblock.github.io/Js_review/2017-8-17/customContextmenu.html)
-* keyboardEvent：[键盘事件及定时器解决持续按住启动停顿问题](https://hz-rotatingblock.github.io/Js_review/2017-8-17/keyboardEvent.html)
+* keyboardEvent：[键盘控制元素移动](https://hz-rotatingblock.github.io/Js_review/2017-8-17/keyboardEvent.html)
 ## 2017-8-16
 * CSS3-3DCarousel：[CSS3-3D幻灯](https://hz-rotatingblock.github.io/Js_review/2017-8-16/CSS3-3DCarousel.html)
 * CSS3-3DCarousel-2：[CSS3弹性3D轮播](https://hz-rotatingblock.github.io/Js_review/2017-8-16/CSS3-3DCarousel-2.html)
