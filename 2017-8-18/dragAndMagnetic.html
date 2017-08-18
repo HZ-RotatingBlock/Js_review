@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>元素拖拽与磁性吸附</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .box{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: #69f;
+                border-radius: 50%;
+                box-shadow: 0 0 20px #69f;
+                cursor: pointer;
+            }
+            .parentbox{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 800px;
+                height: 500px;
+                border: 2px solid #69f;
+                border-radius: 3px;
+                -webkit-transform: translate(-50%,-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="parentbox" id="parentbox">
+            <div class="box" id="box"></div>
+        </div>
+        
+      <script type="text/javascript">  
+            //IE设置全局捕获：obj.setCapture(),当给一个元素设置全局捕获后，那么这个元素就会监听后续发生的所有事件，当有事件发生时，就会被当前设置了全局捕获的元素所触发
+            //IE设置全局释放：obj.releaseCapture()，释放元素的全局捕获
+            window.onload = function(){   
+                var oBox = document.getElementById("box");
+                var parentBox = document.getElementById("parentbox");
+                dropFn(oBox,parentBox);
+                //拖拽封装(第一个参数是拖拽对象，第二个参数是拖拽对象的参考拖拽范围对象),注意：拖拽对象的参照位移为最接近它的position定位祖先元素
+                function dropFn(obj,rangeObj){
+                    obj.onmousedown = function(){                   
+                    //全部捕获，捕获所有的onmousedown事件至oBox上触发（在这里主要用于防止文字选中时拖拽引起的拖拽失败问题,当然其他妨碍oBox拖拽的元素如图片拖拽也会被解决）
+                        if(obj.setCapture){
+                            obj.setCapture();
+                        }
+                        document.onmousemove = function(ev){
+                            var ev = ev || event;
+                            var T = rangeObj == document.documentElement ? ev.clientY : ev.clientY - (document.documentElement.clientHeight - rangeObj.offsetHeight) / 2;
+                            var L = rangeObj == document.documentElement ? ev.clientX : ev.clientX - (document.documentElement.clientWidth - rangeObj.offsetWidth) / 2;
+                            var objWidth = obj.offsetWidth;
+                            var objHeight = obj.offsetHeight;
+                            //若要改为边界磁性吸附的效果则将各个条件中的objWidth / 2改为objWidth即可
+                            if(L < objWidth / 2){
+                                L = objWidth / 2;
+                            }else if(L > rangeObj.clientWidth - objWidth / 2){
+                                L = rangeObj.clientWidth - objWidth / 2;
+                            }
+                            if(T < objHeight / 2){
+                                T = objHeight / 2;
+                            }else if(T > rangeObj.clientHeight - objHeight / 2){
+                                T = rangeObj.clientHeight - objHeight / 2
+                            }
+                            obj.style.top = T - objHeight / 2 + "px";
+                            obj.style.left = L - objWidth / 2 + "px";     
+                        }
+                        document.onmouseup = function(){
+                            document.onmousemove = null;
+                            document.onmouseup = null;
+                            //释放全局捕获
+                            if(obj.releaseCapture){
+                                obj.releaseCapture();
+                            }
+                        }
+                        return false;
+                    }
+                }                
+               
+            }      
+        </script>
+    </body>
+</html>

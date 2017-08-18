@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>模拟滚动条操作元素内容滚动</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 30px;
+                height: 800px;
+                background-color: #eee;
+                border: 1px solid #000;
+                box-shadow: inset 0 0 2px #000;
+            }
+            .div2{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 30px;
+                height: 40px;
+                background: #69f;
+                cursor: pointer;
+            }
+            .div3{
+                overflow: hidden;
+                position: absolute;
+                top: 10px;
+                left: 50px;
+                width: 500px;
+                height: 798px;
+                background: #fff;
+                border: 1px solid #000;
+                border-radius:5px;
+            }
+            .div4{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                font-size: 20px;
+                line-height: 24px;
+                text-indent: 2em;
+                color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div1" id="div1">
+            <div class="div2" id="div2"></div>
+        </div>
+        <div class="div3" id="div3">
+            <div class="div4" id="div4">任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二任天堂正式公布了塞尔达传说新作的全称为《塞尔达传说：荒野之息（The Legend of Zelda: Breath of the 
+                    Wild）》，[4]  将于2017年登陆NS/Wii U双平台。[4] 
+                    《塞尔达传说：荒野之息》的首秀获得了出乎意料的强烈反响，树屋直播结束后官方视频演示立即登上了YouTube首页，[7]  “塞尔达”则成为了Twitter和Facebook等社交网站的最热门话题。[7]  而在E3展会现场，排队体验《塞尔达传说》的壮观队伍甚至延伸到了索尼和微软的展区，堪称展会有史以来之最。[7]  众多媒体争先恐后的报道[7]  ，很多人因此对至今仍披着神秘面纱的次世代主机NS产生浓厚兴趣。[7] 
+                    
+                    游戏本预定于2015年登陆Wii U，任天堂随后延期到2016，但要和Switch一起发售又将日期延后到了2017年。[8] 
+                    2017-03-02[9]  《塞尔达传说 荒野之息》全球媒体评分解禁：IGN、GameSpot、Polygon全部10分满分。[9]  本作MC平均分达98分（共收录62家媒体），平均分仅次于《塞尔达传说：时之笛》99分，位列历史第二</div>
+        </div>
+      <script type="text/javascript">  
+            window.onload = function(){   
+                var oDiv1 = document.getElementById("div1");
+                var oDiv2 = document.getElementById("div2");
+                var oDiv3 = document.getElementById("div3");
+                var oDiv4 = document.getElementById("div4");
+                var iMaxTop = oDiv1.offsetHeight - oDiv2.offsetHeight;
+                oDiv2.onmousedown = function(ev){
+                    if(this.setCapture){
+                        this.setCapture();
+                    }
+                    var ev = ev || event;
+                    var disY = ev.clientY - this.offsetTop;
+                    document.onmousemove = function(ev){
+                        var ev = ev || event;
+                        var T = ev.clientY - disY;
+                        if(T < 0){
+                            T = 0;
+                        }else if(T > iMaxTop){
+                            T = iMaxTop;
+                        }
+                        var iScale = T / iMaxTop;
+                        oDiv2.style.top = T + "px";
+                        oDiv4.style.top = (oDiv3.clientHeight - oDiv4.offsetHeight) * iScale + "px";
+                    }
+                    document.onmouseup = function(){
+                        document.onmousemove = null;
+                        if(this.releaseCapture){
+                            this.releaseCapture();
+                        }
+                    }
+                }
+            }      
+        </script>
+    </body>
+</html>
