@@ -1,5 +1,8 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-19
+* ajaxFnUse：[ajax函数封装与使用](https://hz-rotatingblock.github.io/Js_review/2017-8-19/ajaxFnUse.html)
+* scrollOperateEle：[滚轮控制元素变化](https://hz-rotatingblock.github.io/Js_review/2017-8-19/scrollOperateEle.html)
 ## 2017-8-18
 * dragAndMagnetic：[元素拖拽与磁性吸附](https://hz-rotatingblock.github.io/Js_review/2017-8-18/dragAndMagnetic.html)
 * impact：[碰撞检测](https://hz-rotatingblock.github.io/Js_review/2017-8-18/impact.html)
