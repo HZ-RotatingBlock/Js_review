@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ajax函数封装与使用</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                height: 100px;
+                background-color: #c03;
+                border-radius: 3px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <input type="button" class="testbtn" id="testbtn" value="获取数据"/>
+        <ul class="ul1" id="ul1"></ul>
+      
+        <script type="text/javascript">  
+
+            window.onload = function(){   
+                var oBtn = document.getElementById("testbtn");
+                var testDiv = document.getElementById("testdiv");
+                // //stringify:可以把一个对象转换成对应字符串
+                // var arr = [1,2,3];
+                // var j = {left:100,top:200};
+                // alert(JSON.stringify(arr));
+                // alert(JSON.stringify(j),null,4);
+                // //parse:可以把字符串转换成对应的对象
+                // var s1 = "[100,200,300]";
+                // var a1 = JSON.parse(s1);
+                // alert(a1);
+                // var a2 = '{"left":100,"top":200}';
+                // var s2 = JSON.parse(a2);
+                // alert(s2.left);
+                // alert(s2.top);
+                //ajax函数封装(method:请求方式;url:请求地址;data:随请求发送的数据;successFn:请求成功时执行的函数;errorFn:请求失败时执行的函数)
+                
+                oBtn.onclick = function(){
+                    
+                    var timer = setInterval(function(){
+                        ajax("get","test/getNews.php","",function(data){
+                            var data = JSON.parse(data);
+                            let oUl = document.getElementById("ul1");
+                            let html = "";
+                            for(let i = 0;i < data.length;i++){
+                                html += `<li><a href="">${data[i].title}</a><span>${data[i].data}</span></li>`;
+                            }
+                            oUl.innerHTML = html;
+                        });
+                    },1000);
+                }
+                function ajax(method, url, data,successFn,errorFn){
+                    let request = null;
+                    let date = null;
+                    try{
+                        request = new XMLHttpRequest();
+                    }catch(e){
+                        request = ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    if(method == "get" && data){
+                        url += "?" + data;
+                    }
+                    request.open(method,url,true);
+                    if(method == "get"){
+                        request.send();
+                    }else if(method == "post"){
+                        request.setRequestHeader("content-type","application/x-www-form-urlencoded");
+                        request.send(data);
+                    }                                 
+                    request.onreadystatechange = function(){
+                        if(request.readyState == 4){
+                            if(request.status == 200){
+                                successFn && successFn(request.responseText);
+                            }else{
+                                errorFn && errorFn();
+                            }
+                        }
+                    }
+                }
+            }      
+        </script>
+    </body>
+</html>

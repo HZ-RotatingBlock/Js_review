@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>滚轮控制元素变化</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                height: 100px;
+                background-color: #c03;
+                border-radius: 3px;
+            }
+
+        </style>
+    </head>
+    <body>
+       <div class="div1" id="div1"></div> 
+      <script type="text/javascript">  
+            //IE/chrome:onmousewheel;其他:DOMMouseScroll ，必须用addEventListener绑定
+            //IE/Chrome:ev.wheelDelta:上:120;下:-120;;火狐:ev.detail,上:-3,下:3
+            //return false阻止的是obj.on事件名称 = fn / attachEvent 所触发的默认行为而不能阻止addEventListener绑定的事件默认行为,此时使用ev.preventDefault()方法来阻止默认行为即可
+            window.onload = function(){   
+                var oDiv = document.getElementById("div1");
+                if(oDiv.addEventListener){
+                    oDiv.addEventListener("DOMMouseScroll",fn,false);
+                }
+                oDiv.onmousewheel = fn;
+                function fn(ev){
+                    var ev = ev || event;
+                    var b = true;
+                    if(ev.wheelDelta){
+                        b = ev.wheelDelta > 0 ? true : false;
+                    }else{
+                        b = ev.detail < 0 ? true : false;
+                    }
+                    
+                    if(b){
+                        this.style.height = this.offsetHeight - 10 + "px";
+                    }else{
+                        this.style.height = this.offsetHeight + 10 + "px";
+                    } 
+                    if(ev.preventDefalut){
+                        ev.preventDefalut();
+                    }
+                    return false;
+                }
+            }      
+        </script>
+    </body>
+</html>

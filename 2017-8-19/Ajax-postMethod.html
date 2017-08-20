@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ajax之post传输</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                height: 100px;
+                background-color: #c03;
+                border-radius: 3px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <input type="button" class="testbtn" id="testbtn" value="获取数据"/>
+        <div class="tesetdiv" id="testdiv"></div>
+      
+        <script type="text/javascript">  
+
+            window.onload = function(){   
+                var oBtn = document.getElementById("testbtn");
+                var testDiv = document.getElementById("testdiv");
+                var xhr = null;
+                oBtn.onclick = function(){
+                    try{
+                        xhr = new XMLHttpRequest();
+                    }catch(e){
+                        xhr = ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    
+                    xhr.open("post","test/2.post.php",true);      
+                    //post方式传输时，数据放在send()里面作为参数传递,需要通过setRequestHeader("content-type")方法设置请求头以表明传输的数据格式告诉后端发送的数据类型是什么    
+                    //post没有缓存问题,post是用来提交数据的，提交数据是不会被缓存的，原理与web机制有关系,此外用post方法提交的数据也没有中文编码问题,因为在setRequestHeader中设置的值已经自动进行了编码  
+                    //JSON.stringify():可以把一个对象转换成对应字符串
+                    //JSON.parse():可以把字符串转换成对应的对象
+                    xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");  
+                    xhr.send("username=Vue&age=30");
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState == 4){
+                            if(xhr.status == 200){
+                                alert(xhr.responseText);
+                                testDiv.innerHTML += xhr.responseText;
+                            }else{
+                                alert("出错了！err:" + xhr.status);
+                            }
+                            
+                        }
+                    }
+                }
+
+                
+            }      
+        </script>
+    </body>
+</html>

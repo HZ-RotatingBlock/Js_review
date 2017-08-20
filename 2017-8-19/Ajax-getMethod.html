@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ajax之get传输</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                height: 100px;
+                background-color: #c03;
+                border-radius: 3px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <input type="button" class="testbtn" id="testbtn" value="获取数据"/>
+        <div class="tesetdiv" id="testdiv"></div>
+      
+        <script type="text/javascript">  
+
+            window.onload = function(){   
+                var oBtn = document.getElementById("testbtn");
+                var testDiv = document.getElementById("testdiv");
+                var xhr = null;
+                oBtn.onclick = function(){
+                    //打开浏览器
+                    try{
+                        xhr = new XMLHttpRequest();
+                    }catch(e){
+                        xhr = ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    //地址栏输入地址
+                    //解决缓存问题：在请求的文件地址及其随着传送的数值url之后添加"&"之后加上一个随机数或时间戳即可形成每次请求都是不一样的请求地址即可:如:xhr:open("get","1.get.php?username=Vue&age=22&" + new Date().getTime(),true);
+                    //解决中文乱码问题,使用encodeURI()方法把中文进行编码再进行传输
+                    xhr.open("get","test/testText.txt?username=" + encodeURI("社工大哥") + "&age=22",true);
+                    //提交               
+                    xhr.send();
+                    //等待服务器返回内容
+                    //容错处理：当请求不成功或者请求结果出错时提供status服务器状态100~599即服务器http状态码
+                    xhr.onreadystatechange = function(){
+                        //readyState代表ajax工作状态，一共5个值（0~4）,
+                        if(xhr.readyState == 4){
+                            if(xhr.status == 200){
+                                //ajax请求返回的值都存在responseText属性中,且都是字符串的形式
+                                alert(xhr.responseText);
+                                testDiv.innerHTML += xhr.responseText;
+                            }else{
+                                alert("出错了！err:" + xhr.status);
+                            }
+                            
+                        }
+                    }
+                }
+            }      
+        </script>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>cookie模拟登陆</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .div1{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                height: 100px;
+                background-color: #c03;
+                border-radius: 3px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <input type="text" id="username"/>
+        <input type="button" id="login" value="登录"/>
+        <input type="button" id="del" value="删除"/>
+      
+        <script type="text/javascript">  
+            //cookie中文最好存unicode，使用encodeURI()方法存储然后读取时用decodeURI()解码方法读取
+
+            window.onload = function(){   
+                var oUsernanme = document.getElementById("username");
+                var loginBtn= document.getElementById("login");
+                var delBtn = document.getElementById("del");
+                if(getCookie("username")){
+                    oUsernanme.value = getCookie("username");
+                }
+                loginBtn.onclick = function(){
+                    alert("登录成功!");
+                    setCookie("username",oUsernanme.value,5);
+                }
+                delBtn.onclick = function(){
+                    removeCookie("username");
+                    oUsernanme.value = "";
+                }
+                //cookie设置cookie方法封装
+                function setCookie(key,value,time){
+                    var oDate = new Date();
+                    oDate.setDate( oDate.getDate() + time);
+                    document.cookie = `${key}=${encodeURI(value)};expires=${oDate.toGMTString()}`;
+                }
+                //cookie读取方法封装
+                function getCookie(key){
+                    var arr1 = document.cookie.split("; ");
+                    for(let i = 0;i < arr1.length;i++){
+                        var arr2 = arr1[i].split("=");
+                        if( arr2[0] == key ){
+                            return decodeURI(arr2[1]);
+                        }
+                    }
+                }
+                //cookie删除方法封装
+                function removeCookie(key){
+                    //设置该cookie过期时间为昨天即相当于删除cookie
+                    setCookie(key,"",-1);
+                }
+            }      
+        </script>
+    </body>
+</html>
