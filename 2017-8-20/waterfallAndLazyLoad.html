@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>瀑布流与懒加载</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:20px;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                padding-bottom: 50px;
+                width: 1200px;
+                height: auto;
+                background-color: #fff;
+                -webkit-transform: translateX(-50%);
+            }
+            .test_ul{
+                position: relative;
+                top: 0;             
+                left: 50%;
+                width: 100%;
+                -webkit-transform: translateX(-50%);
+            }
+            .test_ul li{
+                float: left;
+                position:relative;
+                margin-right: 20px;
+                width: 285px;
+                font-size: 16px;
+                text-align:center;
+            }
+            .test_ul li:nth-of-type(4n){
+                margin-right: 0;
+            }
+            .test_ul .list_div:hover{
+                box-shadow: 2px 6px 10px #000;
+                -webkit-transform: translateY(-2%);
+            }
+            .list_div{
+                overflow: hidden;
+                float: left;
+                position:relative;
+                margin-top: 20px;
+                margin-right: 20px;
+                width: 285px;
+                font-size: 16px;
+                text-align:center;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 1px 1px 5px #000;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .load{
+                display: none;
+                position: absolute;
+                bottom: -50px;
+                left: 50%;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                transform: translateX(-50%) rotateZ(0deg);
+                -webkit-transform: translateX(-50%) rotateZ(0deg);
+                animation: loading linear 1s infinite;
+            }
+            @keyframes loading{
+                0%{
+                    transform: translateX(-50%)  rotateZ(0deg);
+                    -webkit-transform: translateX(-50%)  rotateZ(0deg);
+                }
+                100%{
+                    transform: translateX(-50%)  rotateZ(360deg);
+                    -webkit-transform: translateX(-50%)  rotateZ(360deg);
+                }
+            }
+            .item_img{
+                margin-top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                background: url(images/img_loading.gif) no-repeat center center;
+            }
+            .like_btn,
+            .like_num{
+                opacity: 1;
+                display: inline-block;
+                margin-top: 10px;
+                margin-left: 0;
+                width: 120px;
+                height: 40px;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                background: #c03;
+                border-radius: 3px;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .like_btn:hover{
+                opacity: .8;
+            }
+            .like_num{
+                height: 38px;
+                line-height: 38px;
+                color: #c03;
+                background: #fff;
+                border: 1px solid #c03;
+            }
+            .item_content{
+                margin-top: 10px;
+                padding: 10px;
+                width: calc(100% - 20px);
+                font-size: #000;
+                background: #eee;
+            }
+            .item_title{
+                display:block;               
+                width: 100%;
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 22px;
+                white-space: nowrap;
+            }
+            .item_introduct{
+                display:block;
+                margin-top: 5px;
+                width: 100%;
+                font-size: 16px;
+                font-weight: 500;
+                text-align: left;
+                line-height: 22px;
+                color: rgba(0, 0, 0, .8);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <img src="images/loading.png" alt="正在加载中..." class="load" id="loading"/>
+            <ul class="test_ul" id="test_ul">
+                <li>
+                    <div class="list_div">
+                        <img class="item_img" src="images/1.jpg">
+                        <span class="like_btn">喜欢</span>
+                        <span class="like_num">2362</span>
+                        <div class="item_content">
+                            <span class="item_title">我是标题我是标题我是标题</span>
+                            <span class="item_introduct">我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容</span>
+                        </div>
+                    </div>               
+                </li>
+                <li>
+                    <div class="list_div">
+                        <img class="item_img" src="images/3.jpg">
+                        <span class="like_btn">喜欢</span>
+                        <span class="like_num">2362</span>
+                        <div class="item_content">
+                            <span class="item_title">我是标题我是标题我是标题</span>
+                            <span class="item_introduct">我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list_div">
+                        <img class="item_img" src="images/4.jpg">
+                        <span class="like_btn">喜欢</span>
+                        <span class="like_num">2362</span>
+                        <div class="item_content">
+                            <span class="item_title">我是标题我是标题我是标题</span>
+                            <span class="item_introduct">我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list_div">
+                        <img class="item_img" src="images/5.jpg">
+                        <span class="like_btn">喜欢</span>
+                        <span class="like_num">2362</span>
+                        <div class="item_content">
+                            <span class="item_title">我是标题我是标题我是标题</span>
+                            <span class="item_introduct">我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内我是内容我是内容我是内容我是内容</span>
+                        </div>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+        
+      
+        <script type="text/javascript">  
+
+            window.onload = function(){   
+                var oUl = document.getElementById("test_ul");
+                var oLi = oUl.getElementsByTagName("li");
+                var oLiLength = oLi.length;
+                var loading = document.getElementById("loading");
+                var iPage = 1;
+                var readStatus = true;
+                var loadingTotalNum = 0;
+                getList();
+                //初始化数据处理
+                function getList(iPage){
+                    loading.style.display = "block";
+                    ajax({
+                    method:"GET",
+                    url:"data/getPics.php",
+                    data:{
+                        "cpage":iPage,
+                    },
+                    success:function(Data){
+                            let data = JSON.parse(Data);
+                            if(!data.length){
+                                loading.style.display = "none";
+                                return;
+                            }
+                            for(let i = 0;i < data.length;i++){
+                                //获取最短li
+                                var _index = getShort();
+                                var oDiv = document.createElement("div");
+                                oDiv.className = "list_div";
+                                oDiv.innerHTML = `<img class="item_img" style="width:285px;height:${( 285 / data[i].width ) * data[i].height}px;" src="" data-url="${data[i].preview}">
+                                                    <span class="like_btn">喜欢</span>
+                                                    <span class="like_num">2362</span>
+                                                    <div class="item_content">
+                                                        <span class="item_title">我是标题我是标题我是标题</span>
+                                                        <span class="item_introduct">${data[i].title}</span>
+                                                    </div>`;
+                                oLi[_index].appendChild(oDiv);                            
+                            }
+                            readStatus = true;
+                            loading.style.display = "none";
+                        }
+                    });
+                }
+                
+                window.onscroll = function(){
+                    let _index = getShort();
+                    let shortestLi = oLi[_index];
+                    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    let loadingImg = document.getElementsByClassName("item_img");
+                    let loadingImgLength = loadingImg.length;
+                    let seeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                    //拉到所加载的内容顶部时开始继续获取数据
+                    if(getTop(shortestLi) + shortestLi.offsetHeight + 150 < document.documentElement.clientHeight + scrollTop){
+                        if(readStatus){
+                            readStatus = false;
+                            iPage++;
+                            console.log(iPage);
+                            getList(iPage);
+                        }                
+                    }
+                    //图片懒加载
+                    for(let i = 0;i < loadingImgLength;i++){
+                        if(getTop(loadingImg[i]) < seeHeight + scrollTop){
+                            if(loadingImg[i].getAttribute("src") == ""){
+                                loadingImg[i].src = loadingImg[i].getAttribute("data-url");
+                            }
+                            loadingTotalNum++;
+                            console.log("加载的图片数总计： " + loadingTotalNum);
+                        }
+                    }
+                }
+                //获取元素到页面的绝对值
+                function getTop(obj){
+                    let iTop = 0;
+                    while(obj){
+                        iTop += obj.offsetTop;
+                        obj = obj.offsetParent;
+                    }
+                    return iTop;
+                }
+                //寻找最短li函数
+                function getShort(){
+                    let index = 0;
+                    let iH = oLi[index].offsetHeight;
+                    for(let i = 1;i < oLiLength;i++){
+                        if(oLi[i].offsetHeight < iH){
+                            index = i;
+                            iH = oLi[i].offsetHeight;
+                        }
+                    }
+                    return index;
+                }
+                //ajax封装
+                function ajax(obj){
+                    obj = obj || {};
+                    obj.method = obj.method.toUpperCase() || "POST";
+                    obj.url = obj.url || "";
+                    obj.async = obj.async || true;
+                    obj.data = obj.data || null;
+                    obj.success = obj.success || function(){};
+                    obj.error = obj.error || function(){};
+                    var request = null;
+                    var arr = [];
+                    if(obj.data != null){
+                        for(let key in obj.data){
+                            arr.push(key + "=" + obj.data[key]);
+                        }
+                    }
+                    var postData = arr.join("&");
+                    if(XMLHttpRequest){
+                        request = new XMLHttpRequest();
+                    }else{
+                        request = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    if(obj.method === "POST"){
+                        request.open(obj.method,obj.url,obj.async);
+                        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+                        request.send(postData);
+                    }else if(obj.method === "GET"){
+                        request.open(obj.method,obj.url + "?" + postData,obj.async);
+                        request.send(null);
+                    }
+                    request.onreadystatechange = function(){
+                        if (request.readyState == 4){
+                            if (request.status>=200&&request.status<300 || request.status==304){
+                                    if (obj.success){
+                                        obj.success(request.responseText);
+                                    }
+                                }else{
+                                    if (obj.error){
+                                        obj.error(request.status);
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+                 
+        </script>
+    </body>
+</html>
