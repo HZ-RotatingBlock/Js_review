@@ -214,7 +214,7 @@
                         "cpage":iPage,
                     },
                     success:function(Data){
-                            let data = JSON.trim().parse(Data);
+                            let data = JSON.parse(Data);
                             if(!data.length){
                                 loading.style.display = "none";
                                 return;
