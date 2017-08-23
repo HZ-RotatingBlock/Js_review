@@ -165,7 +165,8 @@
             </div>          
         </div>
              
-        <script type="text/javascript">  
+        <script type="text/javascript">
+            //调用jsonp带回的函数并获取数据  
             function cbackc(data){
                 let oUl = document.getElementById("result");
                 let oUlLi = oUl.getElementsByTagName("li");
@@ -186,12 +187,13 @@
                 var result = document.getElementById("result");
                 var resultLi = result.getElementsByTagName("li");
                 var resultLiLength = result.length;
-                
+                //点击搜索
                 searchBtn.onclick = function(){
                     if(searchInput.value != ""){
                          window.location.href = `https://www.baidu.com/baidu?tn=null&ie=utf-8&isource=infinity&wd=${searchInput.value}`;
                     }
                 }
+                //回车搜索
                 searchInput.onfocus = function(){
                     serarch.style.width = "500px";
                     document.onkeydown = function(ev){
@@ -201,11 +203,12 @@
                         }
                     }               
                 }
+                //搜索框监测
                 searchInput.oninput = function(){
                     if(this.value != ""){
                         let oScript = document.createElement("script");
                         oScript.setAttribute("type","text/javascript");
-                        oScript.src = "http://suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
+                        oScript.src = "suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
                         document.body.appendChild(oScript);                  
                     }else{
                         result.style.display = "none";
@@ -218,6 +221,7 @@
             }
 
             /*****************************************************/
+            //事件绑定函数
             function eventBind(obj,type,selector,fn){
                 if(fn == null){
                     fn = selector;
