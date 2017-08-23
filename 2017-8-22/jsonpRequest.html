@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jsonp跨域请求</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 50px;
+                left: 50%;
+                padding: 50px 0;
+                width: 1200px;
+                min-height: 500px;
+                background-color: #0073bc;
+                border-radius: 5px;
+                -webkit-transform: translateX(-50%);
+                box-shadow: 4px 4px 10px #000;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <input type="button" value="按钮" id="btn"/>
+        </div>
+        
+      
+        <script type="text/javascript">  
+            //跨域请求：
+            //1.使用flash请求资源（通过服务器端设置XML文件列入白名单）
+            //2.通过服务端的比如php文件请求文件做代理中转（php没有跨域问题）
+            //3.jsonp（json with padding）,使用内嵌的形式将数据拿过来处理
+                /*jsonp核心
+                (1)script标签:通过script标签的src设置加载外部资源
+                (2)用script标签加载是没有跨域问题的
+                (3)一个文件的文件类型并不是后缀名决定的,后缀名是给使用者看或者与某些第三方关联的，文件类型是根据实际内容决定的,因此script标签也可以加载其他后缀的文件,只要内容合法是js内容即可
+                (4)在资源加载之前定义一个函数用以接收一个参数（数据），函数里面利用这个参数做一些事情，然后需要的时候通过script标签加载对应远程文件资源，当远程文件被加载进来的时候，就回去执行我们之前定义好的函数，并把数据当做这个函数的参数传入进去
+                */
+            window.onload = function(){   
+                var oBtn = document.getElementById("btn");
+                oBtn.onclick = function(){
+                     var oScript = document.createElement("script");
+                     oScript.src = "data/2.txt";
+                     document.body.appendChild(oScript);
+                }
+                
+            }
+            //jsonp封装
+            function addJsonp(src){
+                let oScript = document.createElement("script");
+                oScript.setAttribute("type","text/javascript");
+                oScript.src = src;
+                document.body.appendChild(oScript);
+            }
+                //ajax封装
+                function ajax(obj){
+                obj = obj || {};
+                obj.method = obj.method.toUpperCase() || "POST";
+                obj.url = obj.url || "";
+                obj.async = obj.async || true;
+                obj.data = obj.data || null;
+                obj.success = obj.success || function(){};
+                obj.error = obj.error || function(){};
+                var request = null;
+                var arr = [];
+                if(obj.data != null){
+                    for(let key in obj.data){
+                        arr.push(key + "=" + obj.data[key]);
+                    }
+                }
+                var postData = arr.join("&");
+                if(XMLHttpRequest){
+                    request = new XMLHttpRequest();
+                }else{
+                    request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                if(obj.method === "POST"){
+                    request.open(obj.method,obj.url,obj.async);
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+                    request.send(postData);
+                }else if(obj.method === "GET"){
+                    request.open(obj.method,obj.url + "?" + postData,obj.async);
+                    request.send(null);
+                }
+                request.onreadystatechange = function(){
+                    if (request.readyState == 4){
+                        if (request.status>=200&&request.status<300 || request.status==304){
+                                if (obj.success){
+                                    obj.success(request.responseText);
+                                }
+                            }else{
+                                if (obj.error){
+                                    obj.error(request.status);
+                                }
+                            }
+                        }
+                    }
+                }
+                 
+        </script>
+    </body>
+</html>

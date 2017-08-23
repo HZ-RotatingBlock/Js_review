@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>仿百度搜索功能</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+            }
+            .center,
+            .searchicon,
+            .searchiconrightimg,
+            .logo{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+            .center{
+                top: 40%;
+            }
+            .serarch,
+            .searchinput{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 400px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 50px;
+                background-color: #fff;
+                border-radius: 25px;
+                border: 2px solid #0073bc;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                transition: all .5s;
+                -webkit-transition: all .5s;
+            }
+            .searchinput{
+                z-index: 2;
+                width: 90%;
+                text-align: left;
+                text-indent: 2em;
+                border: none;
+                outline: none;
+            }
+            .searchicon,
+            .searchiconrightimg{
+                z-index: 9;
+                left: 25px;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+            }
+            .searchicon{
+                left: 28px;
+                width: 45px;
+                height: auto;
+                border-radius: 3px;
+            }
+            .searchiconright{
+                z-index: 9;
+                position: absolute;
+                top: -2px;
+                right: -25px;
+                width: 70px;
+                height: 54px;
+                background-color: #0073bc;
+                border-top-right-radius: 35px;
+                border-bottom-right-radius: 35px;
+            }
+            .searchiconrightimg{
+                left: 50%;
+                cursor: pointer;
+            }
+            .logo{
+                top: -110px;
+                width: 120px;
+                border-radius: 50%;
+                box-shadow: 0 0 20px #0073bc;
+                animation: logoanimation linear 2s infinite;
+            }
+            @keyframes logoanimation{
+                50%{
+                    box-shadow: 0 0 50px #0073bc;
+                }
+            }
+            .result{
+                display: none;
+                overflow: hidden;
+                position: absolute;
+                left: 50%;
+                width: 480px;
+                height: auto;
+                max-height: 400px;
+                background: rgba(255, 255, 255, .7);
+                border-radius: 10px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                transform: translateX(-47%);
+                -webkit-transform: translateX(-47%);
+            }
+            .result li{
+                position: relative;
+                margin-top: 0;
+                width: 100%;
+                height: 40px;
+                font-size: 16px;
+                font-weight: 700;
+                text-indent: 2em;
+                line-height: 40px;
+                transition: all .5s;
+                -webkit-transition: all .5s;
+                cursor: pointer;
+            }
+            .result li:hover{
+                color: #fff;
+                background: #0073bc;
+            }
+            .result li a{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                color: #000;
+            }
+            .result li a:hover{
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="center">
+                <img src="images/logo.png" class="logo"/>
+                <div class="serarch" id="serarch">
+                    <img src="images/searchIcon.png" class="searchicon"/>
+                    <input class="searchinput" id="searchinput" type="text" placeholder="千度搜索"/>
+                    <span class="searchiconright" id="searchstart">
+                        <img src="images/search.png" class="searchiconrightimg"/>
+                    </span>
+                </div>
+                <ul class="result" id="result">
+                    <li><a href="#">傻大个分隔获吧</a></li>
+                    <li><a href="#">124124</a></li>
+                    <li><a href="#">323</a></li>
+                    <li><a href="#">543</a></li>
+                    <li><a href="#">23</a></li>
+                    <li><a href="#">56</a></li>
+                </ul>
+            </div>          
+        </div>
+             
+        <script type="text/javascript">  
+            function cbackc(data){
+                let oUl = document.getElementById("result");
+                let oUlLi = oUl.getElementsByTagName("li");
+                let html = "";
+                if(data.s.length){
+                    oUl.style.display = "block";
+                    oUl.style.opacity = "1";
+                    for(let i = 0;i < data.s.length;i++){
+                        html += `<li><a href="https://www.baidu.com/baidu?tn=null&ie=utf-8&isource=infinity&wd=${data.s[i]}" target="_blank">${data.s[i]}</a></li>`;
+                    }
+                    oUl.innerHTML = html;
+                    oUl.style.bottom =  -40 * oUlLi.length - 30 + "px";
+                }
+            }
+            window.onload = function(){   
+                var searchInput = document.getElementById("searchinput");
+                var searchBtn = document.getElementById("searchstart");
+                var result = document.getElementById("result");
+                var resultLi = result.getElementsByTagName("li");
+                var resultLiLength = result.length;
+                
+                searchBtn.onclick = function(){
+                    if(searchInput.value != ""){
+                         window.location.href = `https://www.baidu.com/baidu?tn=null&ie=utf-8&isource=infinity&wd=${searchInput.value}`;
+                    }
+                }
+                searchInput.onfocus = function(){
+                    serarch.style.width = "500px";
+                    document.onkeydown = function(ev){
+                    var ev = ev || event;
+                        if(ev.keyCode == 13 && searchInput.value != ""){
+                             window.location.href = `https://www.baidu.com/baidu?tn=null&ie=utf-8&isource=infinity&wd=${searchInput.value}`;
+                        }
+                    }               
+                }
+                searchInput.oninput = function(){
+                    if(this.value != ""){
+                        let oScript = document.createElement("script");
+                        oScript.setAttribute("type","text/javascript");
+                        oScript.src = "http://suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
+                        document.body.appendChild(oScript);                  
+                    }else{
+                        result.style.display = "none";
+                    }
+                }
+                searchInput.onblur = function(){
+                    serarch.style.width = "400px";
+                    result.style.opacity = "0";
+                }
+            }
+
+            /*****************************************************/
+            function eventBind(obj,type,selector,fn){
+                if(fn == null){
+                    fn = selector;
+                    selector = null
+                }
+                if(obj.addEventListener){
+                    obj.addEventListener(type,function(e){
+                        let target = null;
+                        if(selector){
+                            target = e.target;
+                            if(target.matches(selector)){
+                                fn.call(target,e);
+                            }
+                        }else{
+                            fn(e);
+                        }
+                    },false);
+                }else{
+                    obj.attachEvent("on" + type,function(){
+                        let target = null;
+                        if(selector){
+                            target = event.target;
+                            if(target.nodeName.toLowerCase() == selector){
+                                fn.call(target);
+                            }
+                        }else{
+                            fn();
+                        }
+                        
+                    })
+                }
+            }
+                 
+        </script>
+    </body>
+</html>
