@@ -165,7 +165,7 @@
              
         <script type="text/javascript">
             //调用jsonp带回的函数并获取数据  
-            function cbackc(data){
+            function jQuery110207905342758341489_1503499638995(data){
                 let oUl = document.getElementById("result");
                 let oUlLi = oUl.getElementsByTagName("li");
                 let html = "";
@@ -206,7 +206,7 @@
                     if(this.value != ""){
                         let oScript = document.createElement("script");
                         oScript.setAttribute("type","text/javascript");
-                        oScript.src = "http://suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
+                        oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + this.value +"&json=1&p=3&sid=1420_21095_17001_20927&req=2&bs=%E5%95%8A%E6%9C%8B%E5%8F%8B%E5%86%8D%E8%A7%81&pbs=%E5%95%8A%E6%9C%8B%E5%8F%8B%E5%86%8D%E8%A7%81&csor=1&cb=jQuery110207905342758341489_1503499638995&_=1503499639012";
                         document.body.appendChild(oScript);                  
                     }else{
                         result.style.display = "none";
@@ -217,7 +217,42 @@
                     result.style.opacity = "0";
                 }
             }
-                 
+
+            /*****************************************************/
+            //事件绑定函数
+            function eventBind(obj,type,selector,fn){
+                if(fn == null){
+                    fn = selector;
+                    selector = null
+                }
+                if(obj.addEventListener){
+                    obj.addEventListener(type,function(e){
+                        let target = null;
+                        if(selector){
+                            target = e.target;
+                            if(target.matches(selector)){
+                                fn.call(target,e);
+                            }
+                        }else{
+                            fn(e);
+                        }
+                    },false);
+                }else{
+                    obj.attachEvent("on" + type,function(){
+                        let target = null;
+                        if(selector){
+                            target = event.target;
+                            if(target.nodeName.toLowerCase() == selector){
+                                fn.call(target);
+                            }
+                        }else{
+                            fn();
+                        }
+                        
+                    })
+                }
+            }
+            //https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=%E6%88%91&json=1&p=3&sid=1420_21095_17001_20927&req=2&bs=%E5%95%8A%E6%9C%8B%E5%8F%8B%E5%86%8D%E8%A7%81&pbs=%E5%95%8A%E6%9C%8B%E5%8F%8B%E5%86%8D%E8%A7%81&csor=1&cb=jQuery110207905342758341489_1503499638995&_=1503499639012     
         </script>
     </body>
 </html>
