@@ -2,8 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <!-- 自动将http的不安全请求升级为https -->
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <title>仿百度搜索功能</title>
         
         <style type="text/css" id="css">
@@ -208,7 +206,7 @@
                     if(this.value != ""){
                         let oScript = document.createElement("script");
                         oScript.setAttribute("type","text/javascript");
-                        oScript.src = "suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
+                        oScript.src = "//suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
                         document.body.appendChild(oScript);                  
                     }else{
                         result.style.display = "none";
