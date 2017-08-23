@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-22
+* imitateBaiduFn:[仿百度搜索功能](https://hz-rotatingblock.github.io/Js_review/2017-8-22/imitateBaiduFn.html)
 ## 2017-8-21
 * commentFn:[留言本功能](https://hz-rotatingblock.github.io/Js_review/2017-8-21/commentFn.html)
 ## 2017-8-20
