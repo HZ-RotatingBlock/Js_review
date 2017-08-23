@@ -2,11 +2,12 @@ window.onload = function(){
     var headerImg = ["header_1.png","header_2.png","header_3.png","header_4.png","header_5.png","header_6.png","header_7.png","header_7.png","header_8.png","header_9.png","header_10.png"];
     var userStatus = document.getElementById("user_status");
     var userStatusName = document.getElementById("user_status_name");
-    var register = document.getElementById("register");user_header
+    var register = document.getElementById("register");
     var login = document.getElementById("login");
     var userHeader = document.getElementById("user_header");
     var returnContent = document.getElementById("return");
     var returnContentLi = returnContent.getElementsByTagName("li");
+    var iPage = 1;
     //初始化
     updateUserStatus();
     updateGuestList();
@@ -34,6 +35,8 @@ window.onload = function(){
                 message: 返回信息 具体的返回信息
             }
     */  
+    var showmore = document.getElementById("showmore");
+    var floorNum = 1;
     function updateGuestList(){
         ajax({
             method:"GET",
@@ -41,31 +44,40 @@ window.onload = function(){
             data:{
                 "m":"index",
                 "a":"getList",
-                "page":1,
-                "n":10,
+                "page":iPage,
+                "n":2,
             },
             success:function(Data){
                 let data = JSON.parse(Data);              
                 if(!data.code){
-                    let arrList = data.data.list;
-                    let str = "";
-                    let floorNum = 1;
-                    for(let i = arrList.length - 1;i >= 0;i--){
-                        var returnTime = new Date(parseInt(arrList[i].dateline * 1000));
-                        str += `<li>
-                                    <img class="return_header" src="images/${headerImg[Math.floor(Math.random() * 8)]}" alt="头像"/>
-                                    <span class="return_username">${arrList[i].username}</span>
-                                    <span class="return_floor">${floorNum}楼</span>
-                                    <span class="return_time">${returnTime.toLocaleString()}</span>
-                                    <span class="return_content">${arrList[i].content}</span>
-                                    <span class="good">顶(${arrList[i].support})</span>
-                                    <span class="bad">踩(${arrList[i].oppose})</span>
-                                </li>`;
-                        floorNum++;
+                    let arrList = data.data.list;                 
+                    if(data){
+                        for(let i =  0;i < arrList.length;i++){
+                            var returnTime = new Date(parseInt(arrList[i].dateline * 1000));
+                            var newLi = document.createElement("li");
+                            newLi.innerHTML = `<img class="return_header" src="images/${headerImg[Math.floor(Math.random() * 8)]}" alt="头像"/>
+                                        <span class="return_username">${arrList[i].username}</span>
+                                        <span class="return_time">${returnTime.toLocaleString()}</span>
+                                        <span class="return_content">${arrList[i].content}</span>
+                                        <span class="good">顶(${arrList[i].support})</span>
+                                        <span class="bad">踩(${arrList[i].oppose})</span>`;
+                            floorNum++;
+                            if(returnContent.children[0]){
+                                returnContent.insertBefore(newLi,returnContent.children[0]);
+                            }else{
+                                returnContent.appendChild(newLi);
+                            }
+                            
+                        }                  
+                        showmore.innerHTML = "显示更多";
+                    }else{
+                        if(iPage == 1){
+                            showmore.innerHTML = "现在还没有留言,快来抢沙发吧~";
+                        }                      
+                        showmore.style.display = "none";
                     }
-                    returnContent.innerHTML += str;
                 }else{
-                    alert("服务器繁忙，请稍后再试~");
+                    showmore.innerHTML = "内容加载完了~";
                 }
             }
         });
@@ -73,7 +85,7 @@ window.onload = function(){
     //更新用户状态
     function updateUserStatus(){
         var uid = getCookie("uid");
-        var username = getCookie("username");
+        var username = decodeURI(getCookie("username"));
         if(uid){
             register.style.display = "none";
             login.style.display = "none";
@@ -153,7 +165,7 @@ window.onload = function(){
                     oPassword1.value = "";
                     verifyUserNameMsg.innerHTML = "";
                 }else{
-                    alert(oVerifyUserNameMsg.innerHTML)
+                    alert(oVerifyUserNameMsg.innerHTML);
                 }
             }
         });
@@ -270,22 +282,25 @@ window.onload = function(){
                 if(!data.code){
                     alert(data.message);
                     let returnContentLiLength = returnContentLi.length;
-                    let str = `<li>
-                                    <img class="return_header" src="${user_header.getAttribute("src")}" alt="头像"/>
+                    var newLi = document.createElement("li");
+                    newLi.innerHTML = `<img class="return_header" src="${user_header.getAttribute("src")}" alt="头像"/>
                                     <span class="return_username">${data.data.username}</span>
                                     <span class="return_floor">${returnContentLiLength + 1}楼</span>
                                     <span class="return_content">${data.data.content}</span>
                                     <span class="good">顶(${data.data.support})</span>
-                                    <span class="bad">踩(${data.data.oppose})</span>
-                                </li>`;
-                    returnContent.innerHTML += str;
+                                    <span class="bad">踩(${data.data.oppose})</span>`;
+                    returnContent.appendChild(newLi);
                 }else{
                     alert("服务器繁忙，请稍后再试~");
                 }
             }
         });
     }
-
+    //点击显示更更多内容
+    showmore.onclick = function(){
+        iPage++;
+        updateGuestList();
+    }
 
 
 }
