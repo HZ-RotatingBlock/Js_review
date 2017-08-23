@@ -206,7 +206,7 @@
                     if(this.value != ""){
                         let oScript = document.createElement("script");
                         oScript.setAttribute("type","text/javascript");
-                        oScript.src = "http//suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
+                        oScript.src = "http://suggestion.baidu.com/su?wd=" + this.value +"&p=3&t=1503492828248&cb=cbackc";
                         document.body.appendChild(oScript);                  
                     }else{
                         result.style.display = "none";
@@ -215,41 +215,6 @@
                 searchInput.onblur = function(){
                     serarch.style.width = "400px";
                     result.style.opacity = "0";
-                }
-            }
-
-            /*****************************************************/
-            //事件绑定函数
-            function eventBind(obj,type,selector,fn){
-                if(fn == null){
-                    fn = selector;
-                    selector = null
-                }
-                if(obj.addEventListener){
-                    obj.addEventListener(type,function(e){
-                        let target = null;
-                        if(selector){
-                            target = e.target;
-                            if(target.matches(selector)){
-                                fn.call(target,e);
-                            }
-                        }else{
-                            fn(e);
-                        }
-                    },false);
-                }else{
-                    obj.attachEvent("on" + type,function(){
-                        let target = null;
-                        if(selector){
-                            target = event.target;
-                            if(target.nodeName.toLowerCase() == selector){
-                                fn.call(target);
-                            }
-                        }else{
-                            fn();
-                        }
-                        
-                    })
                 }
             }
                  
