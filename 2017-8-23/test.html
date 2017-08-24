@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                display: block;
+                position: absolute;
+                padding-bottom: 100px;
+                top: 0;
+                left: 0;
+                width: 100%;
+                min-height: 100%;
+                height: auto;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+                background-attachment: fixed;
+            }
+            .center,
+            .searchicon,
+            .searchiconrightimg,
+            .logo{
+                z-index: 98;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+            .center{
+                top: 150px;
+            }
+            .serarch,
+            .searchinput{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 400px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 50px;
+                background-color: #fff;
+                border-radius: 25px;
+                border: 2px solid #37bf4c;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                transition: all .5s;
+                -webkit-transition: all .5s;
+            }
+            .searchinput{
+                z-index: 2;
+                width: 90%;
+                text-align: left;
+                text-indent: 2em;
+                border: none;
+                outline: none;
+            }
+            .searchicon,
+            .searchiconrightimg{
+                z-index: 9;
+                left: 25px;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+            }
+            .searchicon{
+                left: 28px;
+                width: 45px;
+                height: auto;
+                border-radius: 3px;
+            }
+            .searchiconright{
+                z-index: 9;
+                position: absolute;
+                top: -2px;
+                right: -25px;
+                width: 70px;
+                height: 54px;
+                background-color: #37bf4c;
+                border-top-right-radius: 35px;
+                border-bottom-right-radius: 35px;
+            }
+            .searchiconrightimg{
+                left: 50%;
+                cursor: pointer;
+            }
+            .logo{
+                top: -90px;
+                width: 100px;
+                border-radius: 50%;
+                box-shadow: 0 0 20px #37bf4c;
+                animation: logoanimation linear 2s infinite;
+            }
+            @keyframes logoanimation{
+                50%{
+                    box-shadow: 0 0 50px #37bf4c;
+                }
+            }
+            .result{
+                display: none;
+                overflow: hidden;
+                position: absolute;
+                z-index: 9;
+                left: 50%;
+                bottom: -275px;
+                width: 480px;
+                height: auto;
+                max-height: 400px;
+                background: rgba(255, 255, 255, .7);
+                border-radius: 10px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                transform: translateX(-47%);
+                -webkit-transform: translateX(-47%);
+                box-shadow: 4px 4px 10px #37bf4c;
+            }
+            .result li{
+                z-index: 9;
+                position: relative;
+                margin-top: 0;
+                width: 100%;
+                height: 40px;
+                font-size: 16px;
+                font-weight: 700;
+                text-indent: 2em;
+                line-height: 40px;
+                transition: all .5s;
+                -webkit-transition: all .5s;
+                cursor: pointer;
+            }
+            .result li:hover{
+                color: #fff;
+                background: #37bf4c;
+            }
+            .result li a{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                color: #000;
+            }
+            .result li a:hover{
+                color: #fff;
+            }
+            /* 结果显示 */
+            .searchresult{
+                z-index: 7;
+                position: absolute;
+                top: 200px;
+                left: 50%;
+                width: 1000px;
+                height: auto; 
+                border-radius: 10px;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                transition: all .3s;
+                -webkit-transition: all .3s;            
+            }
+            .searchresult li{
+                z-index: 7;
+                opacity: .9;
+                position: relative;
+                margin-top: 20px;
+                padding: 10px;
+                width: calc( 100% - 20px);
+                height: 200px;
+                background: #fff;
+                border-radius: 5px;
+                box-shadow: 2px 2px 5px #000;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .searchresult li:hover{
+                opacity: 1;
+                transform: translateY(-5%);
+                -webkit-transform: translateY(-5%);
+                box-shadow: 4px 4px 10px #000;
+            }
+            .searchresult li a{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .book_img{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 200px;
+                height: 200px;
+            }
+            .book_title,
+            .book_author,
+            .book_press,
+            .book_intro{
+                position: absolute;
+                top: 20px;
+                left: 220px;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 25px;
+                color: #000;
+            }
+            .book_author,
+            .book_press,
+            .book_intro{
+                top: 60px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .book_press{
+                top: 100px;
+            }
+            .book_intro{
+                overflow: hidden;
+                display: -webkit-box;
+                top: 140px;
+                width: calc(100% - 230px);
+                text-overflow: ellipsis;
+                line-height: 22px;                                 
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;     
+            }
+            .reading{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding: 0 20px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color:#fff;
+                background: #37bf4c;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .searchresult strong{
+                font-size: 16px;
+                color: rgba(0, 0, 0, .7);
+            }
+            /* 指示器 */
+            .pointer{
+                position: absolute;
+                bottom: 30px;
+                left: 50%;
+                width: 200px;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+            }
+            .pageNum{
+                display: block;
+                left: 0;
+                font-size: 30px;
+                text-align: center;
+                line-height: 50px;
+                font-weight: 700;
+                color: #fff;
+                white-space: nowrap;
+            }
+            .prev,
+            .next{
+                position: absolute;
+                top: 0;
+                width: 50px;
+                height: 50px;
+                background-color: #37bf4c !important;             
+                border-radius: 50%;
+                box-shadow: 4px 4px 10px #000;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .prev{
+                left: -100px;
+                background-image: url(images/arrow_left.png); 
+                background-position: center center;
+                background-size: cover;
+            }
+            .next{
+                right: -100px;
+                background-image: url(images/arrow_right.png);
+                background-position: center center;
+                background-size: cover;
+            }
+            .prev:hover{
+                opacity: .9;            
+                background-position: -50px !important;
+            }
+            .next:hover{
+                opacity: .9;          
+                background-position: 50px !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            <div class="center">
+                <img src="images/doubanLogo.png" class="logo"/>
+                <div class="serarch" id="serarch">
+                    <img src="images/doubanSearchIcon.png" class="searchicon"/>
+                    <input class="searchinput" id="searchinput" type="text" placeholder="豆瓣读书"/>
+                    <span class="searchiconright" id="searchstart">
+                        <img src="images/search.png" class="searchiconrightimg"/>
+                    </span>
+                </div>
+                <ul class="result" id="result">
+                    <li><a href="#">傻大个分隔获吧</a></li>
+                    <li><a href="#">124124</a></li>
+                    <li><a href="#">323</a></li>
+                    <li><a href="#">543</a></li>
+                    <li><a href="#">23</a></li>
+                    <li><a href="#">56</a></li>
+                </ul>
+            </div>   
+            <!-- 结果显示 -->
+            <ul class="searchresult" id="searchresult">
+                <li>
+                    <a href="" title="">
+                        <div class="book_img" style="background:url(images/img_loading.gif) no-repeat center center/cover;" alt=""></div> 
+                        <h3 class="book_title">毅力：如何培养自律能力（漫画版）</h3>
+                        <span class="book_author"><strong>作者</strong>&nbsp;〔美〕吉姆·兰德尔</span>
+                        <span class="book_press"><strong>出版社</strong>&nbsp;机械工业出版社</span>
+                        <span class="book_intro">本书为“简单有趣的个人管理”丛书之一。本书作者阅读了大量关于毅力的文章和图书，提炼出了最重要的内容呈现给读者。书中对毅力这一主题进行了分析，帮助你一步步接近你的梦想和目标</span>
+                        <div class="reading">查看详细信息</div>
+                    </a>          
+                </li>
+            </ul>
+            <div class="pointer">
+                <span class="prev" id="prev"></span>
+                <span class="next" id="next"></span>
+                <span class="pageNum" id="pageNum">0/0</span>
+            </div>
+        </div>
+             
+        <script type="text/javascript">
+            var searchInput = document.getElementById("searchinput");
+            var searchBtn = document.getElementById("searchstart");
+            var main = document.getElementById("main");
+            var result = document.getElementById("result");
+            var resultLi = result.getElementsByTagName("li");
+            var resultLiLength = result.length;
+            var searchresult = document.getElementById("searchresult");
+            var prevBtn = document.getElementById("prev");
+            var nextBtn = document.getElementById("next");
+            var pageNum = document.getElementById("pageNum");
+            var searchresultLi = searchresult.getElementsByTagName("li");
+            var jsonpData = null;
+            var currPageNum = 1;
+            var pageTotal = 0;
+            //调用jsonp带回的函数并获取数据  
+            function fn1(data){
+                jsonData = data;
+                let oUl = document.getElementById("result");
+                let oUlLi = oUl.getElementsByTagName("li");
+                let html = "";
+                if(data.books.length){
+                    oUl.style.display = "block";
+                    oUl.style.opacity = "1";
+                    for(let i = 0;i < 6;i++){
+                        html += `<li><a href="${data.books[i].alt}" target="_blank">${data.books[i].title}</a></li>`;
+                    }
+                    oUl.innerHTML = html;
+                    oUl.style.bottom =  -40 * oUlLi.length - 35 + "px";
+                    
+                }              
+            }
+            window.onload = function(){              
+                //搜索框监测
+                searchInput.oninput = function(){
+                    if(this.value != ""){
+                        let oScript = document.createElement("script");
+                        oScript.setAttribute("type","text/javascript");
+                        oScript.src = "https://api.douban.com/v2/book/search?q=" + this.value +"&count=100&callback=fn1";
+                        document.body.appendChild(oScript);                  
+                    }else{
+                        result.style.display = "none";
+                    }
+                }
+                searchInput.onblur = function(){
+                    serarch.style.width = "400px";
+                    result.style.opacity = "0";
+                }
+                //回车搜索
+                searchInput.onfocus = function(){
+                    serarch.style.width = "500px";
+                    document.onkeydown = function(ev){
+                    var ev = ev || event;
+                        if(ev.keyCode == 13 && searchInput.value != ""){
+                            currPageNum = 1;
+                            createList(0,6);
+                        }
+                    }               
+                }
+                //点击搜索 
+                searchBtn.onclick = function(){
+                    if(searchInput.value != ""){
+                        currPageNum = 1;
+                        createList(0,6);
+                    }
+                }
+                // 下一页
+                nextBtn.onclick = function(){
+                    currPageNum = currPageNum == pageTotal ? pageTotal : currPageNum + 1;
+                    createList((currPageNum - 1) * 6,currPageNum * 6);
+                }
+                // 上一页
+                prevBtn.onclick = function(){
+                    currPageNum = currPageNum == 1 ? 1 : currPageNum - 1;
+                    createList((currPageNum - 1) * 6,currPageNum * 6);
+                }
+                
+            }
+            //列表生成
+            function createList(startPage,displayPageNum){
+                let str = "";
+                pageTotal = Math.ceil(jsonData.books.length / 6);
+                displayPageNum = displayPageNum > jsonData.books.length ? jsonData.books.length : displayPageNum;
+                
+                for(let i = startPage;i < displayPageNum;i++){
+                    str += `<li>
+                                <a href="${jsonData.books[i].alt}" title="">
+                                    <img class="book_img" style="background:url(${jsonData.books[i].image}) no-repeat center center/cover;" alt=""> 
+                                    <h3 class="book_title">${jsonData.books[i].title}</h3>
+                                    <span class="book_author"><strong>作者</strong>&nbsp;${jsonData.books[i].author}</span>
+                                    <span class="book_press"><strong>出版社</strong>&nbsp;${jsonData.books[i].publisher}</span>
+                                    <span class="book_intro">${jsonData.books[i].summary}</span>
+                                    <div class="reading">查看详细信息</div>
+                                </a>          
+                            </li>`;
+                }
+                searchresult.innerHTML = str;
+                main.style.height = (searchresult.offsetHeight + 200 - main.offsetHeight) + main.offsetHeight + "px";
+                pageNum.innerHTML = `${currPageNum}/${pageTotal}`;
+            }
+
+
+                 
+        </script>
+    </body>
+</html>
