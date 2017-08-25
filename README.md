@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-24
+* [正则的应用](https://hz-rotatingblock.github.io/Js_review/2017-8-24)
 ## 2017-8-23
 * imitateDoubanBookSearch:[仿豆瓣读书搜索功能](https://hz-rotatingblock.github.io/Js_review/2017-8-23/imitateDoubanBookSearch.html)
 ## 2017-8-22
