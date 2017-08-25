@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>找出字符串中所有数字(非正则法)</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                display: block;
+                position: absolute;
+                padding-bottom: 100px;
+                top: 0;
+                left: 0;
+                width: 100%;
+                min-height: 100%;
+                height: auto;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+                background-attachment: fixed;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            
+        </div>
+             
+        <script type="text/javascript">
+            //找出字符串中所有数字
+            window.onload = function(){              
+                var str = "fgsdahehnberfhnb546544hj46he4h24y54eh3h5";                       
+                function findNum(str){
+                    let arr = [];
+                    let tmp = "";
+                    for(let i = 0;i < str.length;i++){
+                        if(str.charAt(i) <= "9" && str.charAt(i) >= "0"){
+                            tmp += str.charAt(i);
+                        }else{
+                            if(tmp){
+                                arr.push(tmp);
+                                tmp = "";
+                            }
+                        }
+                    }  
+                    if(tmp){
+                        arr.push(tmp);
+                        tmp = "";
+                    } 
+                    
+                    return arr;
+                }
+                alert(findNum(str));
+            
+            }
+
+
+                 
+        </script>
+    </body>
+</html>

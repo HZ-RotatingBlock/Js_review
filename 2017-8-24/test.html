@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                display: block;
+                position: absolute;
+                padding-bottom: 100px;
+                top: 0;
+                left: 0;
+                width: 100%;
+                min-height: 100%;
+                height: auto;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+                background-attachment: fixed;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="main" id="main">
+            
+        </div>
+             
+        <script type="text/javascript">
+            //正则都是操作字符串的
+            //test:字符串判断，搜索匹配成功返回真，反之为假;(RegExpObject.test(string));
+            //search:字符串搜索,返回出现的位置;(String.search(RegExpObject)或stringObject.match(searchvalue));
+            //match:获取匹配的项目，返回数组;(String.match(RegExpObject));
+            //replace:替换所有匹配，返回替换后的字符串;
+            //转义字符:\d;\D;\s;\S;\w;\W;\n;\t;\r;\v;\b;\B;
+            //i:不区分大小写;g:全局匹配;
+            //量词:匹配不确定的位置;         
+            //{num1,num2}: 前面的字符最少出现num1次，最多出现num2次，如{4,7}为最少4次最多7次；若num2值为空则为至少num1次如{4,}则为最少出现4次,若为{4}则是正好出现4次
+            //+: 至少出现一次,相当于{1,};
+            //*: 至少出现0次，相当于{0,};
+            //?: 出现1次或0次,相当于{0,1};
+            //匹配子项(分组操作):小括号();
+            //字符类:一组相似的元素 [] 中括号的整体代表一个字符(只代表一位),括号中每个字符间表示或的关系,若括号外加个+号如[]+则代表至少匹配一个或过个满足括号中某个字符的字符
+            //排除:^如果写在[]里面的话，就代表排除的意思
+            //.:任意字符;真正的点\.;
+            //\b:独立的部分(起始，结束，空格);\B非独立的部分;
+            //\数字:表示重复的子项,如\1表示重复的第一子项若第一子项为(a) 则\1代表(a),以此类推,针对未知的子项值使用
+            //^:正则的最开始位置，代表起始的意思
+            //$:正则的最后位置，代表结束的意思
+            //中文匹配:[\u4e00-\u9fa5]
+            //行首行尾空格:^\s|*\S*$
+            //Email:^\w+@[a-z0-9]+(\.[a-z]+){1,3}$
+            //网址:[a-zA-Z]+://[^\s]*
+            //QQ号:[1-9][0-9]{4,11}
+            //邮政编码:[1-9]\d{5}
+            //身份证:[1-9]\d{14}|[1-9]\d[17]|[1-9]\d{16}x
+            window.onload = function(){              
+                var re = {
+                    qq:/[1-9][0-9]{4,11}/,
+                    email:/^\w+@[a-z0-9]+(\.[a-z]+){1,3}$/,
+                    number:/\d+/,
+                }
+            
+
+
+                 
+        </script>
+    </body>
+</html>
