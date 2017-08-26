@@ -1,5 +1,8 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-25
+* dragEleFn: [面向对象的元素拖拽功能](https://hz-rotatingblock.github.io/Js_review/2017-8-25/dragEleFn.html)
+* tabOptionbarFn2: [面向对象的选项卡切换功能](https://hz-rotatingblock.github.io/Js_review/2017-8-25/tabOptionbarFn2.html)
 ## 2017-8-24
 * [正则的应用](https://hz-rotatingblock.github.io/Js_review/2017-8-24)
 ## 2017-8-23
