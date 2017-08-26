@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+            }
+            .box,
+            .box1{
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                width: 100px;
+                height: 100px;
+                background: #0073bc;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 4px 4px 10px #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+             <div class="box" id="box"></div>  
+             <div class="box1" id="box1"></div>  
+            
+        </div>
+             
+        <script type="text/javascript">
+            //*********************非面向对象的拖拽*******************
+            // window.onload = function(){
+            //     var oBox = document.getElementById("box");
+            //     var disX = 0;
+            //     var disY = 0;
+            //     oBox.onmousedown = function(ev){
+            //         var ev = ev || event;
+            //         disX = ev.clientX - oBox.offsetLeft;
+            //         disY = ev.clientY - oBox.offsetTop;
+            //         document.onmousemove = function(ev){
+            //             var ev = ev || event;
+            //             oBox.style.left = ev.clientX - disX + "px";
+            //             oBox.style.top = ev.clientY - disY + "px";
+            //         }
+            //         document.onmouseup = function(){
+            //             document.onmousemove = null;
+            //             document.onmouseup = null;
+            //         }
+            //         return false;
+            //     }
+            // }
+            //*******************普通方法变形*********************
+            // var oBox = null;
+            // var disX = 0;
+            // var disY = 0;
+            // window.onload = function(){
+            //     oBox = document.getElementById("box");
+            //     init();            
+            // }
+            // function init(){
+            //     oBox.onmousedown = fnDown;
+            // }
+            // function fnDown(ev){
+            //     var ev = ev || event;
+            //     disX = ev.clientX - oBox.offsetLeft;
+            //     disY = ev.clientY - oBox.offsetTop;
+            //     document.onmousemove = fnMove;
+            //     document.onmouseup = fnMouseup;
+            //     return false;
+            // }
+            // function fnMove(ev){
+            //     var ev = ev || event;
+            //     oBox.style.left = ev.clientX - disX + "px";
+            //     oBox.style.top = ev.clientY - disY + "px";
+            // }
+            // function fnMouseup(){
+            //     document.onmousemove = null;
+            //     document.onmouseup = null;
+            // }
+            //***********************面向对象的拖拽**********************
+            window.onload = function(){
+                var drag1 = new Drag("box");
+                drag1.init();
+                var drag2 = new Drag("box1");
+                drag2.init();
+            }
+            function Drag(id){
+                this.oBox = document.getElementById(id);
+                this.disX = 0;
+                this.disY = 0;
+            }
+            Drag.prototype.init = function(){
+                var _this = this;
+                this.oBox.onmousedown = function(ev){
+                    var ev = ev || window.event;
+                    _this.fnDown(ev);
+                    return false;
+                }
+            }
+            Drag.prototype.fnDown = function(ev){              
+                var _this = this;
+                this.disX = ev.clientX - this.oBox.offsetLeft;
+                this.disY = ev.clientY - this.oBox.offsetTop;
+                document.onmousemove = function(ev){
+                    var ev = ev || window.event;
+                    _this.fnMove(ev);
+                }
+                document.onmouseup = _this.fnMouseup;
+                
+            }
+            Drag.prototype.fnMove = function(ev){
+                this.oBox.style.left = ev.clientX - this.disX + "px";
+                this.oBox.style.top = ev.clientY - this.disY + "px";
+            }
+            Drag.prototype.fnMouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        </script>
+    </body>
+</html>
