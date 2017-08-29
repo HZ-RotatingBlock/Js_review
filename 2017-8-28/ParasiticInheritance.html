@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>寄生组合继承</title>
+        
+        <style type="text/css" id="css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+            }
+            .div1,
+            .div2{
+                display: block;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                width: 100px;
+                height: 100px;
+                background: #c03; 
+                cursor: pointer;
+            }
+            .div2{
+                left: 150px;
+                background: #0073bc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+             <div class="div1" id="div1"></div>      
+             <div class="div2" id="div2"></div>      
+        </div>
+             
+        <script type="text/javascript">
+        //************************链式继承*************************
+        //     function Aaa(){
+        //         this.name = "小明";
+        //     }
+        //     Aaa.prototype.showName = function(){
+        //         alert(this.name);
+        //     }
+        //     Bbb.prototype = new Aaa();
+        //     //修正指向问题
+        //     Bbb.prototype.constructor = Bbb;
+        //********************最常用的继承方式*********************
+        //写法一:
+        //属性和方法要分开继承
+        // function Aaa(){
+        //     this.name = [1,2,3];
+        // }
+        // Aaa.prototype.showName = function(){
+        //     alert(this.name);
+        // }
+        // //子类
+        // function Bbb(){
+        //     Aaa.call(this);
+        // }
+        // //创建临时的函数
+        // var F = function(){};
+        // //临时函数F只继承了父类Aaa的方法而没有继承其属性
+        // F.prototype = Aaa.prototype;
+        // Bbb.prototype = new F();
+        // //修正指向问题
+        // Bbb.prototype.constructor = Bbb;
+        //写法二:
+        //父类(被继承的函数)
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.showName = function(){
+            console.log("hello,my name is " + this.name);
+        }
+        //子类(继承父类的函数)
+        //继承父类属性
+        function Man(name,age){
+            Person.apply(this,arguments);
+        }
+        //继承父类方法
+        Man.prototype = Object.create(Person.prototype);
+        Man.prototype.constructor = Man;
+        Man.prototype.showAge = function(){
+            console.log("hello,my age is " + this.age);
+        }
+        //测试实例
+        var test1 = new Man("鲍勃",29);
+        var test2 = new Man("纽崔莱",20);
+        test1.showName();
+        test1.showAge();
+        </script>
+    </body>
+</html>

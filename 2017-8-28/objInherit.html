@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>面向对象的继承</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:url(images/searchBg.jpg) no-repeat center center/cover;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+
+            
+        </div>
+             
+        <script type="text/javascript">
+        //实例对象与原型之间的连线，叫做原型链
+        //原型链最外层是Objcet.prototype
+        //hasOwnProperty():看是不是自身下面的属性
+        //constructor:查看对象的构造函数
+        // 避免修改constructor属性
+        //使用for in循环时有些属性是找不到的，如系统自带的属性，此外for in 循环有时还可以配合hasOwnPrototype方法使用
+        //instanceof不是面向对象的属性和方法，他就是个运算符，用来判断构造函数在原型链上是否有关系
+        //toString():将对象转成字符串系统对象下都是系统自带的，自己写的对象都是通过原型链查找的
+        //利用toString()方法准确做类型判断:数组判断Object.prototype.toString.call(arr) == "[objcet Array]"
+        //继承是复用代码的一种形式,子类不影响父类，子类可以继承父类的一些功能(代码复用)
+        //属性的继承：调用父类的构造函数并用call方法改变this指向
+        //方法的继承：for in 拷贝继承 (Jquery也是拷贝继承)
+            window.onload = function(){
+                //创建函数时自动为自己添加了一个显示原型属性即:Aaa.prototype.constructor = Aaa;
+                // function Aaa(){
+
+                // }
+                // // Aaa.prototype.name = "小明";
+                // // Aaa.prototype.age = 20;
+                // Aaa.prototype = {
+                //     //json赋值形式写原型属性方法时注意添加constructor属性为其原型，否则无意之间实例的构造器属性如a1.constructor就会被改为Object而不是其原型构造器
+                //     constructor:Aaa,
+                //     name:"小明",
+                //     age:20
+                // }
+                // var a1 = new Aaa();
+                // alert(a1.constructor);
+                // function Aaa(){};
+                // var a1 = new Aaa();
+                // alert(a1 instanceof Aaa); //true
+                // var arr = [];
+                // alert(arr instanceof Array); //true
+                function CreatePerson(name,sex){
+                    this.name = name;
+                    this.sex = sex;
+                }
+                CreatePerson.prototype.showName = function(){
+                    alert(this.name);
+                }
+                function CreateStar(name,sex,job){
+                    CreatePerson.call(this,name,sex);
+                    this.job = job;
+                }
+                extend(CreateStar.prototype,CreatePerson.prototype);
+                CreateStar.prototype.showJob = function(){
+                    alert(this.job);
+                }
+                var p2 = new CreateStar("黄晓明","男","演员");
+                p2.showName();
+                p2.showJob();
+                
+            }
+            function extend(objPrototype1,objPrototype2){
+                for(let attr in obj2){
+                    obj1[attr] = obj2[attr];
+                }
+            }
+        </script>
+    </body>
+</html>
