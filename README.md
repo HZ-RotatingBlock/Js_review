@@ -1,5 +1,10 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-8-30
+* subgroup-popUp: [弹窗组件](https://hz-rotatingblock.github.io/Js_review/2017-8-30/subgroup-popUp.html)
+* customEventDragSubgroup：[自定义事件型元素拖拽组件](https://hz-rotatingblock.github.io/Js_review/2017-8-30/customEventDragSubgroup.html)
+## 2017-8-28
+* DragSubgroup: [组件步骤测试](https://hz-rotatingblock.github.io/Js_review/2017-8-28/DragSubgroup.html)
 ## 2017-8-25
 * dragEleFn: [面向对象的元素拖拽功能](https://hz-rotatingblock.github.io/Js_review/2017-8-25/dragEleFn.html)
 * tabOptionbarFn2: [面向对象的选项卡切换功能](https://hz-rotatingblock.github.io/Js_review/2017-8-25/tabOptionbarFn2.html)
