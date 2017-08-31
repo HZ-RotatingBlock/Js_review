@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .box{
+                perspective: 1000px;
+                transform-origin: center center;
+                position: absolute;
+                bottom: 5%;
+                left: 50%;
+                width: 100%;
+                text-align: center;
+                transform: translateX(-50%);   
+                -webkit-transform: translateX(-50%);   
+            }
+            .option{
+                display: inline-block;
+                width: 90px;
+                min-height: 100px;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .bottombar{
+                z-index: -1;
+                position: absolute;
+                bottom: -25px;
+                left: 50%;
+                width: 1050px;
+                height: 100px;
+                background: rgba(51, 51, 51, .3);
+                border: 2px solid #0073bc;
+                border-radius: 40px;
+                transform:translateX(-50%) rotateX(50deg);
+                -webkit-transform:translateX(-50%) rotateX(50deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="box" id="box">
+                <span class="bottombar"></span>
+                <img src="images/1.png" class="option"/>
+                <img src="images/2.png" class="option"/>
+                <img src="images/3.png" class="option"/>
+                <img src="images/4.png" class="option"/>
+                <img src="images/5.png" class="option"/>
+                <img src="images/6.png" class="option"/>
+                <img src="images/7.png" class="option"/>
+                <img src="images/8.png" class="option"/>
+                <img src="images/9.png" class="option"/>
+                <img src="images/10.png" class="option"/>
+                
+            </div>
+            
+        </div>
+             
+        <script type="text/javascript">
+            window.onload = function(){
+                var aInput = document.getElementsByTagName("input");
+                var oDiv = document.getElementById("box");
+                var aImg = oDiv.getElementsByTagName("img");
+                document.onmousemove = function(ev){
+                    var ev = ev || window.event;
+                    for(let i = 0;i < aImg.length;i++){
+                        var x = aImg[i].offsetLeft + aImg[i].offsetWidth / 2;
+                        var y = aImg[i].offsetTop + aImg[i].offsetHeight / 2 + oDiv.offsetTop;
+                        
+                        var a = ev.clientX - x;
+                        var b = ev.clientY - y;
+                        var c = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+                        var scale = 1 - c / 300;
+                        if(scale < 0.5){
+                            scale = 0.5;
+                        }
+                        aImg[i].style.width = scale * 180 + "px";
+                        aImg[i].style.height = scale * 180 + "px";
+                    }
+                }
+                
+                
+            }
+            
+        </script>
+    </body>
+</html>

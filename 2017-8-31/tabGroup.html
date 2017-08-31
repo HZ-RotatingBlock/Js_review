@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JQ选项卡组件流程</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .box,
+            .box1,
+            .box2{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 20%;
+                width: 400px;
+                height: 300px;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+            .box1{
+                left: 50%;
+            }
+            .box2{
+                left: 80%;
+            }
+            .box input,
+            .box1 input,
+            .box2 input{
+                display: block;
+                float: left;
+                margin-right: 20px;
+                width: 100px;
+                height: 40px;
+                font-size: 20px;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                background: #0073bc;
+                border: none;
+                border-radius: 3px;
+                transform: translateY(0%);
+                -webkit-transform: translateY(0%);
+                cursor: pointer;
+            }
+            .box input:hover{
+                background: #c03;
+            }
+            .box1 input:hover{
+                background: #c03;
+            }
+            .box2 input:hover{
+                background: #c03;
+            }
+            .box div,
+            .box1 div,
+            .box2 div{
+                display: none;
+                width: 400px;
+                height: 300px;
+                border: 2px solid #0073bc;
+                clear: both;
+            }
+            .active{
+                background-color: #c03 !important;
+            }
+            .content_div{
+                font-size: 20px;
+                text-align: left;
+                line-height: 24px;
+                background-color: rgba(255, 255, 255, .8);
+                border: 2px solid #0073bc;
+                border-radius: 5px;
+                box-shadow: 4px 4px 10px #000;
+            }
+            #input1{
+                margin-top: 20px;
+                width: 100px;
+                height: 30px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 30px;
+                color: #fff;
+                background-color: #69f;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        </style>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="main">
+             <div class="box" id="box">
+                <input class="active" type="button" value="1">     
+                <input type="button" value="2">     
+                <input type="button" value="3"> 
+                <div class="content_div" style="display:block"><br/>111111</div>    
+                <div class="content_div"><br/>222222</div>
+                <div class="content_div"><br/>333333</div>
+            </div>  
+            <div class="box1" id="box1">
+                <input class="active" type="button" value="1">     
+                <input type="button" value="2">     
+                <input type="button" value="3"> 
+                <div class="content_div" style="display:block"><br/>111111</div>    
+                <div class="content_div"><br/>222222</div>
+                <div class="content_div"><br/>333333</div>
+            </div>   
+            <div class="box2" id="box2">
+                <input class="active" type="button" value="1">     
+                <input type="button" value="2">     
+                <input type="button" value="3"> 
+                <div class="content_div" style="display:block"><br/>111111</div>    
+                <div class="content_div"><br/>222222</div>
+                <div class="content_div"><br/>333333</div>
+                <button id="input1">点击</button>
+            </div> 
+        </div>
+             
+        <script type="text/javascript">
+            /*
+                title: 基于JQ的选项卡组件
+                Options: event delay
+                Method: noewSel() getContent()
+                Events: beforeClick afterClidk
+            */
+            $(function(){
+                var t1 = new Tab();
+                t1.init("box",{});
+                var t2 = new Tab();
+                t2.init("box1",{
+                    event:"mouseover",
+                    delay: 200
+                });
+                var t3 = new Tab();
+                t3.init("box2",{});
+                t3.nowSel(2);
+                $("#input1").click(function(){
+                    alert(t3.getContent());
+                })
+                $(t3).on("beforeClick",function(){
+                    alert(t3.getContent());
+                })
+                $(t3).on("afterClick",function(){
+                    alert(t3.getContent());
+                })
+            })
+            function Tab(){
+                this.oParent = null;
+                this.aInput = null;
+                this.aDiv = null;
+                this.iNow = 0;
+                this.settings = {
+                    event: "click",
+                    delay: 0
+                }
+            }
+            Tab.prototype.init = function(oParent,opt){
+                $.extend(this.settings,opt);
+                this.oParent = $("#" + oParent);
+                this.aInput = this.oParent.find("input");
+                this.aDiv = this.oParent.find("div");
+                this.change();
+            }
+            Tab.prototype.change = function(){
+                let _this = this;
+                let timer = null;
+                this.aInput.on(this.settings.event,function(){
+                    
+                    let This = this;
+                    if(_this.settings.event == "mouseover" && _this.settings.delay){
+                        timer = setTimeout(function(){
+                            show(This);
+                        },_this.settings.delay);
+                    }else{
+                        show(this);
+                    }
+                    
+                }).mouseout(function(){
+                    clearTimeout(timer);
+                })
+                function show(obj){
+                    $(_this).trigger("beforeClick");
+                    _this.aInput.attr("class",'');
+                    _this.aDiv.css("display","none")
+                    $(obj).attr("class","active");
+                    _this.aDiv.eq($(obj).index()).css("display","block");
+                    _this.iNow = $(obj).index();
+                    $(_this).trigger("afterClick");
+                }
+            }
+            Tab.prototype.nowSel = function(index){
+                this.aInput.attr("class",'');
+                this.aDiv.css("display","none")
+                this.aInput.eq(index).attr("class","active");
+                this.aDiv.eq(index).css("display","block");
+                this.iNow = index;
+            }
+            Tab.prototype.getContent = function(){
+                return this.aDiv.eq(this.iNow).html();
+            }
+        </script>
+    </body>
+</html>
