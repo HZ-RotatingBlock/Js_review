@@ -27,13 +27,15 @@
                 border-radius: 3px;
             }
             .preview{
+                opacity: 0;
                 overflow: hidden;
-                display: block;
                 top: 350px;
                 padding: 0;
                 width: 1000px;
                 height: 562.5px;
                 border: none;
+                transition: all .3s;
+                -webkit-transition: all .3s;
             }
             .magnifier{
                 width: 500px;
@@ -77,9 +79,11 @@
             var previewImg = document.getElementById("preview_img");
             oDiv.onmouseenter = function(){
                 oSpan.style.display = "block";
+                preview.style.opacity = 1;
             }
             oDiv.onmouseleave = function(){
                 oSpan.style.display = "none";
+                preview.style.opacity = 0;
             }
             oDiv.onmousemove = function(ev){
                 var ev = ev || window.event;
