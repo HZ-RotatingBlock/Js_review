@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-01
+* dragImgWall: [拖拽照片墙](https://hz-rotatingblock.github.io/Js_review/2017-9-01/dragImgWall.html)
 ## 2017-8-31
 * MacOSMenu: [苹果菜单](https://hz-rotatingblock.github.io/Js_review/2017-8-31/MacOSMenu.html)
 * magnifiterFn: [商品放大镜](https://hz-rotatingblock.github.io/Js_review/2017-8-31/magnifiterFn.html)
