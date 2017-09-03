@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>test</title>
+        <title>照片上传一览</title>
         
         <style type="text/css">
             *{margin:0;padding:0;list-style:none;text-decoration:none;}
@@ -136,7 +136,7 @@
     </head>
     <body>
         <div class="main">
-            <div class="title" id="title">将文件拖拽到下放文件区</div>
+            <div class="title" id="title">将图片拖拽到下放文件区</div>
             <ul class="testul" id="testul">
                 <li></li>
             </ul>
@@ -156,11 +156,11 @@
                 oUl.ondragover = function(ev){
                     var ev = ev || window.event;
                     ev.preventDefault();
-                    title.innerHTML = "释放鼠标将文件置放置";
+                    title.innerHTML = "释放鼠标将图片置放置";
                     this.style.boxShadow = "4px 4px 10px #000";
                 }
                 oUl.ondragleave = function(){
-                    title.innerHTML = "将文件拖拽到下放文件区";
+                    title.innerHTML = "将图片拖拽到下放文件区";
                     this.style.boxShadow = "none";
                 }
                 oUl.ondrop = function(ev){
@@ -181,7 +181,7 @@
                         }
                     }
                     ev.preventDefault();                   
-                    title.innerHTML = "将文件拖拽到下放文件区";
+                    title.innerHTML = "将图片拖拽到下放文件区";
                     this.style.boxShadow = "none";
                 }
             }          

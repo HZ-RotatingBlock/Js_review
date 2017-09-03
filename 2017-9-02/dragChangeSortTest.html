@@ -39,8 +39,6 @@
             <li draggable="true">b</li>
             <li draggable="true">c</li>
         </ul>
-        <div class="testdiv" id="testdiv"></div>
-        <img src="images/9.jpg" id="img"/>
              
         <script type="text/javascript">
             //拖拽元素事件:事件对象为被拖拽元素
@@ -73,7 +71,6 @@
                     aLi[i].ondragstart = function(){
                         var ev = ev || window.event;
                         currentIndex = this.index;
-                        console.log(currentIndex);
                         ev.dataTransfer.setData("name","hello");
                     }
                     aLi[i].ondrag = function(){
@@ -106,8 +103,6 @@
                         }
                         this.style.background = "#c03";
                         this.style.webkitTransform = "scale(1)";
-                        console.log(currentIndex);
-                        console.log(i);
                         for(let i = 0;i < aLi.length;i++){
                             console.log("目前索引:" + aLi[i].index);
                         }
