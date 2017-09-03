@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>历史管理history</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+        </style>
+    </head>
+    <body>
+        <input type="button" value="请选择" id="input1">
+        <div id="div1"></div>
+        
+             
+        <script type="text/javascript">
+            // 触发历史管理:1.通过跳转页面 2.hash 3.pushState
+            window.onload = function(){
+                var oInput = document.getElementById("input1");
+                var oDiv = document.getElementById("div1");
+
+                oInput.onclick = function(){
+                    let arr = randomNum(35,7);
+                    history.pushState(arr,"",arr);
+                    oDiv.innerHTML = arr;
+                }
+                window.onpopstate = function(ev){
+                    var ev = ev || window.event;
+                    oDiv.innerHTML = ev.state;
+                }
+
+                function randomNum(iAll,iNow){
+                    let arr = [];
+                    let newArr = [];
+                    for(let i = 1;i < iAll;i++){
+                        arr.push(i);
+                    }
+                    for(let i = 0;i < iNow;i++){
+                        newArr.push(arr.splice(Math.floor(Math.random() * arr.length - 1),1))
+                    }
+                    return newArr;
+                }
+            }          
+        </script>
+    </body>
+</html>

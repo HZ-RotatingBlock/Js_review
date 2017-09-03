@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>拖放操作</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            li,
+            .testdiv{
+                margin: 10px;
+                width: 100px;
+                height: 100px;
+                font-size: 30px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 100px;
+                color: #fff;
+                background: #c03;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .testdiv{
+                margin: 200px;
+                background: #69f;
+                border-radius: 5px;
+                transition: all .3s;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li draggable="true">a</li>
+            <li draggable="true">b</li>
+            <li draggable="true">c</li>
+        </ul>
+        <div class="testdiv" id="testdiv"></div>
+             
+        <script type="text/javascript">
+            //拖拽元素事件:事件对象为被拖拽元素
+            // dragstart:拖拽前触发
+            // drag:拖拽结束之间，连续触发
+            // dragend:拖拽结束触发
+            // 目标元素事件:时间为目标元素
+            // dragenter:进入目标元素触发，相当于mouseover
+            // dragover:进入目标、离开之间，连续触发
+            // dragleave:离开目标元素触发，相当于mouseout
+            // drop:在目标元素上释放鼠标触发(要想触发drop事件就必须在dragover中阻止默认事件)
+            // 事件的执行顺序（drop不触发的时候）:dragstart>drag>dragenter>dragover>dragleave>dragend
+            //事件的执行顺序（drop触发的时候-dragover的时候阻止默认事件）:dragstart>drag>dragenter>dragover>drop>dragend
+            //不能释放的光标和能释放的光标不一样
+            // 解决火狐下不能拖拽的问题:必须设置dataTransfer对象的setData方法才可以拖拽除图片以外的其它标签
+            // dataTransfer对象
+            // setData():设置数据key和value (必须是字符串)
+            // getData():获取数据根据key值，获取对应的value
+            // effectAllowed:设置光标样式(none,copy,copyLink,copyMove,link,linkMove,move,all和uninitialized)
+            //setDragImg:三个参数，指定的元素，坐标X，坐标Y
+            //files:获取外部拖拽的文件，返回一个filesList列表，filesList下有个type属性，返回文件的类型
+            // FileReader(读取文件信息)
+            //readAsDataURL:参数为要读取的文件对象，将文件读取为DataUrl
+            //onload:当读取文件成功完成时触发此事件;this.result,来获取文件数据，如果是图片，将返回base64格式的图片数据
+            window.onload = function(){
+                let oUl = document.getElementsByTagName("ul")[0];
+                let aLi = oUl.getElementsByTagName("li");
+                let oDiv = document.getElementById("testdiv");
+                for(let i = 0;i < aLi.length;i++){
+                    aLi[i].index = i;
+                    aLi[i].ondragstart = function(){
+                        var ev = ev || window.event;
+                        ev.dataTransfer.setData("name",this.index);
+                        this.style.background = "#0073bc";
+                    }
+                    aLi[i].ondrag = function(){
+                        this.style.background = "#333";
+                    }
+                    aLi[i].ondragend = function(){
+                        this.style.background = "pink";
+                    }
+                    oDiv.ondragenter = function(){
+                        this.style.background = "#000";
+                    }
+                    oDiv.ondragover = function(){
+                        this.style.webkitTransform = "scale(1.5)";
+                        return false;
+                    }
+                    oDiv.ondragleave = function(){
+                        this.style.webkitTransform = "scale(1.2)";
+                    }
+                    oDiv.ondrop = function(ev){
+                        this.style.background = "#ccc"
+                        // alert(ev.dataTransfer.getData("name"));
+                        oUl.removeChild(aLi[ev.dataTransfer.getData("name")]);
+                        for(let i = 0;i < aLi.length;i++){
+                            aLi[i].index = i;
+                        }
+                    }
+
+                }
+            }          
+        </script>
+    </body>
+</html>
