@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .title{
+                margin: 0 auto;
+                margin-top: 10px;
+                width: 1000px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 50px;
+                color: #fff;
+                background: rgba(51, 51, 51, .7);
+                border-radius: 5px;
+                transition: all .3s;
+                cursor: pointer;
+            }
+            /* 商品列表 */
+            .testul{
+                overflow: auto;
+                margin: 0 auto;
+                margin-top: 10px;
+                padding: 20px;
+                padding-bottom: 20px;
+                width: 960px;
+                height: auto;
+                min-height: 400px;
+                background: rgba(51, 51, 51, .7);
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                clear: both;
+            }
+            .testul li{
+                float: left;
+                position: relative;
+                margin-top: 20px;
+                margin-right: 15px;
+                padding: 10px;
+                width: calc(100% - 20px);
+                height: 200px;
+                background-color: rgba(255, 255, 255, 1);
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .testul li:nth-of-type(3n){
+                margin-right: 0;
+            }
+            .testul li:hover{
+                box-shadow: 4px 4px 10px #000;
+                transform: translateY(-2%);
+                -webkit-transform: translateY(-2%);
+            }
+            .testul li img{
+                margin-left: 0;
+                width: auto;
+                height: 200px;
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .itempart{
+                position: absolute;
+                top: 10px;
+                left: 180px;
+                width: calc(100% - 180px);
+                height: 100%;
+            }
+            .itemtitle,
+            .author,
+            .publisher,
+            .price,
+            .intro{
+                margin-bottom: 10px;
+                margin-right: 10px;
+                min-width: 150px;
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 30px;
+            }
+            .author,
+            .publisher,
+            .price,
+            .intro{
+                font-size: 16px;
+            }
+            .intro{
+                display: block;
+                margin-top: 10px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+            /* 购物车 */
+            .shopcar{
+                position: fixed;
+                top: 100px;
+                right: -324px;
+                padding: 10px;
+                width: 300px;
+                height: auto;
+                min-height: 400px;
+                background-color: rgba(255, 255, 255, 1);
+                border: 2px solid #0073bc;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+            .shopbar{
+                position: absolute;
+                top: -2px;
+                left: -44px;
+                width: 40px;
+                height: 150px;
+                font-size: 22px;
+                font-weight: 700;
+                text-align: center;
+                background-color: #fff;
+                border: 2px solid #0073bc;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            .shopcarimg{
+                margin-top: 10px;
+                width: 30px;
+            }
+            .shoplist{
+                margin-top: 0;
+                width: 100%;
+                height: 40px;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 40px;
+                text-align: center;
+                transition: all. 3s;
+                -webkit-transition: all. 3s;
+                cursor: pointer;
+            }
+            .shoplist li{
+                width: 100%;
+                height: 40px;
+                color: #0073bc;
+                border-bottom: 1px dashed #0073bc;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .shoplist li:hover{
+                background-color: rgba(0, 115, 188, .7);;
+                color: #fff !important;
+            }
+            .shoplist span{
+                float: left;
+                width: 10%;
+                height: 40px;
+            }
+            .shoplist span:nth-of-type(2){
+                overflow: hidden;
+                width: 70%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .shoplist span:nth-of-type(3){
+                width: 20%;
+                font-size: 16px;
+            }
+            .itemtotal{
+                position: absolute;
+                bottom: -44px;
+                left: -2px;
+                width: 100%;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-indent: .5em;
+                line-height: 40px;
+                background-color: #fff;
+                border: 2px solid #0073bc;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            .itemtotal_num{
+                float: right;
+                margin-right: 5px;
+            }
+            .return{
+                position: absolute;
+                bottom: -43px;
+                left: -2px;
+                width: 40px;
+                height: 40px;
+                background: url(images/return.png) center center/cover;
+                background-color: #fff;
+                border: 2px solid #0073bc;
+                border-radius: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="title" id="title">商品列表(可将商品直接拖拽至购物车)</div>
+            <ul class="testul" id="testul">
+                <li>
+                    <img src="images/shopping_1.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">HTML和XHTML权威指南(第五版)</h4>
+                        <span class="author">Chuck Musciano、Bill Kennedy / 技桥</span>
+                        <span class="publisher">清华大学出版社</span>
+                        <span class="price">72元</span>
+                        <p class="intro">HTML！XHTML！级联样式表！编写网页的标准很难整理，因为各种版本的Netscape和Internet Explorer在其实现方式上千差万别。《HTML与XHTML权威指南》将这些标准全部介绍给了读者。本书作者找出了各种标准和浏览器特性，并在创建网页方面为读者提出了很多建议，以便能够被更广泛的浏览者和平台所接受。</p>
+                    </div>                
+                </li>
+                <li>
+                    <img src="images/shopping_2.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">JavaScript权威指南(第6版)</h4>
+                        <span class="author">[美] David Flanagan </span>
+                        <span class="publisher">机械工业出版社华章公司</span>
+                        <span class="price">139.00元</span>
+                        <p class="intro">本书是程序员学习核心JavaScript语言和由Web浏览器定义的JavaScript API的指南和综合参考手册。
+                                第6版涵盖HTML 5和ECMAScript 5。很多章节完全重写，以便与时俱进，紧跟当今的最佳Web开发实践。本书新增章节描述了jQuery和服务器端JavaScript</p>
+                    </div>                
+                </li>
+                <li>
+                    <img src="images/shopping_3.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">MongoDB权威指南</h4>
+                        <span class="author">[美] Kristina Chodorow / Michael Dirolf </span>
+                        <span class="publisher">人民邮电出版社</span>
+                        <span class="price">39.00元</span>
+                        <p class="intro">mongodb如何帮你管理通过web应用收集的海量数据呢？通过本书的权威解读，你会了解面向文档数据库的诸多优点，会发现mongodb如此稳定、性能优越甚至能够无限水平扩展背后的原因。</p>
+                    </div>                
+                </li>
+                <li>
+                    <img src="images/shopping_4.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">CSS权威指南（第三版）</h4>
+                        <span class="author">[美] Eric A.Meyer </span>
+                        <span class="publisher">中国电力出版社</span>
+                        <span class="price">58.00元</span>
+                        <p class="intro">你是否既想获得丰富复杂的网页样式，同时又想节省时间和精力？本书为你展示了如何遵循CSS最新规范（CSS2和CSS2.1）将层叠样式表的方方面面应用于实践。
+                                通过本书提供的诸多示例，你将了解如何做到仅在一处建立样式表就能创建或修改整个网站的外观，以及如何得到HTML力不能及的更丰富的表现效果。</p>
+                    </div>                
+                </li>
+                <li>
+                    <img src="images/shopping_5.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">Web性能权威指南</h4>
+                        <span class="author">Ilya Grigorik </span>
+                        <span class="publisher">人民邮电出版社</span>
+                        <span class="price">69元</span>
+                        <p class="intro">本书是谷歌公司高性能团队核心成员的权威之作，堪称实战经验与规范解读完美结合的产物。本书目标是涵盖Web 开发者技术体系中应该掌握的所有网络及性能优化知识。全书以性能优化为主线，从TCP、UDP 和TLS 协议讲起，解释了如何针对这几种协议和基础设施来优化应用。然后深入探讨了无线和移动网络的工作机制。最后，揭示了HTTP 协议的底层细节，同时详细介绍了HTTP 2.0、 XHR、SSE、WebSocket、WebRTC 和DataChannel 等现代浏览器新增的具有革命性的新能力。</p>
+                    </div>                
+                </li>
+                <li>
+                    <img src="images/shopping_6.jpg" alt="商品预览" class="itempreview">
+                    <div class="itempart">
+                        <h4 class="itemtitle">HTTP权威指南</h4>
+                        <span class="author">David Gourley / Brian Totty </span>
+                        <span class="publisher">人民邮电出版社</span>
+                        <span class="price">109.00元</span>
+                        <p class="intro">超文本转移协议（Hypertext Transfer Protocol，HTTP）是在万维网上进行通信时所使用的协议方案。HTTP有很多应用，但最著名的是用于web浏览器和web服务器之间的双工通信。
+                                HTTP起初是一个简单的协议，因此你可能会认为关于这个协议没有太多好 说的。但现在，你手上拿着的是却一本两磅重 的书。如果你对我们怎么会写出一本650页 的关于HTTP的书感到奇怪的话，可以去看一下目录。本书不仅仅是一本HTTP首部的参考手册；它是一本名副其实的web结构圣经。</p>
+                    </div>                
+                </li>
+            </ul>
+            <div class="shopcar" id="shopcar">
+                <div class="shopbar" id="shopbar">
+                    <img src="images/shoppingbefore.png" alt="购物车" class="shopcarimg" id="shopcarimg">
+                    购物车
+                    <div class="return"></div>
+                </div>
+                
+                <ul class="shoplist" id="shoplist"></ul>
+                <div class="itemtotal">
+                    总计<span class="itemtotal_num" id="itemtotal_num">120￥</span>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            window.onload = function(){
+                let title = document.getElementById("title");
+                let oUl = document.getElementById("testul");
+                let oLi = oUl.getElementsByTagName("li");
+                let shopcar = document.getElementById("shopcar");
+                let shopbar = document.getElementById("shopbar");
+                let shoplist = document.getElementById("shoplist");
+                let shoplistLi = shoplist.getElementsByTagName("li");
+                let shopcarimg = document.getElementById("shopcarimg");
+                let itemtotal_num = document.getElementById("itemtotal_num");
+                let listStatus = true;
+                let itemJson = {};
+
+                for(let i = 0;i < oLi.length;i++){
+                    oLi[i].setAttribute("draggable","true");
+                    oLi[i].ondragstart = function(ev){
+                        var ev = ev || window.event;
+                        let aTitle = this.getElementsByTagName("h4")[0].innerHTML;
+                        let aMoney = parseInt(this.getElementsByClassName("price")[0].innerHTML);
+                        ev.dataTransfer.setData("title",aTitle);
+                        ev.dataTransfer.setData("money",aMoney);
+                        ev.dataTransfer.setDragImage(this,0,0);
+                    }
+                }
+                shopbar.onclick = function(){
+                    shopcar.style.right = listStatus ? 0 : "-324px";
+                    listStatus = !listStatus;
+                }
+                shopcar.ondragenter = function(){
+                    if(listStatus){
+                        this.style.right = "0";
+                        listStatus = !listStatus;
+                    }
+                }
+                shopcar.ondragover = function(ev){
+                    var ev = ev || window.event;
+                    ev.preventDefault();
+                    this.style.boxShadow = "0 0 10px #0073bc";
+                }
+                shopcar.ondrop = function(ev){
+                    var ev = ev || window.event;
+                    ev.preventDefault();
+                    let sTitle = ev.dataTransfer.getData("title");
+                    let sMoney = ev.dataTransfer.getData("money");                 
+                    if(!itemJson[sTitle]){
+                        let newLi = document.createElement("li");
+                        let listLenght = shoplistLi.length;
+                        newLi.innerHTML = `<span class="listnum">1</span><span class="itemname">${sTitle}</span><span class="itemprice">${sMoney}￥</span>`;
+                        shoplist.appendChild(newLi);
+                        this.style.boxShadow = "none";
+                        if(shoplist.innerHTML != ""){
+                            shopcarimg.src = "images/shoppingafter.png";
+                        }else{
+                            shopcarimg.src = "images/shoppingbefore.png";
+                        }
+                        itemJson[sTitle] = 1;
+                    }else{
+                        let itemListName = shoplist.getElementsByClassName("itemname");
+                        for(let i = 0;i < itemListName.length;i++){
+                            if(itemListName[i].innerHTML == sTitle){
+                                itemListName[i].previousSibling.innerHTML++;
+                            }
+                        }
+                    }
+                    
+                    let totalNum = 0;
+                    for(let i = 0;i < shoplistLi.length;i++){
+                        totalNum += shoplistLi[i].getElementsByClassName("listnum")[0].innerHTML * parseInt(shoplistLi[i].getElementsByClassName("itemprice")[0].innerHTML);
+                    }
+                    itemtotal_num.innerHTML = totalNum + "￥";
+                }
+            }          
+        </script>
+    </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .title{
+                margin: 0 auto;
+                margin-top: 10px;
+                width: 1000px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 50px;
+                color: #fff;
+                background: rgba(51, 51, 51, .7);
+                border-radius: 5px;
+                transition: all .3s;
+                cursor: pointer;
+            }
+            .testul{
+                overflow: auto;
+                margin: 0 auto;
+                margin-top: 10px;
+                padding: 20px;
+                padding-bottom: 70px;
+                width: 960px;
+                height: auto;
+                min-height: 400px;
+                background: rgba(51, 51, 51, .7);
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                clear: both;
+            }
+            .testul li{
+                opacity: .8;
+                float: left;
+                position: relative;
+                margin-top: 50px;
+                margin-right: 15px;
+                width: 310px;
+                height: 200px;
+                background: url(images/add.png) no-repeat center center/50%;
+                background-color: rgba(255, 255, 255, 1);
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .testul li:nth-of-type(1){
+                margin-top: 10px;
+            }
+            .testul li:nth-of-type(2){
+                margin-top: 10px;
+            }
+            .testul li:nth-of-type(3){
+                margin-top: 10px;
+            }
+            .testul li:nth-of-type(3n){
+                margin-right: 0;
+            }
+            .testul li:hover{
+                opacity: 1;
+                background-size: 70%;
+                background-color: rgba(255, 255, 255, 1);
+                box-shadow: 4px 4px 10px #000;
+                transform: translateY(-2%);
+                -webkit-transform: translateY(-2%);
+            }
+            .testul li img{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 310px;
+                height: 200px;
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .intro{
+                opacity: 0;
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+                height: 30px;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 30px;
+                border: none;
+                border-radius: 3px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+            .testul li:hover .intro{
+                opacity: 1;
+                bottom: -40px;
+            }
+            .publish{
+                margin: 0 auto;
+                margin-top: 20px;
+                width: 200px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 50px;
+                color: #fff;
+                background: #0073bc;
+                border-radius: 3px;
+                transition: all .2s;
+                -webkit-transition: all .2s;
+                cursor: pointer;
+            }
+            .publish:hover{
+                box-shadow: 4px 4px 10px #000;
+                transform: translateY(-2%);
+                -webkit-transform: translateY(-2%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="title" id="title">将文件拖拽到下放文件区</div>
+            <ul class="testul" id="testul">
+                <li></li>
+            </ul>
+            <div class="publish">上传并发布</div>
+        </div>
+        
+        <script type="text/javascript">
+            // FileReader(读取文件信息)
+            //readAsDataURL:参数为要读取的文件对象，将文件读取为DataUrl
+            //onload:当读取文件成功完成时触发此事件;this.result,来获取文件数据，如果是图片，将返回base64格式的图片数据
+            window.onload = function(){
+                var title = document.getElementById("title");
+                let oUl = document.getElementById("testul");
+                oUl.ondragstart = function(){
+                    this.style.boxShadow = "4px 4px 10px #000";
+                }
+                oUl.ondragover = function(ev){
+                    var ev = ev || window.event;
+                    ev.preventDefault();
+                    title.innerHTML = "释放鼠标将文件置放置";
+                    this.style.boxShadow = "4px 4px 10px #000";
+                }
+                oUl.ondragleave = function(){
+                    title.innerHTML = "将文件拖拽到下放文件区";
+                    this.style.boxShadow = "none";
+                }
+                oUl.ondrop = function(ev){
+                    var ev = ev || window.event;
+                    let fs = ev.dataTransfer.files;                                     
+                    for(let i = 0;i < fs.length;i++){
+                        if(fs[i].type.indexOf("image") != -1){
+                            let fd = new FileReader();
+                            fd.readAsDataURL(fs[i]);
+                            fd.onload = function(){
+                                let oLi = document.createElement("li");
+                                oLi.innerHTML = `<input type="text" placeholder="点击添加描述" class="intro"/>`;
+                                oLi.style.background = `url(${this.result}) no-repeat center center/cover`;
+                                oUl.insertBefore(oLi,oUl.children[0]);
+                            }
+                        }else{
+                            alert("请上传图片类型的文件")
+                        }
+                    }
+                    ev.preventDefault();                   
+                    title.innerHTML = "将文件拖拽到下放文件区";
+                    this.style.boxShadow = "none";
+                }
+            }          
+        </script>
+    </body>
+</html>
