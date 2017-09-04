@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>旋转方块</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .canvastest{
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                background: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <canvas class="canvastest" id="canvastest" width="600" height="600">
+            </canvas>
+        </div>
+        
+        <script type="text/javascript">
+            //先设置后绘制
+            //**********************绘制方块***********************
+            // fillRect(L,T,W,H):默认颜色为黑色
+            //strokeRect(L,T,W,H):带边框的方块，注意绘制时若L,T值为整数如50,50则会出现其边框不是1px而是2px，原因在于canvas的线经过时像素向两边延伸0.5px，但是浏览器只能按1px显示而不能0.5px显示，因此左右自动补满则最终为2px，解决方法时定位L,T值时可以定如50.5,50.5即可真正绘制出1px的边框
+            //**********************设置绘图***********************
+            //fillStyle:填充颜色（绘制canvas是有顺序的）
+            //lineWidth:线宽度，是一个数值
+            //strokeStyle:边线颜色
+            // 绘制顺序对显示效果有影响，存在先后覆盖问题
+            //**********************边界绘制***********************
+            //lineJoin:边界连接点样式-miter(默认)、round(圆角)、bevel(斜角);
+            //lineCap:端点样式-butt(默认)、round(圆角)、square(高度多为宽一半的值)
+            //**********************绘制路径1***********************
+            //beginPath:开始绘制路径
+            //closePath:结束绘制路径
+            //moveTo:移动到绘制的新目标点
+            //lineTo:新的目标点
+            //**********************绘制路径2***********************
+            //stroke:画线，默认黑色
+            //fill:填充，默认黑色
+            //rect:矩形区域
+            //clearRect:删除一个画布的矩形区域
+            //save:保存路径
+            //restore:恢复路径
+            //**********************绘制圆***********************
+            // arc(x,y,半径,起始弧度,结束弧度,旋转方向)
+            //x,y:起始位置
+            // 弧度与角度的关系：弧度 = 角度 * Math.PI/180
+            // 旋转方向：顺时针(默认：false)、逆时针(true)
+            //**********************绘制其他曲线***********************
+            //arcTo(x1,y1,x2,y2):第一组坐标、第二组坐标、半径---------从moveTo的起始点开始，第一组坐标结束到第二组坐标结束连线，设置半径后取以半径所画的圆与两根线的切点之间的圆的弧线
+            // quadraticCurveTo(dx,dy,x1,y1):贝塞尔曲线，第一组控制点、第二组结束坐标
+            //bezierCurveTo(dx1,dy1,dx2,dy2,x1,y1):贝塞尔曲线，第一组控制点、第二组控制点、第三组结束坐标
+            //**********************绘制其他曲线***********************
+            //translate:偏移，从起始点为基准点，移动当前坐标位置
+            //rotate:旋转,参数为弧度
+            //scale：缩放
+
+            window.onload = function(){
+                let oC = document.getElementById("canvastest");
+                let oGC = oC.getContext("2d");
+                let num = 0;
+                let num2 = 0;
+                let value = 1;
+                
+                setInterval(function(){
+                    num++;
+                    oGC.save();
+                    oGC.clearRect(0,0,oC.width,oC.height);
+                    oGC.translate(200,200);
+                    if(num2 == 100){
+                        value = -1;
+                    }else if(num2 == 0){
+                        value = 1;
+                    }
+                    num2 += value;
+                    oGC.scale(num2 * 1 / 50,num2 * 1 / 50);
+                    oGC.rotate(num * Math.PI / 180);
+                    oGC.translate(-50,-50);
+                    oGC.fillRect(0,0,100,100);
+                    oGC.restore();
+                },10)
+            }        
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>canvas方块移动</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .canvastest{
+                display: block;
+                position: absolute;
+                top: 20%;
+                left: 20%;
+                background: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <canvas class="canvastest" id="canvastest" width="600" height="600">
+                <span class="p">不支持canvas</span>
+            </canvas>
+        </div>
+        
+        <script type="text/javascript">
+
+            window.onload = function(){
+                let oC = document.getElementById("canvastest");
+                let oGC = oC.getContext("2d");
+                let num = 0;
+                oGC.fillRect(0,0,100,100);
+                setInterval(function(){
+                    num++;
+                    oGC.clearRect(0,0,oC.width,oC.height);
+                    oGC.fillRect(num,num,100,100);
+                },1);
+                
+            }        
+        </script>
+    </body>
+</html>

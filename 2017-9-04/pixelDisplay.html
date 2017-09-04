@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>像素显字</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .canvastest{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background: #fff;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <canvas class="canvastest" id="canvastest" width="500" height="500"></canvas>
+            <ul>
+                <li>权</li>
+                <li>威</li>
+                <li>指</li>
+                <li>南</li>
+            </ul>
+        </div>
+        
+        <script type="text/javascript">
+            window.onload = function(){
+                let oC = document.getElementById("canvastest");
+                let oGC = oC.getContext("2d"); 
+                let oImg = oGC.createImageData(100,100);
+          
+                for(let i = 0;i < oImg.width * oImg.height;i++){
+                    oImg.data[4 * i] = 255;
+                    oImg.data[4 * i + 1] = 0;
+                    oImg.data[4 * i + 2] = 0;
+                    oImg.data[4 * i + 3] = 255;
+                }
+                oGC.putImageData(oImg,100,100);
+            }        
+        </script>
+    </body>
+</html>
