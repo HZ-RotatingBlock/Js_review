@@ -1,5 +1,9 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-05
+* canvasMosaic: [canvas马赛克效果](https://hz-rotatingblock.github.io/Js_review/2017-9-05/canvasMosaic.html)
+* oppositeColor: [canvas反色倒影](https://hz-rotatingblock.github.io/Js_review/2017-9-05/oppositeColor.html)
+* oppositeColorGradient: [canvas倒影反色渐变](https://hz-rotatingblock.github.io/Js_review/2017-9-05/oppositeColorGradient.html)
 ## 2017-9-04
 * canvasClock: [canvas时钟](https://hz-rotatingblock.github.io/Js_review/2017-9-04/canvasClock.html)
 * blockMove: [canvas方块移动](https://hz-rotatingblock.github.io/Js_review/2017-9-04/blockMove.html)
