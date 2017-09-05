@@ -59,7 +59,7 @@
             //stroke:画线，默认黑色
             //fill:填充，默认黑色
             //rect:矩形区域
-            //clearRect:删除一个画布的矩形区域
+            //clearRect(x,y,width,height):删除一个画布的矩形区域
             //save:保存路径
             //restore:恢复路径
             //**********************绘制圆***********************
@@ -89,7 +89,7 @@
             // font,文字大小
             // textAlign,默认是start跟left一样的效果 end right center
             // textBaseline,文字上下的位置方式默认:alphabetic
-            // measureText(str).width:只有宽度没有高度
+            // measureText(str).width:只有宽度没有高度,方法返回包含一个对象，该对象包含以像素计的指定字体宽度
             //shadowOffsetX、shadowOffsetY.X轴偏移,Y轴偏移
             // shadowBlur,高斯模糊值
             // shadowColor,阴影颜色
@@ -104,12 +104,9 @@
             window.onload = function(){
                 let oC = document.getElementById("canvastest");
                 let oGC = oC.getContext("2d"); 
-                let oImg = oGC.createImageData(100,100);
-                // alert(oImg.width);
-                //  alert(oImg.data[0]);
-                //  alert(oImg.data[1]);
-                //  alert(oImg.data[2]);
-                //  alert(oImg.data[3]);              
+                oGC.fillRect(0,0,100,100);
+                // let oImg = oGC.createImageData(100,100); 
+                let oImg = oGC.createImageData(100,100);          
                 for(let i = 0;i < oImg.width * oImg.height;i++){
                     oImg.data[4 * i] = 255;
                     oImg.data[4 * i + 1] = 0;

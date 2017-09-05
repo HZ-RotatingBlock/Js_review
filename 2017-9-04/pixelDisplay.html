@@ -17,43 +17,125 @@
                 min-height: 100%;
                 background: url(images/bg.jpg) no-repeat center center/cover;
             }
-            .canvastest{
+            .center{
                 display: block;
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                background: #fff;
                 transform: translate(-50%,-50%);
                 -webkit-transform: translate(-50%,-50%);
+            }
+            .canvastest{
+                display: block;
+                position: absolute;
+                top: calc(50% - 250px);
+                left: calc(50% - 250px);
+                background: rgba(0, 0, 0, .7);
+                border-radius: 10px;
                 transition: all .3s;
                 -webkit-transition: all .3s;
             }
+            ul{
+                display: block;
+                position: absolute;
+                top: -250px;
+                left: -330px;
+                padding: 10px;
+                width: 40px;
+                height: auto;
+                text-align: center;
+                background-color: rgba(0, 0, 0, .7);
+                border-radius: 20px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+            li{
+                font-size: 30px;
+                font-weight: 700;
+                color: #fff;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            li:hover{
+                transform: scale(1.2);
+                -webkit-transform: scale(1.2);
+            }
+            
         </style>
     </head>
     <body>
         <div class="main">
-            <canvas class="canvastest" id="canvastest" width="500" height="500"></canvas>
-            <ul>
-                <li>权</li>
-                <li>威</li>
-                <li>指</li>
-                <li>南</li>
-            </ul>
+            <div class="center">
+                <canvas class="canvastest" id="canvastest" width="500" height="500"></canvas>
+                <ul>
+                    <li>权</li>
+                    <li>威</li>
+                    <li>指</li>
+                    <li>南</li>
+                </ul>
+            </div>
+            
         </div>
         
         <script type="text/javascript">
             window.onload = function(){
                 let oC = document.getElementById("canvastest");
                 let oGC = oC.getContext("2d"); 
-                let oImg = oGC.createImageData(100,100);
-          
-                for(let i = 0;i < oImg.width * oImg.height;i++){
-                    oImg.data[4 * i] = 255;
-                    oImg.data[4 * i + 1] = 0;
-                    oImg.data[4 * i + 2] = 0;
-                    oImg.data[4 * i + 3] = 255;
+                let aLi = document.getElementsByTagName("li");
+                for(let i = 0;i < aLi.length;i++){
+                    aLi[i].onclick = function(){
+                        var str = this.innerHTML;             
+                        var h = 180;
+                        let timer = null;
+                        clearInterval(timer);
+                        let iNow = 0;
+                        oGC.clearRect(0,0,oC.width,oC.height);
+                        oGC.font = h + 'px impact';
+                        oGC.textBaseline = 'top';
+                        oGC.fillStyle = "#fff";
+                        let w = oGC.measureText(str).width;
+                        oGC.fillText(str,(oC.width - w) / 2,(oC.height - h) / 2 - 30);
+                        let oImg = oGC.getImageData((oC.width - w) / 2,(oC.height - h) / 2 - 30,w,h);
+                        let arr = randomArr(w * h, w * h / 10);
+                        //生成新的像素矩阵
+                        let newImg = oGC.createImageData(w,h);
+                        //将随机值的像素颜色依次赋予新像素矩阵
+                        timer = setInterval(function(){
+                            for(let i = 0;i < arr[iNow].length;i++){
+                                newImg.data[4 * arr[iNow][i]] = oImg.data[4 * arr[iNow][i]];
+                                newImg.data[4 * arr[iNow][i] + 1] = oImg.data[4 * arr[iNow][i] + 1];
+                                newImg.data[4 * arr[iNow][i] + 2] = oImg.data[4 * arr[iNow][i] + 2];
+                                newImg.data[4 * arr[iNow][i] + 3] = oImg.data[4 * arr[iNow][i] + 3];
+                            }
+                            oGC.putImageData(newImg,(oC.width - w) / 2,(oC.height - h) / 2 - 30);
+                            if(iNow == 9){
+                                iNow = 0;
+                                clearInterval(timer);
+                            }else{
+                                iNow++;
+                            }
+                        },50);
+                        
+                    }
                 }
-                oGC.putImageData(oImg,100,100);
+                //从一组数中随机取出一部分
+                function randomArr(iAll,iNow){
+                    let arr = [];
+                    let allArr = [];
+                    for(let i = 0;i < iAll;i++){
+                        arr.push(i);
+                    }
+                    for(let j = 0;j < iAll / iNow;j++){
+                        let newArr = [];
+                        for(let z = 0;z < iNow;z++){
+                            newArr.push(arr.splice(Math.floor(Math.random() * arr.length),1));
+                        }
+                        allArr.push(newArr);
+                        
+                    }
+                    return allArr;
+                }
             }        
         </script>
     </body>
