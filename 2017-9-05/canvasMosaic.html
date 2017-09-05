@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>canvas马赛克效果</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .canvastest{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background: #fff;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <canvas class="canvastest" id="canvastest" width="500" height="500">
+                <span class="p">不支持canvas</span>
+            </canvas>
+        </div>
+        
+        <script type="text/javascript">
+            window.onload = function(){
+                let oC = document.getElementById("canvastest");
+                let oGC = oC.getContext("2d"); 
+                let newImg = new Image();             
+                newImg.onload = function(){
+                    draw(this);
+                }
+                newImg.src = "images/4.jpg";
+                function draw(obj){
+                    oC.width = obj.width;
+                    oC.height = obj.height * 2;
+                    oGC.drawImage(obj,0,0);
+                    
+                    let oImg = oGC.getImageData(0,0,obj.width,obj.height);
+                    let w = oImg.width;
+                    let h = oImg.height;
+                    //马赛克值num，越大越模糊
+                    let num = 5;
+                    let nImg = oGC.createImageData(obj.width,obj.height);
+                    let stopW = w / num;
+                    let stopH = h / num;
+                    for(let i = 0;i < stopH;i++){
+                        for(let j = 0;j < stopW;j++){
+                            let color = getXY(oImg,j * num + Math.floor(Math.random() * num),i * num + Math.floor(Math.random() * num));
+                            for(let k = 0;k < num;k++){
+                                for(let l = 0;l < num;l++){
+                                    setXY(nImg,j * num + l,i * num + k,color);
+                                }
+                            }
+                        }
+                    }
+                    //加马赛克后绘制的图片位置
+                    oGC.putImageData(nImg,0,obj.height);
+                }
+            }     
+            function getXY(obj,x,y){
+                let w = obj.width;
+                let h = obj.height;
+                let d = obj.data;
+                let color = [];
+                color[0] = d[4 * (y * w + x)];
+                color[1] = d[4 * (y * w + x) + 1];
+                color[2] = d[4 * (y * w + x) + 2];
+                color[3] = d[4 * (y * w + x) + 3];
+                return color;
+            }  
+            function setXY(obj,x,y,color){
+                let w = obj.width;
+                let h = obj.height;
+                let d = obj.data;
+                d[4 * (y * w + x)] = color[0];
+                d[4 * (y * w + x) + 1] = color[1];
+                d[4 * (y * w + x) + 2] = color[2];
+                d[4 * (y * w + x) + 3] = color[3];
+            } 
+        </script>
+    </body>
+</html>

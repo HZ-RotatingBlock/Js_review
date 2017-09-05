@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>canvas反色倒影</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .canvastest{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background: #fff;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <canvas class="canvastest" id="canvastest" width="500" height="500">
+                <span class="p">不支持canvas</span>
+            </canvas>
+        </div>
+        
+        <script type="text/javascript">
+            window.onload = function(){
+                let oC = document.getElementById("canvastest");
+                let oGC = oC.getContext("2d"); 
+                let newImg = new Image();             
+                newImg.onload = function(){
+                    draw(this);
+                }
+                newImg.src = "images/4.jpg";
+                function draw(obj){
+                    oC.width = obj.width;
+                    oGC.drawImage(obj,0,0);
+                    let oImg = oGC.getImageData(0,0,obj.width,obj.height);
+                    let w = oImg.width;
+                    let h = oImg.height;
+                    let nImg = oGC.createImageData(obj.width,obj.height);
+                    for(let i = 0;i < h;i++){
+                        for(let j = 0;j < w;j++){
+                            let result = [];
+                            let color = getXY(oImg,j,i);
+                            result[0] = 255 - color[0];
+                            result[1] = 255 - color[1];
+                            result[2] = 255 - color[2];
+                            result[3] = 255;
+                            setXY(nImg,j,h - i,result);
+                        }
+                    }
+                    oGC.putImageData(nImg,0,obj.height);
+                }
+            }     
+            function getXY(obj,x,y){
+                let w = obj.width;
+                let h = obj.height;
+                let d = obj.data;
+                let color = [];
+                color[0] = d[4 * (y * w + x)];
+                color[1] = d[4 * (y * w + x) + 1];
+                color[2] = d[4 * (y * w + x) + 2];
+                color[3] = d[4 * (y * w + x) + 3];
+                return color;
+            }  
+            function setXY(obj,x,y,color){
+                let w = obj.width;
+                let h = obj.height;
+                let d = obj.data;
+                d[4 * (y * w + x)] = color[0];
+                d[4 * (y * w + x) + 1] = color[1];
+                d[4 * (y * w + x) + 2] = color[2];
+                d[4 * (y * w + x) + 3] = color[3];
+            } 
+        </script>
+    </body>
+</html>
