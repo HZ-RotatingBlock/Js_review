@@ -1,5 +1,11 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-04
+* canvasClock: [canvas时钟](https://hz-rotatingblock.github.io/Js_review/2017-9-04/canvasClock.html)
+* blockMove: [canvas方块移动](https://hz-rotatingblock.github.io/Js_review/2017-9-04/blockMove.html)
+* canvasForPainting: [画布](https://hz-rotatingblock.github.io/Js_review/2017-9-04/canvasForPainting.html)
+* canvasImgOperate: [canvas图片插入操作](https://hz-rotatingblock.github.io/Js_review/2017-9-04/canvasImgOperate.html)
+* pixelDisplay: [像素显字](https://hz-rotatingblock.github.io/Js_review/2017-9-04/pixelDisplay.html)
 ## 2017-9-03
 * dragShoppingTrolley: [拖拽购物车](https://hz-rotatingblock.github.io/Js_review/2017-9-03/dragShoppingTrolley.html)
 * imgPreview: [照片上传一览](https://hz-rotatingblock.github.io/Js_review/2017-9-03/imgPreview.html)
