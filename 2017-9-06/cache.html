@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html manifest="cache.manifest">
+    <head>
+        <meta charset="utf-8">
+        <title>离线存储</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg2.jpg) no-repeat center center/cover;
+            }
+            .testimg{
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <img src="images/bg.jpg" class="testimg">
+        </div>
+        
+        <script type="text/javascript">
+            //**************搭建离线应用程序***************
+            //1、服务器设置头信息: AddType text/cache-manifest .manifest
+            //2、html标签添加: manifest="xxxxx.manifest"
+            //3、写manifest文件：离线的清单列表;
+            //先写:CACHE MANIFEST;FALLBACK:第一个网络地址没有获取到，就走第二个缓存的;NETWORK:无论缓存中存在与否，均从网络获取
+            window.onload = function(){
+               
+                
+            }
+        </script>
+    </body>
+</html>

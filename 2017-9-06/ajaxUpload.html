@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ajax实现无刷新上传(不支持IE)</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg2.jpg) no-repeat center center/cover;
+            }
+            .box{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 500px;
+                height: 400px;
+                background: rgba(0, 0, 0, .7);
+                border: 2px solid #0073bc;
+                border-radius: 10px;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+            .selectfile{
+                display: block;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 100px;
+                width: 220px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color: #0073bc;
+                background: #fff;
+                border: 2px solid #0073bc;
+                border-radius: 5px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .selectfile:hover{
+                opacity: .9;
+                box-shadow: 4px 4px 10px #000;
+            }
+            .myfile{
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .btn{
+                display: block;
+                margin: 0 auto;
+                margin-top: 40px;
+                width: 150px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                background: #0073bc;
+                border: none;
+                border-radius: 3px;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                cursor: pointer;
+            }
+            .btn:hover{
+                opacity: .9;
+                box-shadow: 4px 4px 10px #000;
+            }
+            .uploadprogress,
+            .uploadprogress_line{
+                display: block;           
+                margin: 0 auto;
+                margin-top: 50px;
+                width: 300px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 40px;
+                background: rgba(0, 0, 0, .4);
+                border: 2px solid #0073bc;
+                border-radius: 15px;
+            }
+            .uploadprogress{
+                overflow: hidden;
+                position: relative;
+            }
+            .uploadprogress_line{
+                position: absolute;
+                top: 0;
+                left: -5px;
+                margin-top: 0;
+                width: 0;
+                background: #0073bc;
+                border: none;
+            }
+            .progressNum{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="box">
+                <div class="selectfile">
+                    <input type="file" class="myfile" id="myFile"/>
+                    点击选择文件
+                </div>
+                
+                <input type="button" value="上传" class="btn" id="btn"/>
+                <div class="uploadprogress" id="uploadprogress">
+                    <span class="uploadprogress_line" id="uploadprogress_line"></span>
+                    <span class="progressNum" id="progressNum">0%</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script type="text/javascript">          
+            window.onload = function(){
+                let oMyFile = document.getElementById("myFile");
+                let oBtn = document.getElementById("btn");
+                let uploadProgress = document.getElementById("uploadprogress");
+                let uploadProgressLine = document.getElementById("uploadprogress_line");
+                let progressNum = document.getElementById("progressNum");
+                
+                oBtn.onclick = function(){
+                    let xhr = new XMLHttpRequest();
+                    let oFormData = new FormData();
+                    //监听
+                    xhr.onload = function(ev){
+                        alert("上传完成！");
+                    }
+                    let oUpload = xhr.upload;
+                    oUpload.onprogress = function(ev){
+                        console.log(ev.total + " : " + ev.loaded);
+                        let iScale = ev.loaded / ev.total;
+                        uploadProgressLine.style.width = 310 * iScale + "px";
+                        progressNum.innerHTML = parseInt(iScale * 100) + "%";
+                    }
+
+                    xhr.open("post","post_file.php",true);
+                    xhr.setRequestHeader("X-Request-With","XMLHttpRequest");
+                    
+                    oFormData.append("file",oMyFile.files[0]);
+                    xhr.send(oFormData);
+                }
+            }
+        </script>
+    </body>
+</html>

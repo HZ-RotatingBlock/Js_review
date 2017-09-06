@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            
+        </div>
+        
+        <script type="text/javascript">
+            //******************* 跨文档消息通信 ********************
+            //window.postMessage() 方法可以安全地实现跨源通信
+            //postMessage();第一个参数是发送的数据，第二个参数是接收的域名(记得带上协议)
+            //可以通过这个方法给另外一个窗口发送信息，接收消息的窗口的window对象.postMessage();
+            //在接收消息的窗口通过监听message事件，当窗口接收到通过postMessage发送过来的数据的时候触发,message事件的事件对象下保存了发送过来的内容
+            //ev.data:发送过来的数据
+            //与iframe不同的是postMessage是不能操作DOM的，通过发送的指令也就是字符到接收信息的页面来告诉他要做什么
+            //交互方式
+            //iframe;父页面:contentWindow、子页面:window.top;iframe可以通过js去访问被包含页的DOM元素;同时子级页面也可以通过parent操作父级页面，此时子级页面的parent指的就是父级的window,如果当前页面时顶级，没有被其他页面所包含，那么parent就是当前页面的window对象，如果被包含了，则parent就是包含当前页面的父级页面的window对象
+            //top指的是最顶层对象，总结说来，window就是当前窗口;parent就是父级窗口;top就是顶级窗口
+            //如果我们要操作一个iframe里面的dom元素，首先要获取到iframe引入的页面的window;iframeDOM.contentWindow ->被iframe包含页面的window对象
+            //窗口页;父页面:window.open、子页面:window.opener(同域下)
+            //window.opener指的是通过window.open方法打开当前页面的窗口的window对象(相当于同域下可更改和操作其window)
+            // 接收事件
+            //message;ev.origin:发送数据来源的域;为了避免接收其他非指定域名发送的消息被接收，可以再接收数据的页面通过监听message事件的ev事件对象的ev.origin方法指定其仅接收数据的域名
+            //ev.data:发送的数据
+            //在标准浏览器下，XMLHttpRequest对象已经是升级版本，支持了更多的特性，可以跨域请求，如果想实现跨域请求还需要后端的相关配合如下
+            // header('Access-Control-Allow-Origin:http://www.a.com:8088'); //设置允许访问该资源的域(注意带上协议)
+            //XMLHttpRequest:增加许多功能，他也不推荐使用onreadystatechange这个事件来监听，推荐似乎用onload
+            //IE如果想实现跨域请求，则需要使用了另外一个对象去实现即：XDomainRequest
+            //IE的跨域请求下没有new XMLHttpRequest(),onreadystatechange等一系列相关操作而是由以下独有的操作
+            // let xhr = new oXDomainRequest();
+            /*
+                //请求加载完成时
+                xhr.onload = function(){
+                    //操作
+                }
+            */
+            // xhr.open("get","http://www.b.com:8088/ajax.php",true); xhr.send();
+            //******************* ajax无刷新上传 ********************
+            //fileObj.files 指file空间中选择的文件列表对象,我们是要通过ajax吧fileObj.files[0]数据发送给后端
+            //通过FormData()来构建提交数据，例子如下
+            /*
+                let xhr = new XMLHttpRequest();
+                //监听
+                xhr.onload = function(){
+                        alert(1);
+                }
+                xhr.open("post","post_file.php",true);
+                xhr.setRequestHeader("X-Request-With","XMLHttpRequest");
+                let oFormData = new FormData();
+                oFormData.append("file",oMyFile.files[0]); //通过FormData()来构建提交数据
+                xhr.send(oFormData);
+            */
+            //ajax进度事件
+            //upload.onprogress:监控上传进度
+            //FormData对象
+            //ev.total(要发送的总量)、ev.loaded(已发送的总量) 
+            //onprogress:下载
+            //******************* websocket ********************
+            //互联网协议
+            // TCP/IP协议:定义了电子设备如何连入因特网，以及数据在他们之间传输的标准;
+            //传输数据（协议）类型:Email,www,FTP等
+            //HTTP
+            //浏览器和万维网服务器之间互相通信的规则
+            //特点：功能性很强大，采用请求、响应模式，单向通信；短连接，响应完成连接就断开
+            //web socket
+            //基于TCP双向的、全双工的数据连接；双向的：客户端、服务器端。全双工：数据的发送与接收，两者同步进行
+            //建立soket应用：服务器必须支持web socket;
+            window.onload = function(){
+
+
+                
+                
+            }
+        </script>
+    </body>
+</html>
