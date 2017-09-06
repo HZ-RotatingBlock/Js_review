@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-06
+* ajaxUpload: [Ajax实现无刷新上传(不支持IE)](https://hz-rotatingblock.github.io/Js_review/2017-9-06/ajaxUpload.html)
 ## 2017-9-05
 * canvasMosaic: [canvas马赛克效果](https://hz-rotatingblock.github.io/Js_review/2017-9-05/canvasMosaic.html)
 * oppositeColor: [canvas反色倒影](https://hz-rotatingblock.github.io/Js_review/2017-9-05/oppositeColor.html)
