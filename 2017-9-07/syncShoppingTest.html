@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>同步购物车测试</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .center{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 600px;
+                height: 300px;
+                font-size: 20px;        
+                color: #fff;
+                background: rgba(51, 51, 51, .7);
+                border: 2px solid #0073bc;
+                border-radius: 10px;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="center">
+                <input type="checkbox" value="香蕉"/>香蕉<br/> 
+                <input type="checkbox" value="苹果"/>苹果<br/> 
+                <input type="checkbox" value="西瓜"/>西瓜<br/> 
+                <input type="checkbox" value="菠萝"/>菠萝<br/> 
+            </div>
+               
+        </div>
+
+        <script type="text/javascript">
+            //**********本地存储************
+            //setItem():设置数据，key/value类型，类型都是字符串;可以获取属性的形式操作
+            //getItem():获取数据，通过key来获取到相应的value
+            //removeItem():删除数据，通过key来删除相应的value
+            //clear():删除全部存储的值
+            //sessionStorage:临时性存储
+            //localStorage:永久性存储
+            //Storage API
+            // 存储事件
+            // 当数据有修改或者删除的情况下就会触发storage事件
+            //* 在对数据进行改变的窗口对象上是不会触发的
+            // key:修改或者删除的key值，如果调用clear(),key为null
+            // newValue:新设置的值，如果调用removeStorage(),key为null
+            // oldValue:调用改变前的value值
+            // storageArea:当前的storage对象
+            // url:触发该脚本变化的文档的url
+            // 注意：session同窗口才可以，例子：iframe操作
+            window.onload = function(){
+                let oInput = document.getElementsByTagName("input");
+                let oInputLength = oInput.length;
+
+                for(let i = 0;i < oInputLength;i++){
+                    oInput[i].onclick = function(){
+                        if(this.checked){
+                            window.localStorage.setItem("sel",this.value);
+                        }else{
+                            window.localStorage.setItem("onSel",this.value);
+                        }
+                    }
+                }
+                window.addEventListener("storage",function(ev){
+                    if(ev.key == "sel"){
+                        for(let i = 0;i < oInputLength;i++){
+                            if(ev.newValue == oInput[i].value){
+                                oInput[i].checked = true; 
+                            }
+                        }
+                    }else if(ev.key == "onSel"){
+                        for(let i = 0;i < oInputLength;i++){
+                            if(ev.newValue == oInput[i].value){
+                                oInput[i].checked = false;
+                            }
+                        }
+                        
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>

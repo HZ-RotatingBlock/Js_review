@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>LBS</title>
+        
+        <style type="text/css">
+            *{margin:0;padding:0;list-style:none;text-decoration:none;}
+            body{overflow-x:hidden;padding:0;font-family:"Microsoft YaHei";background-color:#fff;} 
+            .main{
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                background: url(images/bg.jpg) no-repeat center center/cover;
+            }
+            .center{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 600px;
+                height: 500px;
+                background: rgba(51, 51, 51, .7);
+                border: 2px solid #0073bc;
+                border-radius: 10px;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+            }
+            .otextarea{
+                display: block;
+                margin: 0 auto;
+                margin-top: 30px;
+                width: 500px;
+                height: 370px;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 24px;
+                border: none;
+                border-radius: 5px;
+            }
+            .oinput{
+                display: block;
+                margin: 0 auto;
+                margin-top: 30px;
+                width: 120px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                color: #fff;
+                background: #0073bc;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="center"> 
+                <textarea id="otextarea" class="otextarea"></textarea>
+                <input type="button" value="请求" id="oinput" class="oinput"/>
+            </div>
+            
+        </div>
+
+        <script type="text/javascript">
+            // LBS:基于地图信息的应用
+            //****************地理位置对象*****************
+            // navigator.geolocation
+            //-单词定位请求:getCurrentPosition(请求成功，请求失败，数据收集方式；
+            //----------请求成功函数
+            //经度:coords.longitude
+            //纬度:coords.latitude
+            //准确度:coords.accuracy
+            //海拔:coords.altitude
+            //海拔准确度:coords.altitudeAcuracy
+            //行进方向:coords.heading
+            //地面速度:coords.speed
+            //时间戳:new Date(position.timestamp)
+            //----------请求失败函数
+            //失败编号：code
+            //0:不包括其他错误编号中的错误
+            //1:用户拒绝浏览器获取位置信息
+            //2:尝试获取用户信息,但失败了
+            //3：设置了timeout,获取位置超时了
+            //----------数据收集：json的形式
+            //enableHighAcuracy:更精确的查找，默认false
+            //timeout:获取位置允许最长时间,默认infinity
+            //maximumAge:位置可以缓存的最大时间,默认0
+            //----------多次定位请求:watchPosition(像seInterval)
+            //移动设备有用，位置改变才会触发
+            //配置参数：frequency更新的频率
+            //----------关闭更新请求：clearWatch(像clearInterval)
+
+            window.onload = function(){
+                let oTextarea = document.getElementById("otextarea");
+                let oInput = document.getElementById("oinput");
+                oInput.onclick = function(){
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        console.log("经度" + position.coords.longitude);
+                        console.log("纬度" + position.coords.latitude);
+                        console.log("准确度" + position.coords.accuracy);
+                        console.log("海拔" + position.coords.altitude);
+                        console.log("海拔准确度" + position.coords.altitudeAcuracy);
+                        console.log("行进方向" + position.coords.heading);
+                        console.log("地面速度" + position.coords.speed);
+                        console.log("时间戳" + new Date(position.timestamp));
+                    },function(err){
+                        if(err.code == 3){
+                            console.log("请求失败！");
+                        }
+                        
+                    })
+                }
+                
+                
+            }
+        </script>
+    </body>
+</html>
