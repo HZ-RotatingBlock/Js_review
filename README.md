@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-07
+* ajaxUpload: [一些本地存储相关的测试](https://hz-rotatingblock.github.io/Js_review/2017-9-07)
 ## 2017-9-06
 * ajaxUpload: [Ajax实现无刷新上传(不支持IE)](https://hz-rotatingblock.github.io/Js_review/2017-9-06/ajaxUpload.html)
 ## 2017-9-05
