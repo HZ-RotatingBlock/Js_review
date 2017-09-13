@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>后台管理</title>
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-theme.min.css">
-    <script src="/public/js/jquery-1.12.4.min.js"></script>
-    <script src="/public/js/bootstrap.min.js"></script>
-</head>
-<body>
+{% extends 'layout.html' %}
 
-
-</body>
-</html>
+{% block main %}
+<div class="jumbotron" style="color:#fff;background:#0073bc;">
+    <h1>Hello, {{ decodeURI(userInfo.username) }}</h1>
+    <p>欢迎进入我的博客后台管理</p>
+</div>
+{% endblock %}

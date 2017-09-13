@@ -28,6 +28,10 @@ router.post('/user/register',(req,res,next) => {
     let password = req.body.password;
     let repassword = req.body.repassword;
 
+    console.log(username);
+    console.log(password);
+    console.log(repassword);
+
     //用户名是否为空
     if(username == ''){
         //用户名为空则状态码code为1
@@ -53,7 +57,7 @@ router.post('/user/register',(req,res,next) => {
     }
     //用户名是否已经被注册了,如果数据库中已经存在和我们要注册的用户名同名的数据，表示该用户已经被注册了
     User.findOne({
-        username: username
+        username: encodeURI(username)
     }).then( function(userInfo){
         if(userInfo){
             //表示数据库中有该记录
@@ -87,7 +91,7 @@ router.post('/user/login',(req,res) => {
     }
     //查询数据库中相同用户名和密码的记录是存在，如果存在则登录成功
     User.findOne({
-        username: username,
+        username: encodeURI(username),
         password: password
     }).then( (userInfo) => {
         if(!userInfo){

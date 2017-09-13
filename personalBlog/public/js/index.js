@@ -22,7 +22,7 @@ $(function(){
             type: 'post',
             url: '/api/user/register',
             data:{
-                "username": encodeURI($registerBox.find('[name = "username"]').val()),
+                "username": $registerBox.find('[name = "username"]').val(),
                 "password": $registerBox.find('[name = "password"]').val(),
                 "repassword": $registerBox.find('[name = "repassword"]').val()
             },
@@ -47,7 +47,7 @@ $(function(){
             type: 'post',
             url: '/api/user/login',
             data:{
-                "username": encodeURI($loginBox.find('[name = "username"]').val()),
+                "username": $loginBox.find('[name = "username"]').val(),
                 "password": $loginBox.find('[name = "password"]').val()
             },
             dataType: 'json',
