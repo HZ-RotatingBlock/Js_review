@@ -3,7 +3,7 @@
 {% block main %}
 <ol class="breadcrumb">
   <li><a href="#">管理首页</a></li>
-  <li><span>用户列表</span></li>
+  <li><span>分类列表</span></li>
 </ol>
 
 <h3>分类列表</h3>
@@ -11,24 +11,19 @@
 <table class="table table-hover table-striped">
     <tr>
         <th>ID</th>
-        <th>用户名</th>
-        <th>密码</th>
-        <th>是否是管理员</th>
+        <th>分类名称</th>
+        <th>操作</th>
     </tr>
-    <!-- {% for user in users %}
+    {% for category in categories %}
     <tr>
-        <td>{{ user._id.toString() }}</td>
-        <td>{{ decodeURI(user.username) }}</td>
-        <td>{{ user.password }}</td>
+        <td>{{ category._id.toString() }}</td>
+        <td>{{ decodeURI(category.name) }}</td>
         <td>
-            {% if user.isAdmin %}
-            是
-            {% else %}
-            否
-            {% endif %}
+            <a href="/admin/category/edit?id={{category._id.toString()}}">修改</a>
+            <a href="/admin/category/delete?id={{category._id.toString()}}">删除</a>
         </td>
     </tr>
-    {% endfor %} -->
+    {% endfor %}
 </table>
 {% include "page.html" %}
 {% endblock %}
