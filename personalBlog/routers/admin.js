@@ -230,7 +230,8 @@ router.get('/content',(req,res) => {
         page = Math.max( page,1 ); 
         skip = (page - 1) * limit;
         //MongoDB是文档型数据库，不是关系型数据库所以mongoose封装了一个populate()方法来关联其他文件
-        Content.find().limit(limit).skip(skip).populate('category').then( (contents) => {
+        Content.find().limit(limit).skip(skip).populate(['category','user']).sort({addTime: -1}).then( (contents) => {
+            console.log(contents);
             res.render('admin/content_index',{
                 userInfo: req.userInfo,
                 contents: contents,
@@ -273,6 +274,7 @@ router.post('/content/add',(req,res) => {
     new Content({
         category: req.body.category,
         title: req.body.title,
+        user: req.userInfo._id.toString(),
         description: req.body.description,
         content: req.body.content
     }).save().then( (rs) => {

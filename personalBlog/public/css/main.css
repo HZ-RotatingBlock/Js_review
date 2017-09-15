@@ -83,7 +83,7 @@ button {
   color: #eaa642 !important;
 }
 .colDanger {
-  color: #f76447 !important;
+  color: #c03 !important;
 }
 .colPink {
   color: #e15671 !important;
@@ -124,7 +124,7 @@ button {
   *zoom: 1;
 }
 header {
-  height: 222px;
+  height: 400px;
   position: relative;
   overflow: hidden;
 }
@@ -132,11 +132,12 @@ header .backimg {
   display: flex;
   width: 100%;
   height: 100%;
+  background: url(../images/5.jpg) no-repeat center center/cover;
 }
-header .backimg img {
+/* header .backimg img {
   margin: auto;
   display: block;
-}
+} */
 header .logo {
   width: 100%;
   height: 100%;
@@ -153,6 +154,11 @@ header .logo span {
 }
 header .logo img {
   display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
   vertical-align: middle;
 }
 nav {
@@ -173,7 +179,7 @@ nav .menu a {
 }
 nav .menu a:hover, nav .menu a.focus {
   margin-bottom: -2px;
-  border-bottom: 2px solid #e67e22;
+  border-bottom: 2px solid #0073bc;
 }
 main {
   width: 1140px;
@@ -188,7 +194,15 @@ main .mainLeft .listBox {
   padding: 20px 35px;
   text-align: center;
   margin-bottom: 30px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  border-radius: 5px;
 }
+main .mainLeft .listBox:hover{
+  transform: translateY(-2%);
+  box-shadow: 2px 2px 10px #000;
+}
+
 main .listBoxMore {
   cursor: pointer;
 }
@@ -201,15 +215,18 @@ main .mainLeft .listBox .function.bortop {
   border-top: 1px solid #ddd;
 }
 main .mainLeft .listBox .function a {
-  display: inline-block;
-  background: #e67e22;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: #0073bc;
   text-align: center;
   width: 100px;
   height: 34px;
   line-height: 34px;
   border-radius: 3px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 700;
   font-family: '微软雅黑';
   text-decoration: none;
 }
@@ -266,6 +283,13 @@ main .mainRight .rightBox {
   background: #fff;
   padding: 16px 30px;
   margin-bottom: 30px;
+  border-radius: 5px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+}
+main .mainRight .rightBox:hover{
+  transform: translateY(-2%);
+  box-shadow: 2px 2px 10px #000;
 }
 main .mainRight .rightBox .title {
   border-bottom: 1px solid #ebebeb;
@@ -277,7 +301,7 @@ main .mainRight .rightBox .title span {
   margin-bottom: -1px;
   height: 36px;
   line-height: 36px;
-  border-bottom: 1px solid #e67e22;
+  border-bottom: 1px solid #0073bc;
   padding: 0px 20px 0px 0px;
 }
 main .mainRight .rightBox button {
@@ -333,10 +357,11 @@ main .mainRight .rightBox .line em {
 }
 dfn {
   text-align: left;
+  text-indent: 2em;
   font-style: normal;
   display: block;
   font-size: 16px;
-  line-height: 26px;
+  line-height: 30px;
 }
 
 /**
@@ -346,6 +371,7 @@ dfn {
   padding: 20px;
   margin-bottom: 30px;
   background: #fff;
+  border-radius: 5px;
 }
 .pager ul {
   list-style: none;

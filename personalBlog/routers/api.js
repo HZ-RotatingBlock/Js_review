@@ -2,6 +2,7 @@
 let express = require("express");
 let router = express.Router();
 let User = require('../models/User');
+let Content = require('../models/Content');
 //统一返回格式
 let reponseData;
 router.use( (req,res,next) => {
@@ -12,7 +13,7 @@ router.use( (req,res,next) => {
     }
     //这里的next指的是执行下一个路由匹配的绑定函数
     next();
-})
+});
 
 /* 用户注册 
 *   注册逻辑
@@ -120,5 +121,36 @@ router.post('/user/login',(req,res) => {
 router.get('/user/logout',(req,res) => {
     req.cookies.set('userInfo',null);
     res.json(responseData);
+});
+//获取文章的所有评论
+router.get('/comment',(req,res) => {
+    let contentId = req.query.contentid || '';
+    Content.findOne({
+        _id: contentId
+    }).then( (content) => {
+        responseData.data = content.comments;
+        res.json(responseData);
+    });
+});
+//评论提交
+router.post('/comment/post',(req,res) => {
+    //内容的id
+    let contentId = req.body.contentid || '';
+    let postData = {
+        username: req.userInfo.username,
+        postTime: new Date(),
+        content: req.body.content
+    }
+    //查询这篇内容的信息
+    Content.findOne({
+        _id: contentId
+    }).then( (content) => {
+        content.comments.push(postData);
+        return content.save();
+    }).then( (newContent) => {
+        responseData.message = '评论成功';
+        responseData.data = newContent;
+        res.json(responseData);
+    });
 });
 module.exports = router;
