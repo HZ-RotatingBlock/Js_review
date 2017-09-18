@@ -1,5 +1,8 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-18
+* [一些关于express使用的练习](https://github.com/HZ-RotatingBlock/Js_review/tree/master/express_Study)
+* [一些使用mongoose操作mongoDB数据库的练习](https://github.com/HZ-RotatingBlock/Js_review/tree/master/mongooseOperate)
 ## 2017-9-15
 * [一个基于NodeJS/MongoDB的简易个人博客](https://github.com/HZ-RotatingBlock/Js_review/tree/master/personalBlog)
 ## 2017-9-08
