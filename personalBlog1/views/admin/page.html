@@ -1,0 +1,23 @@
+<nav>
+  <ul class="pager">
+    <li class="previous">
+        {% if page <= 1 %}
+        <span>没有上一页了</span>
+        {%else%}
+        <a href="/admin/user?page={{page-1}}">
+            <span aria-hidden="true">&larr;</span> 上一页
+        </a>
+        {%endif%}
+    </li>
+    <li><span>一共有 {{count}} 条数据，每页显示 {{limit}} 条数据，一共 {{pages}} 页，当前第 {{page}} 页</span></li>
+    <li class="next">
+        {% if page >= pages %}
+        <span>没有下一页了</span>
+        {%else%}
+        <a href="/admin/user?page={{page+1}}">
+            下一页 <span aria-hidden="true">&rarr;</span>
+        </a>
+        {%endif%}
+    </li>
+  </ul>
+</nav>
