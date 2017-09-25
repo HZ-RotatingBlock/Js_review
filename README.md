@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-24
+* vueTaskForm: [(Vue增删任务便签)](https://hz-rotatingblock.github.io/Js_review/vueTaskForm/index.html)
 ## 2017-9-18
 * [一些关于express使用的练习](https://github.com/HZ-RotatingBlock/Js_review/tree/master/express_Study)
 * [一些使用mongoose操作mongoDB数据库的练习](https://github.com/HZ-RotatingBlock/Js_review/tree/master/mongooseOperate)
