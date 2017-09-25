@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>仿select组件</title>
+        <!-- <link rel="stylesheet" type="text/css" href="css/index.css"></link> -->
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <script type="text/javascript" src="js/vue.js"></script>    
+        <body>
+            <div id="app">
+                <h2>自定义的下拉框</h2>
+                <custom-select btn-value="搜索" v-bind:list="list1"></custom-select>
+                <h2>自定义的下拉框2</h2>
+                <custom-select btn-value="查询" v-bind:list="list2"></custom-select>
+            </div>
+
+            <script type="text/javascript">
+                //注册组件
+                //组件全局注册
+                Vue.component("custom-select",{
+                    //在这里的date一定要写成函数的形式，避免出现污染
+                    data: function(){
+                        return {
+                            selectShow: false,
+                            val: ""
+                        };
+                    },
+                    props: ["btnValue","list"],
+                    template: `<section class="wrap">
+                                <div class="searchIpt clearFix">
+                                    <div class="clearFix">
+                                        <input type="text" class="keyWord" v-bind:value="val" v-on:click="selectShow=!selectShow"/>
+                                        <input type="button" v-bind:value=btnValue>
+                                        <span></span>
+                                    </div>
+                                    <custom-list v-show="selectShow" v-bind:list="list" v-on:receive="changeValueHandle"></custom-list>
+                                </div>                            
+                            </section>`,
+                    methods: {
+                        changeValueHandle(value){
+                            this.val = value;
+                        }
+                    }
+                });
+
+                Vue.component("custom-list",{
+                    props:["list"],
+                    template: `<ul class="list"">
+                                    <li v-for="item of list" v-on:click="selectValueHandle(item)">{{item}}</li>
+                                </ul>`,
+                    methods: {
+                        selectValueHandle: function(item){
+                            //告知父级改变val的值,需要出发一个自定义事件
+                            this.$emit("receive",item);
+                        }
+                    }
+                });
+
+                new Vue({
+                    el: '#app',
+                    data: {
+                        list1: ["北京","上海","杭州"],
+                        list2: ["17-9-23","17-9-21","17-10-12"]
+                    }
+                    //组件局部注册
+                    // components: {
+                    //     "custom-select": {
+                    //         template: `<section class="wrap">
+                    //                 <div class="searchIpt clearFix">
+                    //                     <div class="clearFix">
+                    //                         <input type="text" class="keyWord" value="" />
+                    //                         <input type="button" value="GO">
+                    //                         <span></span>
+                    //                     </div>
+                    //                     <ul class="list">
+                    //                         <li>html+css</li>
+                    //                         <li>html5+css3</li>
+                    //                         <li>javascript</li>
+                    //                         <li>Angular</li>
+                    //                         <li>react</li>
+                    //                         <li>vue</li>
+                    //                         <li>jquery</li>
+                    //                         <li>nodejs</li>
+                    //                     </ul>
+                    //                 </div>
+                    //             </section>`
+                    //     }
+                    // }
+                });
+            </script>
+        </body>
+    </head>
+</html>
