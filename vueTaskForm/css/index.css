@@ -1,0 +1,249 @@
+*{margin: 0;padding: 0;}
+html,body{
+    font-family: "Microsoft YaHei";font-size: 16px;background: #eee;
+}
+ul,ol{list-style: none;}
+header{
+    margin: 0 auot;
+    width: 100%;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 50px;
+    background: #c03;
+}
+.title{
+    margin: 0 auto;
+    width: 1000px;
+    height: 50px;
+    color: #fff;
+}
+section{
+    margin: 0 auto;
+    width: 1000px;
+}
+section label{
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+.addtask{
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 980px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 40px;
+    border: 2px solid #c03;
+    border-radius: 5px;
+}
+/* 任务列表 */
+.list_header{
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    line-height:40px;
+}
+.prompt{
+    float: left;
+    padding: 0 10px;
+    line-height: 40px;
+    color: #c03;
+}
+.tasktab{
+    float:right;
+    width: 420px;
+}
+.tasktab li{
+    float: left;
+    margin-left: -1px;
+    position: relative;
+    padding: 0 20px;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    font-weight: 700;            
+    cursor: pointer;
+}
+.tasktab a{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 40px;
+    color: #333;
+    text-decoration: none;
+}
+li.focus{
+    box-shadow: inset 0 0 0 2px rgba(51,51,51,.5);
+}
+.tasktab li:hover{
+    box-shadow: inset 0 0 0 2px rgba(51,51,51,.5);
+}
+.list{
+    margin-top: 20px;
+}
+.listshow{
+    margin-top: 20px;
+    width: 1000px;
+    height: 500px;
+    background: #eee;
+    border-radius: 5px;
+}
+.listshow h4{
+    padding: 0 20px;
+    width: calc(100% - 40px);
+    height: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+    background: #fff;
+}
+.tasklist{
+    width: 100%;
+}
+.tasklist li{
+    margin-top: 1px;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 5px;
+}
+.tasklist li label{
+    display: inline;
+    vertical-align: middle;
+}
+.no-task-tip {
+    padding:10px 0 10px 10px;
+    display: block;
+    border-bottom: 1px solid #ededed;
+    color:#777;
+}
+.list h3{
+    padding: 0 10px;
+}
+/* 选框样式 */
+.todo-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.todo-list li {
+    position: relative;
+    font-size: 16px;
+    background: #fff;
+    border-bottom: 1px solid #250E0E;
+    border-radius: 5px;
+}
+
+.todo-list li:hover {
+    background-color: #fafafa;
+}
+
+
+.todo-list li.editing {
+    border-bottom: none;
+    padding: 0;
+}
+
+.todo-list li.editing .edit {
+    display: block;
+    width: 506px;
+    padding: 13px 17px 12px 17px;
+    margin: 0 0 0 43px;
+}
+
+.todo-list li.editing .view {
+    display: none;
+}
+
+.todo-list li .toggle {
+    text-align: center;
+    width: 40px;
+    /* auto, since non-WebKit browsers doesn't support input styling */
+    height: auto;
+    position: absolute;
+    top: 5px;
+    bottom: 0;
+    margin: auto 0;
+    border: none; /* Mobile Safari */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.toggle {
+    text-align: center;
+    width: 40px;
+    /* auto, since non-WebKit browsers doesn't support input styling */
+    height: auto;
+    position: absolute;
+    top: 5px;
+    bottom: 0;
+    margin: auto 0;
+    border: none; /* Mobile Safari */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.toggle:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+}
+
+.toggle:checked:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+
+.todo-list li label {
+    white-space: pre-line;
+    word-break: break-all;
+    padding: 15px 60px 15px 15px;
+    margin-left: 45px;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+}
+
+.todo-list li.completed label {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+.todo-list li .destroy {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    margin: auto 0;
+    font-size: 30px;
+    color: #cc9a9a;
+    margin-bottom: 11px;
+    transition: color 0.2s ease-out;
+}
+
+.todo-list li .destroy:hover {
+    color: #af5b5e;
+}
+
+.todo-list li .destroy:after {
+    content: '×';
+}
+
+.todo-list li:hover .destroy {
+    display: block;
+}
+
+.todo-list li .edit {
+    display: none;
+}
+
+.todo-list li.editing:last-child {
+    margin-bottom: -1px;
+}
