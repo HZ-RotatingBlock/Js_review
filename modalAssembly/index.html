@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p,h4{
+            margin:0;
+        }
+        .model{
+            margin-top: 10px;
+            width: 500px;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: 6px;
+            box-shadow: 0 3px 9px rgba(0,0,0,.5);
+
+        }
+        .model-header {
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .model-content div {
+            padding: 20px;
+        }
+        .model-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5;
+        }
+        .btn {
+            padding: 5px 15px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn:hover{
+            opacity: .8;
+        }
+        .blue {
+            color: #fff;
+            background-color: #39f;
+            border-color: #39f;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <m-custom model-title="提醒" v-on:on-ok="ok" v-on:on-cancel="cancel"></m-custom>
+        <m-custom>
+            <ul slot="model-content">
+                <li v-for="item in list">{{item}}</li>
+            </ul>
+            <div slot="model-footer">
+                <span>确定</span>
+                <span>重置</span>
+                <span>返回</span>
+            </div>
+        </m-custom>
+        <m-custom model-title="提醒" v-on:on-cancel="cancel"></m-custom>
+    </div>
+    <script>
+        /*
+            设置的props：
+                modelTitle 提醒信息 默认为 '这是一个模态框'
+
+            定制模板：
+                slot为model-content  定制提醒信息模板
+                slot为model-footer   定制底部模板
+
+            监控子组件状态变化：
+                事件名on-ok        点击确定触发
+                事件名on-cancel   点击取消触发
+        */ 
+        Vue.component("m-custom",{
+            props: {
+                modelTitle: {
+                    type: String,
+                    default: "这是一个模态框"
+                }
+            },
+            template: `
+                        <div class="model">
+                        <div class="model-header">
+                            <h4>{{modelTitle}}</h4>
+                        </div>
+                        <div class="model-content">
+                            <div>
+                                <slot name="model-content">在这里添加内容</slot>
+                            </div>
+                        </div>
+                        <div class="model-footer">
+                            <slot name="model-footer">
+                                <slot name="model-footer">
+                                    <input class="btn blue" type="button" value="确定" v-on:click="okHandle"/>
+                                    <input class="btn" type="button" value="取消" v-on:click="cancelHandle"/>    
+                                </slot>                           
+                            </slot>
+                            
+                        </div>
+                    </div>
+            `,
+            methods: {
+                okHandle(){
+                    //通知父组件 点了确定
+                    alert("出发了！")
+                    this.$emit("on-ok");
+                },
+                cancelHandle(){
+                    alert("取消了！");
+                    this.$emit("on-cancel");
+                }
+            }
+        })
+
+        let list = [..."你好Vue"];
+        new Vue({
+            el: "#app",
+            data: {
+                list: list
+            },
+            methods: {
+                ok(){
+                    alert("改变一个div的样式");
+                },
+                cancel(){
+                    alert("取消了一个样式")
+                }
+            }
+        })
+    </script>
+</body>
+</html>
