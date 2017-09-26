@@ -1,5 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
+## 2017-9-26
+* modalAssembly: [(Vue封装模态框组件)](https://hz-rotatingblock.github.io/Js_review/modalAssembly/index.html)
 ## 2017-9-25
 * imitateSelect: [(Vue仿select下拉组件)](https://hz-rotatingblock.github.io/Js_review/imitateSelect/index.html)
 ## 2017-9-24
