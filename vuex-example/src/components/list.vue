@@ -6,11 +6,21 @@
 
 <script>
 export default {
-  props: ['data'],
+  computed: {
+    data () {
+      return this.$store.state.selectModule.list
+    }
+  },
   methods: {
     getTitleHandle (title) {
-      this.$emit('changeTitle',title)
+      // this.$emit('changeTitle',title)
+      // 改变vuex中的状态
+      this.$store.commit('changeTitle', {title: title})
     }
+  },
+  created(){
+      // 获取数据
+      this.$store.dispatch('getListAction')
   }
 }
 </script>

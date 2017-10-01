@@ -14,10 +14,13 @@
 <script>
 
 export default {
-  props: ['isShow',"title"],
+  props: ['isShow'],
   computed: {
     initShow () {
       return this.isShow
+    },
+    title () {
+      return this.$store.state.selectModule.title
     }
   },
   methods: {

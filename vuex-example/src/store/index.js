@@ -1,8 +1,37 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
-
+// 容器子模块selectModule/搜索下拉select模块
+// 划分模块后，传参时参数将会直接传递到对应子模块中改变状态
+// 取值时(找到对应状态): this.$store.state.selectModule.title
+let selectModule = {
+  state: {
+    title: 'hello123',
+    list: []
+  },
+  mutations: {
+    changeTitle (state, payload) {
+      state.title = payload.title
+    },
+    changeList (state, list) {
+      state.list = list
+    }
+  },
+  actions: {
+    getListAction ({commit}) {
+      // 发送Ajax请求
+      axios.get('http://easy-mock.com/mock/59d02e089cabc90bb5e4fe90/example/list')
+      .then( (data) => {
+        // 获取数据后提交mutations改变状态
+        commit('changeList', data.data)
+      }).catch( (error) => {
+        console.log(error)
+      })
+    }
+  }
+}
 // 定义一个容器
 let store = new Vuex.Store({
   // 将状态数据全部放入state对象中
@@ -43,6 +72,9 @@ let store = new Vuex.Store({
       console.log(obj)
     }
 
+  },
+  modules: {
+    selectModule
   }
 })
 
