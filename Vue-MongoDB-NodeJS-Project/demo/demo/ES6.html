@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>ES6-DEMO演示</title>
+
+  </head>
+  <body>
+    <h2>ES6-DEMO演示</h2>
+    <script type="text/javascript">
+      function sum1(x,y,z){
+        let total = 0;
+        if(x) total +=x;
+        if(y) total +=y;
+        if(z) total +=z;
+        console.log(`total:${total}`)
+      }
+      sum1(5,'',9);
+      // rest参数'...','...'放在参数的位置作为rest参数
+      function sum2(...m){
+        let total = 0;
+        for(let i of m){
+          total += i;
+        }
+        console.log(`total:${total}`)
+      }
+      sum2(4,8,9,10);
+
+      let sum3 = (...m) => {
+        let total = 0;
+        for(let i of m){
+          total += i;
+        }
+        console.log(`total:${total}`)
+      }
+      sum3(4,8,9,10);
+      // let [x,y] = [4,8]
+      // '...'放在参数的位置作为扩展运算符
+      console.log(...[4,8])
+
+      let arr1 = [1,3];
+      let arr2 = [4,8];
+      console.log("concat " + arr1.concat(arr2))
+      console.log(...[...arr1,...arr2])
+
+      let [x,...y] = [4,8,10,30]
+      let a = "ES6";
+      // 解构赋值
+      let [q,w,e] = "ES6";
+      console.log(...a)
+      let qw = [...'ES6']
+      console.log(qw)
+    </script>
+  </body>
+</html>

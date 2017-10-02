@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+      <script type="text/javascript" src="../node_modules/vue-resource/dist/vue-resource.js"></script>
+
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>vue-resource插件讲解</h1>
+      <a href="javascript:;" class="btn btn-primary" @click="get">Get请求</a>
+      <a href="javascript:;" class="btn btn-success" @click="post">Post请求</a>
+      <a href="javascript:;" class="btn btn-info" @click="jsonp">Jsonp请求</a>
+      <a href="javascript:;" class="btn btn-warning" @click="htpp">htpp</a>
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#app",
+        data: {
+          msg: ''
+        },
+        mounted: function() {
+          Vue.http.interceptors.push(function(req, next) {
+            console.log("request init");
+            next((res) => {
+              console.log("response init");
+              return res;
+            })
+          })
+        },
+        http: {
+          // 全局路径配置,更改公用地址
+          root: "http://localhost:8088/Vue-MongoDB-NodeJS-Project/demo/"
+        },
+        methods: {
+          get () {
+            //由于vue-resource已经挂载到vue的实例中，而this指的就是vue实例同时this.$http即指的是vue-resource本身
+            this.$http.get("package.json", {
+              // get请求使用params设置传递的参数
+              params: {
+                userId: "101"
+              },
+              headers: {
+                // 令牌，用于第三方服务
+                token: "abcd"
+              }
+            }).then( (res) => {
+              // res.data才是最终的结果
+              this.msg = res.data;
+            }).catch((err) => {
+              console.log("请求失败")
+            });
+          },
+          post () {
+            this.$http.post("package.json", {
+              userId: "102"
+            },{
+              headers: {
+                asscess_token: "abc"
+              }
+            }).then((res) => {
+              this.msg = res.data;
+            }).catch((err) => {
+              console.log("post请求失败")
+            })
+          },
+          jsonp () {
+            this.$http.jsonp(" http://easy-mock.com/mock/59d02e089cabc90bb5e4fe90/example/list");
+
+          },
+          http: function(){
+            this.$http({
+              url: "package.json",
+              params: {
+                userId: "103"
+              },
+              headers: {
+                token: "123"
+              },
+              timeout: 5,
+              before: function(){
+                cosole.log("before init")
+              }
+            }).then(function(res) {
+              this.msg = res.data
+            })
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

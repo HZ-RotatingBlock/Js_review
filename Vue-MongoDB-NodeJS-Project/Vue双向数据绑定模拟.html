@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>双向数据绑定模拟</title>
+    <style type="text/css">
+    
+    </style>
+</head>
+<body>
+    <input type="text" id="user_input"/>
+    <span id="result"></span>
+
+    <script type="text/javascript">
+        let obj = {};
+        //defineProperty给指定对象扩展一个新的属性，第三个参数给指定对象的属性添加描述
+        Object.defineProperty(obj, 'hello', {
+            //set
+            set: function(newVal){
+                document.getElementById("user_input").value = newVal;
+                document.getElementById("result").innerHTML = newVal;
+            } 
+        });
+        document.getElementById("user_input").addEventListener("keyup", function(e){
+            obj.hello = e.target.value;
+        })
+    </script>
+</body>
+</html>

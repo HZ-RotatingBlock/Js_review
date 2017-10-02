@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>axios插件讲解</h1>
+      <a href="javascript:;" class="btn btn-primary" @click="get">Get请求</a>
+      <a href="javascript:;" class="btn btn-success" @click="post">Post请求</a>
+      <a href="javascript:;" class="btn btn-warning" @click="http">htpp</a>
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#app",
+        data: {
+          msg: ""
+        },
+        // axios的全局拦截器
+        mounted: function(){
+          // http请求拦截器
+          axios.interceptors.request.use((config) => {
+            console.log("请求拦截");
+            //...
+            // 添加loading处理等。。
+            //...
+            return config;
+          })
+          // http响应拦截器
+          axios.interceptors.response.use((res) => {
+            console.log("响应拦截")
+            return res;
+          })
+        },
+        methods: {
+          get () {
+            // axios.get请求
+            axios.get("../package.json", {
+              // 附带在get请求上的查询字符串
+              params: {
+                userId: "999"
+              },
+              // 附带请求头
+              headers: {
+                token: 'jack'
+              }
+            }).then( (res) => {
+              this.msg = res.data
+              console.log(this.msg);
+            }).catch((err) => {
+              console.log('请求失败！错误信息：' + err)
+            })
+          },
+          post(){
+            axios.post("../package.json", {
+              userId: "888"
+            },{
+              headers: {
+                token: "tom"
+              }
+            }).then( res => {
+              this.msg = res.data;
+              console.log(this.msg)
+            })
+          },
+          http: function(){
+            axios({
+              url: "../package.json",
+              method: "get",
+              //post请求附带信息需要使用data设置而不是params
+              data: {
+                userId: "101"
+              },
+              //get请求附带信息系需要使用params设置而不是data
+              params: {
+                userId: "102"
+              },
+              headers: {
+                token: "http-test"
+              }
+            }).then((res) => {
+              console.log(res.data)
+            }).catch((err) => {
+              console.log("请求错误，错误信息：" + err)
+            })
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
