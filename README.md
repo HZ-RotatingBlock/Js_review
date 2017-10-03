@@ -1,7 +1,7 @@
 # Js_review
 - **js基础知识点回顾**
 ## 2017-10-03
-* marketProject：[Vue/NodeJS/MongoDB-商域](https://github.com/HZ-RotatingBlock/Js_review/marketProject)
+* marketProject：[Vue/NodeJS/MongoDB-商域](https://github.com/HZ-RotatingBlock/Js_review/tree/master/marketProject)
 ## 2017-9-26
 * modalAssembly: [(Vue模态框组件封装)](https://hz-rotatingblock.github.io/Js_review/modalAssembly/index.html)
 * promptAssembly: [(Vue提示组件封装)](https://hz-rotatingblock.github.io/Js_review/promptAssembly/index.html)
