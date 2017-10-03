@@ -1,0 +1,42 @@
+{
+  "status": "0",
+  "msg": "",
+  "result": [
+    {
+      "productId": "10001",
+      "productName": "积木蓝牙音箱",
+      "productPrice": 999,
+      "productImg": "1.jpg"
+    },
+    {
+      "productId": "10002",
+      "productName": "积木耳机",
+      "productPrice": 1000,
+      "productImg": "2.jpg"
+    },
+    {
+      "productId": "10003",
+      "productName": "积木游戏耳麦",
+      "productPrice": 500,
+      "productImg": "3.jpg"
+    },
+    {
+      "productId": "10004",
+      "productName": "积木蓝牙限量版积木游戏耳麦音箱",
+      "productPrice": 2499,
+      "productImg": "4.jpg"
+    },
+    {
+      "productId": "10005",
+      "productName": "乐视原生充电宝12000毫安时",
+      "productPrice": 129,
+      "productImg": "5.jpg"
+    },
+    {
+      "productId": "10006",
+      "productName": "积木插排",
+      "productPrice": 88,
+      "productImg": "6.jpg"
+    }
+  ]
+}
