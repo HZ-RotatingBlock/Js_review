@@ -14,10 +14,11 @@
           </div>
           <div class="navbar-right-container" style="display: flex;">
             <div class="navbar-menu-container">
-              <!--<a href="/" class="navbar-link">我的账户</a>-->
-              <span class="navbar-link"></span>
-              <a href="javascript:void(0)" class="navbar-link">登录</a>
-              <a href="javascript:void(0)" class="navbar-link">登出</a>
+              <!-- <a href="/" class="navbar-link">我的账户</a> -->
+              <!-- <span class="navbar-link"></span> -->
+              <span v-text="nickName" v-if="nickName"></span>
+              <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="nickName==''">登录</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="logOut" v-if="nickName!=''">登出</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
                 <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -29,5 +30,97 @@
             </div>
           </div>
         </div>
+        <!-- 登录框 -->
+        <div class="md-modal modal-msg md-modal-transition" :class="{'md-show':loginModalFlag}">
+          <div class="md-modal-inner">
+            <div class="md-top">
+              <div class="md-title">登录</div>
+              <button class="md-close" @click="loginModalFlag=false,errorTip=false">关闭</button>
+            </div>
+            <div class="md-content">
+              <div class="confirm-tips">
+                <div class="error-wrap">
+                  <span class="error error-show" v-if="errorTip">用户名或密码错误</span>
+                </div>
+                <ul>
+                  <li class="regi_form_input">
+                    <i class="icon IconPeople"></i>
+                    <input type="text" tabindex="1" name="loginname" v-model="userName" class="regi_login_input" placeholder="用户名"/>
+                  </li>
+                  <li class="regi_form_input noMargin">
+                    <i class="icon IconPwd"></i>
+                    <input type="password" tabindex="2" name="password" v-model="userPwd"  class="regi_login_input" placeholder="密码" @keyup.enter="login"/>
+                  </li>
+                </ul>
+              </div>
+              <div class="login-wrap">
+                <a href="javascript:;" class="btn-login" @click="login">登录</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md-overlay" v-if="loginModalFlag" @click="loginModalFlag=false,errorTip=false"></div>
+
       </header>
 </template>
+
+<script>
+  import './../assets/css/login.css'
+  import Modal from '@/components/Modal.vue'
+  import axios from 'axios'
+  export default {
+    data () {
+      return {
+        userName: '',
+        userPwd: '',
+        errorTip: false,
+        loginModalFlag: false,
+        nickName: ''
+      }
+    },
+    component: Modal,
+    mounted () {
+      this.checkLogin()
+    },
+    methods: {
+      checkLogin () {
+        axios.get('/users/checkLogin').then((response) => {
+          let res = response.data
+          if (res.status === '0') {
+            this.nickName = res.result
+          }
+        })
+      },
+      login () {
+        if (!this.userName || !this.userPwd) {
+          this.errorTip = true
+          return
+        }
+        axios.post('/users/login', {
+          userName: this.userName,
+          userPwd: this.userPwd
+        }).then((res) => {
+          let response = res.data
+          if (response.status === '0') {
+            this.errorTip = false
+            this.loginModalFlag = false
+            this.nickName = response.result.userName
+            // todo
+          } else {
+            this.errorTip = true
+          }
+        })
+      },
+      logOut () {
+        axios.post('/users/logout').then((response) => {
+          let res = response.data
+          console.log(res.status)
+          if (res.status === '0') {
+            this.nickName = ''
+            // window.location.reload()
+          }
+        })
+      }
+    }
+  }
+</script>

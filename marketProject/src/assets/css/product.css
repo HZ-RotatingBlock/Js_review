@@ -404,6 +404,13 @@
   -ms-flex: 1;
   flex: 1;
 }
+.accessory-result .accessory-list-wrap ul::after{
+  clear: both;
+  content: '';
+  height: 0;
+  display: block;
+  visibility: hidden;
+}
 
 .filter-nav {
   height: 55px;
@@ -578,4 +585,9 @@
     top: 0;
     padding-top: 20px;
   }
+}
+.data_loading{
+  padding: 20px 0;
+  font-size: 16px;
+  text-align: center;
 }

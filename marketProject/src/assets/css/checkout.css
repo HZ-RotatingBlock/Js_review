@@ -58,7 +58,7 @@ html {
 }
 
 .lemall-error-top .error-text a {
-  color: #ee7a23;
+  color: #0073bc;
   text-decoration: underline;
 }
 
@@ -237,7 +237,7 @@ html {
 }
 
 .addr-list li .addr-opration:hover .icon {
-  fill: #ee7a23;
+  fill: #0073bc;
 }
 
 .addr-list li .addr-edit {
@@ -261,7 +261,7 @@ html {
 .addr-list li .addr-set-default, .addr-list li .addr-default {
   bottom: 18px;
   left: 20px;
-  color: #ee7a23;
+  color: #0073bc;
 }
 
 .addr-list li:nth-child(4n) {
@@ -269,7 +269,7 @@ html {
 }
 
 .addr-list li:hover {
-  border-color: #ee7a23;
+  border-color: #0073bc;
 }
 
 .addr-list li.addr-new {
@@ -298,7 +298,7 @@ html {
 }
 
 .addr-list li.check {
-  border-color: #ee7a23;
+  border-color: #0073bc;
   border-width: 2px;
 }
 
@@ -503,7 +503,7 @@ html {
 
 .cart-item-list .cart-item-title .item-count-down .item-count-down-tips {
   margin-top: 5px;
-  color: #ee7a23;
+  color: #0073bc;
 }
 
 .cart-item-list .item-include {
@@ -570,7 +570,7 @@ html {
 }
 
 .cart-item-list .item-edit-btn:hover .icon {
-  fill: #ee7a23;
+  fill: #0073bc;
 }
 
 .item-check-btn {
@@ -578,7 +578,7 @@ html {
   width: 20px;
   height: 20px;
   background: #fff;
-  border: 1px solid #999;
+  border: 1px solid #0073bc;
   border-radius: 50%;
   text-align: center;
   vertical-align: middle;
@@ -598,8 +598,8 @@ html {
 }
 
 .item-check-btn.check {
-  background-color: #ee7a23;
-  border-color: #ee7a23;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 .item-check-btn.check .icon-ok {
@@ -808,7 +808,7 @@ html {
 .shipping-method li .shipping-tips .details, .shipping-method-whiteglove li .shipping-tips .details {
   display: inline-block;
   margin-top: 10px;
-  color: #ee7a23;
+  color: #0073bc;
   line-height: 1.5714;
   font-weight: bold;
 }
@@ -816,7 +816,7 @@ html {
 .shipping-method li .shipping-tips .details .icon-question, .shipping-method-whiteglove li .shipping-tips .details .icon-question {
   width: 15px;
   height: 15px;
-  fill: #ee7a23;
+  fill: #0073bc;
   vertical-align: middle;
 }
 
@@ -826,7 +826,7 @@ html {
 }
 
 .shipping-method li.check, .shipping-method li:hover, .shipping-method-whiteglove li.check, .shipping-method-whiteglove li:hover {
-  border-color: #ee7a23;
+  border-color: #0073bc;
 }
 
 @media only screen and (max-width: 991px) {
@@ -1176,11 +1176,11 @@ html {
 }
 
 .order-create-main .checkout-share-main .checkout-share-twitter {
-  color: #ee7a23;
+  color: #0073bc;
 }
 
 .order-create-main .checkout-share-main .checkout-share-twitter .icon {
-  fill: #ee7a23;
+  fill: #0073bc;
 }
 
 .order-create-main .checkout-share-main .checkout-share-name {
@@ -1200,12 +1200,12 @@ html {
   max-width: 767px;
   margin: 0 auto 10px auto;
   padding: 37px 0;
-  border: 1px dashed #ee7a23;
+  border: 1px dashed #0073bc;
 }
 
 .order-create-main .get-lecode .lecode-main .lecode-num {
   margin-bottom: 20px;
-  color: #ee7a23;
+  color: #0073bc;
   font-size: 20px;
 }
 

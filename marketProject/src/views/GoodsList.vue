@@ -9,7 +9,10 @@
           <div class="filter-nav">
             <span class="sortby">排序:</span>
             <a href="javascript:void(0)" class="default cur">默认</a>
-            <a href="javascript:void(0)" class="price">价格 <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+            <a href="javascript:void(0)" class="price" @click="sortGoods">价格
+              <span v-if="sortFlag">↑</span>
+              <span v-if="!sortFlag">↓</span>
+              <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
             <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">条件筛选</a>
           </div>
           <div class="accessory-result">
@@ -30,23 +33,44 @@
                 <ul>
                   <li v-for="(item, index) in goodsList">
                     <div class="pic">
-                      <a href="#"><img v-lazy="`/static/${item.productImg}`" alt=""></a>
+                      <a href="#"><img v-lazy="`/static/${item.productImage}`" alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{ item.productName }}</div>
-                      <div class="price">{{ item.productPrice }}</div>
+                      <div class="price">￥ {{ item.salePrice }}</div>
                       <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                       </div>
                     </div>
                   </li>
                 </ul>
+                <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30" class="data_loading">
+                  <img src="./../assets/loading-spinning-bubbles.svg" v-if="loading"/>
+                </div>
               </div>
             </div>
             <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
           </div>
         </div>
       </div>
+      <modal :mdShow="mdShow" @close="closeModal">
+        <p slot="message">
+          请先登录，否则无法加入到购物车中
+        </p>
+        <div slot="btnGroup">
+          <a href="javascript:;" class="btn btn--m" @click="mdShow=false">关闭</a>
+        </div>
+      </modal>
+      <modal :mdShow="mdShowCart" @close="closeModal">
+        <p slot="message">
+          <img src="./../../static/cartSuccess.png" class="icon-status-ok"/>
+          <span>加入购物车成功</span>
+        </p>
+        <div slot="btnGroup">
+          <a href="javascript:;" class="btn btn--m" @click="mdShowCart=false">继续购物</a>
+          <router-link class="btn btn--m" to="/cart">查看购物车</router-link>
+        </div>
+      </modal>
       <global-footer></global-footer>
     </div>
 </template>
@@ -56,11 +80,22 @@ import '@/assets/css/product.css'
 import NavHeader from '@/components/header.vue'
 import GlobalFooter from '@/components/footer.vue'
 import NavBread from '@/components/NavBread.vue'
+import Modal from '@/components/Modal.vue'
 import axios from 'axios'
 export default {
   data () {
     return {
+      priceChecked: 'all',
+      filterBy: false,
+      overLayFlag: false,
+      sortFlag: true,
+      page: 1,
+      pageSize: 8,
+      busy: true,
+      loading: false,
       goodsList: [],
+      mdShow: false,
+      mdShowCart: false,
       priceFilter: [
         {
           startPrice: '0.00',
@@ -86,24 +121,48 @@ export default {
           startPrice: '5000.00',
           endPrice: '(°Д°)'
         }
-      ],
-      priceChecked: 'all',
-      filterBy: false,
-      overLayFlag: false
+      ]
     }
   },
   components: {
     NavHeader: NavHeader,
     GlobalFooter: GlobalFooter,
-    NavBread: NavBread
+    NavBread: NavBread,
+    Modal: Modal
   },
   mounted () {
     this.getGoodsList()
   },
   methods: {
-    getGoodsList () {
-      axios.get('/goods').then((res) => {
-        this.goodsList = res.data.result
+    getGoodsList (flag) {
+      let param = {
+        page: this.page,
+        pageSize: this.pageSize,
+        sort: this.sortFlag ? 1 : -1,
+        priceLevel: this.priceChecked
+      }
+      this.loading = true
+      axios.get('/goods/list', {
+        params: param
+      }).then((res) => {
+        if (res.data.status === 0) {
+          if (flag) {
+            this.goodsList = this.goodsList.concat(res.data.result.list)
+            if (res.data.result.count === 0) {
+              this.busy = true
+              this.loading = false
+            } else {
+              this.busy = false
+              this.loading = false
+            }
+          } else {
+            this.goodsList = res.data.result.list
+            this.busy = false
+            this.loading = false
+          }
+        } else {
+          this.goodList = []
+        }
       })
     },
     showFilterPop () {
@@ -116,7 +175,36 @@ export default {
     },
     setPriceFilter (index) {
       this.priceChecked = index
+      this.page = 1
       this.closePop()
+      this.getGoodsList()
+    },
+    sortGoods () {
+      this.sortFlag = !this.sortFlag
+      this.page = 1
+      this.getGoodsList()
+    },
+    loadMore () {
+      this.busy = true
+      setTimeout(() => {
+        this.page++
+        this.getGoodsList(true)
+      }, 500)
+    },
+    addCart (productId) {
+      axios.post('/goods/addCart', {
+        productId: productId
+      }).then((res) => {
+        if (res.data.status === '0') {
+          this.mdShowCart = true
+        } else {
+          this.mdShow = true
+        }
+      })
+    },
+    closeModal () {
+      this.mdShow = false
+      this.mdShowCart = false
     }
 
   }

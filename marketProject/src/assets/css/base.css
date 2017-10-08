@@ -624,6 +624,10 @@ a:hover {
   -webkit-transition: all .3s ease-out;
   transition: all .3s ease-out;
 }
+.btn:hover{
+  background-color: #0073bc !important;
+  color: #fff;
+}
 
 .btn--red, .btn--red[href] {
   background-color: #0073bc;
@@ -632,8 +636,8 @@ a:hover {
 }
 
 .btn--red:hover, .btn--red[href]:hover {
-  background-color: #f16f75;
-  border-color: #f16f75;
+  background-color: #333;
+  box-shadow: 0 3px 9px #333;
   color: #fff;
 }
 
@@ -1121,15 +1125,15 @@ html {
 }
 
 .md-modal .md-close:hover:before {
-  -webkit-transform: rotate(-135deg);
-  -ms-transform: rotate(-135deg);
-  transform: rotate(-135deg);
+  -webkit-transform: rotate(-360deg);
+  -ms-transform: rotate(-360deg);
+  transform: rotate(-360deg);
 }
 
 .md-modal .md-close:hover:after {
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  -webkit-transform: rotate(-270deg);
+  -ms-transform: rotate(-270deg);
+  transform: rotate(-270deg);
 }
 
 .md-modal .md-tit {
