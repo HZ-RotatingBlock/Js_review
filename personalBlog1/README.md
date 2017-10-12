@@ -1,6 +1,8 @@
-#NodeJS/MongoDB简易博客
-##功能模块
-###前端
+# NodeJS/MongoDB简易博客
+
+## 功能模块
+
+### 前端
 * 首页
 * 列表页 
 	* 分类列表
@@ -8,7 +10,9 @@
 	* 评论
 * 注册
 * 登录
-###后端
+
+### 后端
+
 * 登录
 * 分类管理
 	* 分类列表
@@ -21,13 +25,17 @@
 	* 修改内容
 	* 删除内容
 * 用户列表
-##技术构成
+## 技术构成
+
 * 服务端 -Node.js/Express4
 * 模板引擎 -swig
 * 数据库 -MongoDB
 * 部署（阿里云服务器 or DigitalOcean）Centos7.2系统/nginx(备案中)
-##效果预览
-###前端
+
+## 效果预览
+
+### 前端
+
 * 首页
 ![](https://i.imgur.com/ZAWnAVV.gif)
 * 列表页 
@@ -39,7 +47,9 @@
 * 注册
 * 登录
 ![](https://i.imgur.com/TUXxbr3.gif)
-###后端
+
+### 后端
+
 * 登录
 ![](https://i.imgur.com/vgVcTXw.gif)
 * 分类管理
