@@ -20,7 +20,7 @@
             <div class="filter stopPop" id="filter" :class="{'filterby-show':filterBy}">
               <dl class="filter-price">
                 <dt>价格区间:</dt>
-                <dd><a href="javascript:void(0)" :class="{'cur':priceChecked == 'all'}" @click="priceChecked='all'">所有</a></dd>
+                <dd><a href="javascript:void(0)" :class="{'cur':priceChecked == 'all'}" @click="setPriceFilter('all')">所有</a></dd>
                 <dd v-for="(item, index) in priceFilter" @click="setPriceFilter(index)">
                   <a href="javascript:void(0)" :class="{'cur':priceChecked==index}">{{item.startPrice}} - {{item.endPrice}}</a>
                 </dd>
@@ -197,6 +197,7 @@ export default {
       }).then((res) => {
         if (res.data.status === '0') {
           this.mdShowCart = true
+          this.$store.commit('updateCartCount', 1)
         } else {
           this.mdShow = true
         }

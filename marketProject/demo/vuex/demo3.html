@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vuex - action</title>
+    <script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="../../node_modules/vuex/dist/vuex.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{msg}}</h2>
+      <a href="javascript:;" @click="add">点击</a>
+      <counter></counter>
+    </div>
+
+    <script type="text/javascript">
+    const counter = {
+      template: `
+      <div>
+        <div>点击数量： {{count}}</div>
+        <div>用户名： {{userName}}</div>
+      </div>`,
+      computed: {
+        count () {
+          return this.$store.state.count
+        },
+        name () {
+          return this.$store.state.name
+        },
+        userName () {
+          return this.$store.getters.userName
+        }
+      }
+    }
+    const store = new Vuex.Store({
+      state: {
+        count: 10,
+        name: 'jack'
+      },
+      getters: {
+        userName (state) {
+          return state.name +  ',Hello'
+        }
+      },
+      mutations: {
+        increment (state, num) {
+          state.count = num
+        },
+        updateName (state, userName) {
+          state.name = userName
+        }
+      },
+      actions: {
+        incrementAction (context, num) {
+          context.commit('increment', num)
+        }
+      }
+    })
+    new Vue({
+      el: '#app',
+      store: store,
+      data: {
+        msg: 'Vuesx的使用'
+      },
+      components: {
+        counter
+      },
+      methods: {
+        add () {
+          this.$store.dispatch('incrementAction', 5)
+        }
+      }
+    })
+    </script>
+  </body>
+</html>

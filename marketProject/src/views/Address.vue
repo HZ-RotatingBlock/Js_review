@@ -129,6 +129,14 @@
           <a class="btn btn--m" href="javascript:;" @click="isMdShow=false">取消</a>
         </div>
       </modal>
+      <modal :mdShow="isMdShow2" @close="isMdShow2=false">
+        <p slot="message">
+          地址列表至少需要有一条数据，已无法继续删除
+        </p>
+        <div slot="btnGroup">
+          <a class="btn btn--m" href="javascript:;" @click="isMdShow2=false">确定</a>
+        </div>
+      </modal>
       <global-footer></global-footer>
     </div>
 </template>
@@ -148,7 +156,8 @@
         addressList: [],
         selectedAddressId: '',
         isMdShow: false,
-        addressId: ''
+        addressId: '',
+        isMdShow2: false
       }
     },
     mounted () {
@@ -201,8 +210,12 @@
         this.isMdShow = false
       },
       delAddressConfirm (addressId) {
-        this.isMdShow = true
-        this.addressId = addressId
+        if (this.addreeeList.length > 1) {
+          this.isMdShow = true
+          this.addressId = addressId
+        } else {
+          this.isMdShow2 = true
+        }
       },
       delAddress () {
         axios.post('/users/delAddress', {

@@ -25,29 +25,25 @@ router.get('/list', (req, res, next) => {
     switch (priceLevel) {
       case '0':
         priceGt = 0
-        priceLte = 10000
-        break
-      case '1':
-        priceGt = 0
         priceLte = 100
         break
-      case '2':
+      case '1':
         priceGt = 100
         priceLte = 500
         break
-      case '3':
+      case '2':
         priceGt = 500
         priceLte = 1000
         break
-      case '4':
+      case '3':
         priceGt = 1000
         priceLte = 2000
         break
-      case '5':
+      case '4':
         priceGt = 2000
         priceLte = 5000
         break
-      case '6':
+      case '5':
         priceGt = 5000
         priceLte = 10000
         break
@@ -57,6 +53,13 @@ router.get('/list', (req, res, next) => {
       salePrice: {
         $gt: priceGt,
         $lte: priceLte
+      }
+    }
+  } else {
+    params = {
+      salePrice: {
+        $gt: 0,
+        $lte: 10000
       }
     }
   }

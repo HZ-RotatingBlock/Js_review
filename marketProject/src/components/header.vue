@@ -20,7 +20,7 @@
               <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="nickName==''">登录</a>
               <a href="javascript:void(0)" class="navbar-link" @click="logOut" v-if="nickName!=''">登出</a>
               <div class="navbar-cart-container">
-                <span class="navbar-cart-count"></span>
+                <span class="navbar-cart-count" v-if="cartCount>0">{{cartCount}}</span>
                 <a class="navbar-link navbar-cart-link" href="/#/cart">
                   <svg class="navbar-cart-logo">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
@@ -68,15 +68,25 @@
   import './../assets/css/login.css'
   import Modal from '@/components/Modal.vue'
   import axios from 'axios'
+  import { mapState } from 'vuex'
   export default {
     data () {
       return {
         userName: '',
         userPwd: '',
         errorTip: false,
-        loginModalFlag: false,
-        nickName: ''
+        loginModalFlag: false
       }
+    },
+    computed: {
+      // mapState是vuex的辅助函数，传入一个数组，数组中的每个元素是用来调用的状态，最终会根据这些元素封装并返回下面传统方法的形式，相当于传统方法的简写
+      ...mapState(['nickName', 'cartCount'])
+      // nickName () {
+      //   return this.$store.state.nickName
+      // },
+      // cartCount () {
+      //   return this.$store.state.cartCount
+      // }
     },
     component: Modal,
     mounted () {
@@ -86,8 +96,15 @@
       checkLogin () {
         axios.get('/users/checkLogin').then((response) => {
           let res = response.data
+          // let path = this.$route.pathname
           if (res.status === '0') {
-            this.nickName = res.result
+            this.$store.commit('updateUserInfo', res.result)
+            this.getCartCount()
+            this.loginModalFlag = false
+          } else {
+            if (this.$route.path !== '/goods') {
+              this.$route.push('/goods')
+            }
           }
         })
       },
@@ -99,13 +116,13 @@
         axios.post('/users/login', {
           userName: this.userName,
           userPwd: this.userPwd
-        }).then((res) => {
-          let response = res.data
-          if (response.status === '0') {
+        }).then((response) => {
+          let res = response.data
+          if (res.status === '0') {
             this.errorTip = false
             this.loginModalFlag = false
-            this.nickName = response.result.userName
-            // todo
+            this.$store.commit('updateUserInfo', res.result.userName)
+            this.getCartCount()
           } else {
             this.errorTip = true
           }
@@ -116,9 +133,16 @@
           let res = response.data
           console.log(res.status)
           if (res.status === '0') {
-            this.nickName = ''
+            this.$store.commit('updateUserInfo', '')
+            this.$router.push('/')
             // window.location.reload()
           }
+        })
+      },
+      getCartCount () {
+        axios.get('/users/getCartCount').then((response) => {
+          let res = response.data
+          this.$store.commit('initCartCount', res.result)
         })
       }
     }

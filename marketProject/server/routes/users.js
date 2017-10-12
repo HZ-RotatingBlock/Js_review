@@ -74,6 +74,31 @@ router.get('/checkLogin', (req, res, next) => {
   }
 })
 
+router.get('/getCartCount', (req, res, next) => {
+  if (req.cookies && req.cookies.userId) {
+    let userId = req.cookies.userId
+    Users.findOne({userId: userId}).then((doc) => {
+      let cartList = doc.cartList
+      let cartCount = 0
+      cartList.map((item) => {
+        cartCount += parseInt(item.productNum)
+      })
+      res.json({
+        status: '0',
+        msg: '',
+        result: cartCount
+      })
+    }).catch((err) => {
+      if (err) {
+        res.json({
+          status: '1',
+          msg: err.message,
+          result: ''
+        })
+      }
+    })
+  }
+})
 // 查询当前用户的购物车数据
 router.get('/cartList', (req, res, next) => {
   let userId = req.cookies.userId
